@@ -1,0 +1,120 @@
+body, html{
+    background-color: black;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+h1 {
+    color: white;
+    font-family: 'Aclonica';
+}
+
+
+.anchor{
+    color: white;
+    font-family: 'Aclonica';
+}
+
+.title{
+    margin: auto;
+    margin-top: 15rem;
+    margin-bottom: 10rem;
+}
+
+#gateKeeperTitle{
+    margin-top: 15rem;
+}
+
+#subtitle{
+    margin-bottom: 11rem;
+    font-family: 'Abel';
+    margin-top: -1rem;
+    margin-left: 8rem;
+}
+
+.navBar{
+    padding-left: 0rem;
+    margin-left: 0rem
+}
+
+.logo{
+    width: 7%;
+    margin-bottom: 0.4rem;
+    margin-right: -0.4rem;
+}
+
+.col-md-12{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.passTicket{
+    color: rgb(252,163,18);
+    color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
+}
+
+form>p {
+    text-align: center;
+}
+
+input[type=text], input[type=email], input[type=tel]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 15rem;
+    color: white;
+    padding-left: 1rem;
+    background-color: #1a1a1a;
+    border-radius: 1rem;
+    border: 1px solid #c9c9c9;
+}
+
+
+input[type=number]{
+    text-align: center;
+    background-color: #1a1a1a;
+    color: white;
+    font-size: 1.5em;
+    border: 0em;
+    width: 2em;
+}
+
+input:focus{ 
+    outline: none;
+}
+
+.or{
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+#disclaimer {
+    color:grey;
+}
+
+.btn-dark{
+    color:white;
+    background-color: #1a1a1a;
+}
+
+.passBtn{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin:auto;
+    margin-bottom: 0em;
+}
