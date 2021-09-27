@@ -29,6 +29,27 @@ h1 {
     margin-bottom: 10rem;
 }
 
+.smallTitle {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.eventTitle {
+    font-size: 1.5rem;
+    margin: 10px;
+    margin-left: 2%;
+}
+
+.eventDisplay {
+    margin: 10px;
+    margin-left: 5%;
+    border: 1px solid white;
+    width: 90%;
+    float: left;
+    min-height: 100px;
+}
+
 #gateKeeperTitle{
     margin-top: 15rem;
 }
@@ -66,7 +87,7 @@ form>p {
     text-align: center;
 }
 
-input[type=text], input[type=email], input[type=tel]{
+input[type=text], input[type=email], input[type=tel], input[type=password]{
     display: flex;
     align-items: center;
     justify-content: center;
