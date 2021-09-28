@@ -11,7 +11,7 @@ module.exports = {
     connectToServer: function (callback){
         client.connect(function (err, db){
             if (db){
-                _db = db.db("users");
+                _db = db.db("Passflare");
                 console.log("Successfully connected to MongoDB");
             }
             return callback(err);
