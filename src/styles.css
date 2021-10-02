@@ -1,0 +1,159 @@
+body, html{
+    background-color: black;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+h1 {
+    color: white;
+    font-family: 'Aclonica';
+}
+
+
+.anchor{
+    color: white;
+    font-family: 'Aclonica';
+}
+
+.title{
+    margin: auto;
+    margin-top: 12rem;
+    margin-bottom: 8rem;
+    font-weight: normal;
+}
+
+.smallTitle {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.eventTitle {
+    font-size: 1.5rem;
+    margin: 10px;
+    margin-left: 2%;
+}
+
+.eventDisplay {
+    margin: 10px;
+    margin-left: 5%;
+    border: 1px solid white;
+    width: 90%;
+    float: left;
+    min-height: 100px;
+}
+
+#gateKeeperTitle{
+    margin-top: 15rem;
+}
+
+#subtitle{
+    margin-bottom: 6em;
+    font-family: 'Abel';
+    margin-top: -5.6em;
+    margin-left: 4.3em;
+    font-weight: normal;
+}
+
+.navBar{
+    padding-left: 0rem;
+    margin-left: 0rem
+}
+
+.logo{
+    width: 7%;
+    margin-bottom: 0.4rem;
+    margin-right: -0.4rem;
+}
+
+.col-md-12{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.passTicket{
+    color: rgb(252,163,18);
+    color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
+}
+
+form>p {
+    text-align: center;
+}
+
+input[type=text], input[type=email], input[type=tel], input[type=password]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 14em;
+    color: white;
+    padding-left: 1rem;
+    background-color: #1a1a1a;
+    border-radius: 1rem;
+    border: 1px solid #c9c9c9;
+}
+
+
+input[type=number]{
+    text-align: center;
+    background-color: #1a1a1a;
+    color: white;
+    font-size: 1.5em;
+    border: 0em;
+    width: 2em;
+    margin: 0.2em;
+}
+
+input:focus{ 
+    outline: none;
+}
+
+#emailPhone{
+    margin-top: -0.2em;
+}
+
+.or{
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    font-family: "Segoe UI","Roboto","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+#disclaimer {
+    color:grey;
+    font-family: "Segoe UI","Helvetica Neue", "Arial";
+    font-size: 0.8em;
+}
+
+.btn-dark{
+    color:white;
+    background-color: #1a1a1a;
+}
+
+.passBtn{
+    display:flex;
+    padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin:auto;
+    margin-bottom: 0em;
+}
+
+.eventImg{
+    width: 20em;
+    height: 20em;
+}
+
