@@ -18,6 +18,13 @@ h1 {
     font-family: 'Aclonica';
 }
 
+h2 {
+    text-align: center;
+}
+
+hr {
+    border-bottom: 1px solid white;
+}
 
 .anchor{
     color: white;
@@ -98,9 +105,9 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
     width: 14em;
     color: white;
     padding-left: 1rem;
-    background-color: #1a1a1a;
+    background-color: #121212;
     border-radius: 1rem;
-    border: 1px solid #c9c9c9;
+    border: 2px solid #c9c9c9;
 }
 
 
@@ -140,6 +147,23 @@ input:focus{
     background-color: #1a1a1a;
 }
 
+.darkCard{
+    background-color: #1a1a1a;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.darkCardWide{
+    background-color: #1a1a1a;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    max-width: 25rem;
+}
+
 .passBtn{
     display:flex;
     padding: 0.5em;
@@ -150,6 +174,32 @@ input:focus{
     border-radius: 1rem;
     margin:auto;
     margin-bottom: 0em;
+    background-color: #1a1a1a;
+}
+
+.passBtnDark{
+    display:flex;
+    padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin:auto;
+    margin-bottom: 0em;
+    background-color: #0a0a0a;
+}
+
+.passBtnNext{
+    display:flex;
+    padding: 0.5em;
+    margin-left: -3em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin-bottom: 0em;
 }
 
 .eventImg{
@@ -157,3 +207,7 @@ input:focus{
     height: 20em;
 }
 
+.list-group-item {
+    background-color: #1a1a1a;
+    border-color:#c9c9c9;
+}
