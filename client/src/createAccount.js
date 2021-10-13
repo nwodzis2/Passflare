@@ -1,0 +1,42 @@
+import React, { Component } from 'react';
+import './styles.css';
+import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+class AccountCreation extends React.Component{
+    render(){
+        return(
+            <Container fluid>
+                <Row>
+                    <Col></Col>
+                    <Col><h2>Welcome to Passflare!</h2></Col>
+                    <Col></Col>
+                </Row> 
+              <Row>
+                <Col md="12">
+                    <Card className="darkCard">
+                        <Card.Title>Please enter your information below.</Card.Title>                            <br/>
+                        <Form>
+                            <FormGroup>       
+                                <FormLabel>Name: </FormLabel>
+                                <FormControl type="text" placeholder="Enter name..."/>
+                                <hr/>
+                                <FormLabel>Email Address: </FormLabel>
+                                <FormControl type="email" placeholder="Enter email..."/>
+                            </FormGroup>
+                        </Form>
+                        <br/>
+                        <Row>
+                            <button className="btn btn-dark passBtnDark"> 
+                            Create Account 
+                            </button>
+                        </Row> 
+                    </Card>
+                </Col>
+              </Row>
+            </Container>
+          );
+    }
+}
+
+export default AccountCreation;

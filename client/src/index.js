@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserCode from "./enterCodeLogin.js";
+import GatekeeperLoginPage from "./gatekeeperLogin.js";
+import Passes from "./passes.js";
+import {Header, LoginPage} from "./userLogin.js";
+import AccountCreation from "./createAccount.js";
+import AccountEdit from "./editAccount.js";
+import { BrowserRouter as Router,
+  Switch, Route, Link} from "react-router-dom";
+import UserView from "./userView.js";
+import EventDetails from "./eventDetails.js";
 
+//Routing still needs done, for now replace Component under 'Header' with whatever you want to render
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Router>
+      <Header/>
+      <UserView/>
+    </Router>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

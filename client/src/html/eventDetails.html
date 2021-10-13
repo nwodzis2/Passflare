@@ -2,13 +2,13 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Passflare Login</title>
+        <title>Event Details</title>
         <meta name="description" content="">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -20,25 +20,20 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 id="gateKeeperTitle"><i class="fas fa-ticket-alt passTicket"></i> Passflare</h1><br>
+                    
+                    <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
+                        <img class="card-img-top" src="images/eventPlaceholder.jpg" alt="Card image cap">
+                        <div class="card-body">
+                          <p class="card-text">Event: [Event Title]</p>
+                          <p class="card-text">Date: [Event Date]</p>
+                          <p class="card-text">Name: [Name]</p>
+                          <p class="card-text">TicketID: [TicketID]</p>
+                        </div>
+                      </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 id="subtitle">GateKeeper</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form method="post" action="enterCodeLogin.html">
-                        <input type="text" placeholder="Enter your Event ID">
-                        <br>
-                        <button class="btn btn-dark passBtn" type="submit"> 
-                            Next &nbsp;&nbsp;<i class="fas fa-arrow-right"></i>
-                        </button>
-                    </form>
-                 </div>
-            </div>
+        
         </div>
-        <script src="" async defer></script>
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     </body>

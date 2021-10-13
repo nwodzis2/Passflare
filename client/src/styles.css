@@ -12,11 +12,19 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+
 h1 {
     color: white;
     font-family: 'Aclonica';
 }
 
+h2 {
+    text-align: center;
+}
+
+hr {
+    border-bottom: 1px solid white;
+}
 
 .anchor{
     color: white;
@@ -25,8 +33,9 @@ h1 {
 
 .title{
     margin: auto;
-    margin-top: 15rem;
-    margin-bottom: 10rem;
+    margin-top: 12rem;
+    margin-bottom: 8rem;
+    font-weight: normal;
 }
 
 .smallTitle {
@@ -55,10 +64,11 @@ h1 {
 }
 
 #subtitle{
-    margin-bottom: 11rem;
+    margin-bottom: 6em;
     font-family: 'Abel';
-    margin-top: -1rem;
-    margin-left: 8rem;
+    margin-top: -5.6em;
+    margin-left: 4.3em;
+    font-weight: normal;
 }
 
 .navBar{
@@ -92,12 +102,12 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 15rem;
+    width: 14em;
     color: white;
     padding-left: 1rem;
-    background-color: #1a1a1a;
+    background-color: #121212;
     border-radius: 1rem;
-    border: 1px solid #c9c9c9;
+    border: 2px solid #c9c9c9;
 }
 
 
@@ -108,20 +118,28 @@ input[type=number]{
     font-size: 1.5em;
     border: 0em;
     width: 2em;
+    margin: 0.2em;
 }
 
 input:focus{ 
     outline: none;
 }
 
+#emailPhone{
+    margin-top: -0.2em;
+}
+
 .or{
     display: flex;
     justify-content: center;
     margin-top: 0.5rem;
+    font-family: "Segoe UI","Roboto","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 #disclaimer {
     color:grey;
+    font-family: "Segoe UI","Helvetica Neue", "Arial";
+    font-size: 0.8em;
 }
 
 .btn-dark{
@@ -129,8 +147,26 @@ input:focus{
     background-color: #1a1a1a;
 }
 
+.darkCard{
+    background-color: #1a1a1a;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.darkCardWide{
+    background-color: #1a1a1a;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    max-width: 25rem;
+}
+
 .passBtn{
     display:flex;
+    padding: 0.5em;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -138,4 +174,40 @@ input:focus{
     border-radius: 1rem;
     margin:auto;
     margin-bottom: 0em;
+    background-color: #1a1a1a;
+}
+
+.passBtnDark{
+    display:flex;
+    padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin:auto;
+    margin-bottom: 0em;
+    background-color: #0a0a0a;
+}
+
+.passBtnNext{
+    display:flex;
+    padding: 0.5em;
+    margin-left: -3em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    margin-bottom: 0em;
+}
+
+.eventImg{
+    width: 20em;
+    height: 20em;
+}
+
+.list-group-item {
+    background-color: #1a1a1a;
+    border-color:#c9c9c9;
 }
