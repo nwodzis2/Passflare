@@ -46,17 +46,49 @@ hr {
 
 .eventTitle {
     font-size: 1.5rem;
-    margin: 10px;
-    margin-left: 2%;
+    padding-left: 20px;
 }
 
 .eventDisplay {
     margin: 10px;
     margin-left: 5%;
-    border: 1px solid white;
     width: 90%;
     float: left;
     min-height: 100px;
+}
+
+.eventCard {
+    margin: 10px;
+    width: 120px;
+    height: auto;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Aclonica';
+}
+
+.eventCardImage {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: white;
+    white-space: pre-wrap;
+}
+
+.eventCardName {
+    margin-bottom: 10px;
+}
+
+.eventCardTime {
+    margin-bottom: 10px;
+    font-size: 10px;
+}
+
+.eventCardDate {
+    margin-bottom: 10px;
 }
 
 #gateKeeperTitle{
