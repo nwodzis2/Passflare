@@ -1,8 +1,18 @@
 const { pbkdf2 } = require("crypto");
 const express = require("express");
-
 const userRoutes = express.Router();
 const dbo = require("../db/conn");
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'youremail@gmail.com',
+    pass: 'yourpassword'
+  }
+});
+
+
 //create user
 userRoutes.route("/user/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -34,6 +44,35 @@ userRoutes.route("/user/validate").get(function (req, res) {
     var myUser = db_connect.collection("Users").findOne(query)
     return myUser.Hash == pbkdf2(req.body.password, myUser.Salt, myUser.Iterations)
   });
+//recover account
+userRoutes.route("/user/recover").get(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var generated_code = [];
+  for(var i = 0; i < 4; i++){
+    generated_code[i] = Math.floor(Math.random() * 10);
+  }
+  var mailOptions = {
+    from: 'wodzisz22@gmail.com',
+    to: req.body.email,
+    subject: 'Passflare Password Recovery' + req.body.email.split('@')[0],
+    text: `
+    <body>
+      <h1><i class=""></i>Passflare</h1>
+
+    </body>
+    `
+
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+});
 //update a user
 userRoutes.route("user/update/:id").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -64,3 +103,4 @@ userRoutes.route("user/update/:id").post(function (req, res) {
       console.log("user deleted");
     });
   });
+  module.exports = userRoutes;
