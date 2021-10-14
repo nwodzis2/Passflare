@@ -19,7 +19,7 @@ eventRoutes.route("/events/create").post(function (req, res){
     let myObj = {
           Name : req.body.name,
           Header : req.body.header,
-          Descriptin: req.body.description,
+          Description: req.body.description,
           OrgID : req.body.orgid,
           Image : req.body.image,
           DateTime : req.body.datetime,
