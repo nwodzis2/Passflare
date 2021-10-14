@@ -17,6 +17,8 @@ const path = require("path");
 
 // This is the static that is going to be served, have to resolve
 app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(require("./routes/user"));
+app.use(require("./routes/event"));
 // We send whichever file
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
