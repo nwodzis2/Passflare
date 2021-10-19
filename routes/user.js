@@ -1,16 +1,17 @@
-const { pbkdf2 } = require("crypto");
+
 const express = require("express");
 const userRoutes = express.Router();
+const crypto = require("crypto");
 const dbo = require("../db/conn");
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
+/*var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'youremail@gmail.com',
     pass: 'yourpassword'
   }
-});
+});*/
 
 
 //create user
@@ -18,7 +19,14 @@ userRoutes.route("/user/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var salt = crypto.randomBytes(128).toString('base64');
     var iterations = 10000;
-    var hash = pbkdf2(req.body.password, salt, iterations);
+    const hash = crypto.pbkdf2Sync(String(req.body.password), salt, iterations, 64,
+        'sha512', function (err, derivedKey) {
+          
+          if (err) throw err;
+         
+          // Prints derivedKey
+          console.log(derivedKey.toString('hex'));
+      }).toString('hex');
     let myobj = {
       
       Number : req.body.number,
@@ -32,7 +40,7 @@ userRoutes.route("/user/add").post(function (req, res) {
     };
     db_connect
         .collection("Users")
-        .createIndex({Email: 1}, { unique: true} )
+        //.createIndex({Email: 1}, { unique: true} )
         .insertOne(myobj, function (err, res) {
       if (err) throw err;
     });
@@ -40,12 +48,12 @@ userRoutes.route("/user/add").post(function (req, res) {
 //validate user by password
 userRoutes.route("/user/validate").get(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
-    var query = {email : req.body.email}
+    var query = {Email : req.body.email}
     var myUser = db_connect.collection("Users").findOne(query)
-    return myUser.Hash == pbkdf2(req.body.password, myUser.Salt, myUser.Iterations)
+    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512')
   });
 //recover account
-userRoutes.route("/user/recover").get(function (req, res){
+/*userRoutes.route("/user/recover").get(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var generated_code = [];
   for(var i = 0; i < 4; i++){
@@ -72,7 +80,7 @@ userRoutes.route("/user/recover").get(function (req, res){
     }
   });
 
-});
+});*/
 //update a user
 userRoutes.route("user/update/:id").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
