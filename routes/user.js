@@ -50,7 +50,7 @@ userRoutes.route("/user/validate").get(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email}
     var myUser = db_connect.collection("Users").findOne(query)
-    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512')
+    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), String(myUser.Salt), 10000, 32, 'sha512')
   });
 //recover account
 /*userRoutes.route("/user/recover").get(function (req, res){

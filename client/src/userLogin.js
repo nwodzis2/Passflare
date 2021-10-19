@@ -71,7 +71,13 @@ class NameForm extends React.Component {
       password: this.state.userPassword
     } 
 
-    axios.post("http://localhost:5000/user/validate", myObject);
+    axios.post("http://localhost:5000/user/validate", myObject)
+    .then(function(response){
+      console.log(response);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
     event.preventDefault();
   }
 

@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 var eventCard;
-
 var myobject =
 {
       number : 3303091898,
@@ -17,7 +16,6 @@ var myobject =
       email : "moster@kent.edu",
       orgid : 21
 };
-
 
 class UserView extends React.Component{
   
