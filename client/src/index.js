@@ -12,6 +12,7 @@ import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 import UserView from "./userView.js";
 import EventDetails from "./eventDetails.js";
+import EventCreation from "./eventCreation.js";
 
 //Routing still needs done, for now replace Component under 'Header' with whatever you want to render
 ReactDOM.render(

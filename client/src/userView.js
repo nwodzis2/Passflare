@@ -12,7 +12,7 @@ var eventCard;
 class UserView extends React.Component{
   
   componentWillMount() {
-     //axios.get("http://localhost:5000/users/614d06e8aae5da24fff0e35e");
+     console.log(axios.get("http://localhost:5000/events"));
      
       eventCard = (
         <div class="eventCard">
