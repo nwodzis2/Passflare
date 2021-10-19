@@ -1,6 +1,5 @@
-
 const express = require("express");
-const userRoutes = express.Router();
+const adminRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
 //var nodemailer = require('nodemailer');
@@ -15,7 +14,7 @@ const dbo = require("../db/conn");
 
 
 //create user
-userRoutes.route("/user/add").post(function (req, res) {
+adminRoutes.route("/admin/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var salt = crypto.randomBytes(128).toString('base64');
     var iterations = 10000;
@@ -39,17 +38,17 @@ userRoutes.route("/user/add").post(function (req, res) {
 
     };
     db_connect
-        .collection("Users")
+        .collection("Admin")
         //.createIndex({Email: 1}, { unique: true} )
         .insertOne(myobj, function (err, res) {
       if (err) throw err;
     });
 });
 //validate user by password
-userRoutes.route("/user/validate").get(function (req, res) {
+adminRoutes.route("/admin/validate").get(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
-    var myUser = db_connect.collection("Users").findOne(query);
+    var myUser = db_connect.collection("Admin").findOne(query);
     return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512').toString('hex');
   });
 //recover account
@@ -82,7 +81,7 @@ userRoutes.route("/user/validate").get(function (req, res) {
 
 });*/
 //update a user
-userRoutes.route("user/update/:id").post(function (req, res) {
+adminRoutes.route("admin/update/:id").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     let myUser = { id: req.body.id };
     let newvalues = {
@@ -94,22 +93,21 @@ userRoutes.route("user/update/:id").post(function (req, res) {
       },
     };
     db_connect
-      .collection("Users")
+      .collection("Admin")
       .updateOne(myUser, newvalues, function (err, res) {
         if (err) throw err;
         console.log("user updated");
       });
   });
   //delete user
-  userRoutes.route("user/:id").delete((req, res) => {
+  adminRoutes.route("admin/:id").delete((req, res) => {
     let db_connect = dbo.getDb("Passflare");
     var myUser = { id: req.body.id };
     db_connect
-        .collection("Users")
+        .collection("Admin")
         .deleteOne(myUser, function (err, obj) {
       if (err) throw err;
       console.log("user deleted");
     });
   });
-  
-  module.exports = userRoutes;
+  module.exports = adminRoutes;
