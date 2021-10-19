@@ -21,6 +21,26 @@ class Passes extends React.Component{
             </Container>
         );
     }
+  
+    // getPasses() {
+    //     return axios.get('passes');
+    // }
+
+    // getPass(id) {
+    //     return axios.get('passes/' + id);
+    // }
+
+    // addPass(data) {
+    //     return axios.post('passes', data);
+    // }
+
+    // editPass(id, data) {
+    //     return axios.put('passes/' + id, data);
+    // }
+
+    // deletePass(id) {
+    //     return axios.delete('passes/' + id);
+    // }
 } 
 
 export default Passes;
