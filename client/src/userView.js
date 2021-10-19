@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 var eventCard;
+
 var myobject =
 {
       number : 3303091898,
@@ -17,10 +18,11 @@ var myobject =
       orgid : 21
 };
 
+
 class UserView extends React.Component{
   
   componentWillMount() {
-     //axios.get("http://localhost:5000/users/614d06e8aae5da24fff0e35e");
+     console.log(axios.get("http://localhost:5000/events"));
      
       eventCard = (
         <div class="eventCard">
@@ -34,9 +36,6 @@ class UserView extends React.Component{
 
   componentDidMount() {
     ReactDOM.render(eventCard, document.getElementsByClassName('eventDisplay')[0]);
-    axios.post("http://localhost:5000/user/add", myobject).then((response) => {
-      console.log(response.data);
-    });
   }
 
   render(){

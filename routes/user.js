@@ -1,4 +1,4 @@
-const { pbkdf2 } = require("crypto");
+
 const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
@@ -19,13 +19,14 @@ userRoutes.route("/user/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var salt = crypto.randomBytes(128).toString('base64');
     var iterations = 10000;
-    var hash = pbkdf2(String(req.body.password), salt, iterations, 64,
-        'sha512', (err, derivedKey) => {
+    const hash = crypto.pbkdf2Sync(String(req.body.password), salt, iterations, 64,
+        'sha512', function (err, derivedKey) {
+          
           if (err) throw err;
-
+         
           // Prints derivedKey
           console.log(derivedKey.toString('hex'));
-      });
+      }).toString('hex');
     let myobj = {
       
       Number : req.body.number,
@@ -47,9 +48,9 @@ userRoutes.route("/user/add").post(function (req, res) {
 //validate user by password
 userRoutes.route("/user/validate").get(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
-    var query = {email : req.body.email}
+    var query = {Email : req.body.email}
     var myUser = db_connect.collection("Users").findOne(query)
-    return myUser.Hash == pbkdf2(String(req.body.password), myUser.Salt, myUser.Iterations)
+    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512')
   });
 //recover account
 /*userRoutes.route("/user/recover").get(function (req, res){
