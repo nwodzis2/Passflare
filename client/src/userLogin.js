@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useDebugValue } from 'react';
+import ReactDOM from 'react-dom';
 import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Helmet} from "react-helmet"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 export class Header extends React.Component{
   render(){
@@ -17,10 +19,13 @@ export class Header extends React.Component{
         <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'/>
         <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
         <link rel="stylesheet" href="styles.css"></link>
+        
       </Helmet>
     );
   }
 }
+
+
 
 function PassFlareTitleUser(){
     return(
@@ -30,39 +35,68 @@ function PassFlareTitleUser(){
               <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           </Col>
         </Row>
+        <UserLogin/>
       </Container>
     );
 }
 
 function UserLogin(){
     return (
-    <Container fluid>
       <Row>
         <Col md="12">
-          <form method="post" action="enterCodeLogin.html">
-                <input type="email" placeholder="Enter email"/>
-                <p className="or">or...</p>
-                <input type="tel" placeholder="Enter Phone Number"/>
-                <br/>
-                <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or 
-                <br/>SMS messages from Passflare and its affiliates.</p>
-                <Row>
-                <Col md="8">
-                    <button className="btn btn-dark passBtn"> 
-                    Create Account 
-                    </button>
-                </Col>
-                <Col md="4">
-                    <button className="btn btn-dark passBtnNext"> 
-                    Next &nbsp;&nbsp;<i className="fas fa-arrow-right"></i>
-                    </button>
-                </Col>
-                </Row>
-          </form>
+          <NameForm/>
         </Col>
       </Row>
-    </Container>
     );
+}
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {userEmail: '', userPassword: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({[name]: value});
+  }
+
+  handleSubmit(event) {
+    var myObject = {
+      email: this.state.userEmail,
+      password: this.state.userPassword
+    } 
+
+    axios.post("http://localhost:5000/user/validate", myObject);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
+        <br/>
+        <input type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
+        <br/>
+        <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
+          SMS messages from Passflare and its affiliates.</p>
+        <Row>
+          <Col md="8">
+            <button className="btn btn-dark passBtn">Create Account</button>
+          </Col>
+          <Col md="4">
+            <button className="btn btn-dark passBtn" type="submit">
+             Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+            </button>
+          </Col>
+        </Row>
+      </form>
+    );
+  }
 }
 
 export class LoginPage extends React.Component{
@@ -70,7 +104,6 @@ export class LoginPage extends React.Component{
     return(
     <div>
     <PassFlareTitleUser/>
-    <UserLogin/>
     </div>
     );
   }

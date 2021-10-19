@@ -11,9 +11,9 @@ import axios from 'axios';
 var eventCard;
 var myobject =
 {
-      number : 3306343529,
-      name : "Nathan Wodzisz",
-      email : "nwodzis@kent.edu",
+      number : 3303091898,
+      name : "Robin Oster",
+      email : "moster@kent.edu",
       orgid : 21
 };
 

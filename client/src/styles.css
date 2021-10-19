@@ -134,12 +134,14 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 14em;
+    width: 13rem;
+    height: 1.8em;
+    font-size: 0.8em;
     color: white;
     padding-left: 1rem;
     background-color: #121212;
     border-radius: 1rem;
-    border: 2px solid #c9c9c9;
+    border: 1px solid #c9c9c9;
 }
 
 
@@ -198,7 +200,7 @@ input:focus{
 
 .passBtn{
     display:flex;
-    padding: 0.5em;
+    padding: 0.4em;
     justify-content: center;
     align-items: center;
     text-align: center;
