@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Header, LoginPage} from "./userLogin.js";
+import Payment from "./payment";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 
@@ -12,7 +13,7 @@ import { BrowserRouter as Router,
 ReactDOM.render(
     <Router>
       <Header/>
-      <LoginPage/>
+      <Payment/>
     </Router>,
   document.getElementById('root'),
 );

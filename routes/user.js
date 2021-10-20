@@ -15,7 +15,7 @@ const dbo = require("../db/conn");
 
 
 //create user
-userRoutes.route("/user/add").post(function (req, res) {
+userRoutes.route("user/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var salt = crypto.randomBytes(128).toString('base64');
     var iterations = 10000;
@@ -46,7 +46,7 @@ userRoutes.route("/user/add").post(function (req, res) {
     });
 });
 //validate user by password
-userRoutes.route("/user/validate").get(function (req, res) {
+userRoutes.route("user/validate").get(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
     var myUser = db_connect.collection("Users").findOne(query);
