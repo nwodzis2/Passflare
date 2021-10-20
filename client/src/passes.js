@@ -5,6 +5,7 @@ import { Container, Row, Col} from 'react-bootstrap';
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import axios from '@/config/axios.js'
 
 class Passes extends React.Component{
     render(){
