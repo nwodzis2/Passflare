@@ -19,7 +19,7 @@ eventRoutes.route("/events/create").post(function (req, res){
     let myObj = {
           Name : req.body.name,
           Header : req.body.header,
-          Description: req.body.description,
+          Descriptin: req.body.description,
           OrgID : req.body.orgid,
           Image : req.body.image,
           DateTime : req.body.datetime,
@@ -37,7 +37,7 @@ eventRoutes.route("/events/create").post(function (req, res){
 eventRoutes.route("/events/delete/:id").post(function(req, res){
     let db_connect = dbo.getDb("Passflare");
     var event = { id: req.body.id };
-    b_connect
+    db_connect
         .collection("Events")
         .deleteOne(event, function (err, obj) {
             if (err) throw err;

@@ -22,7 +22,7 @@ class Passes extends React.Component{
             </Container>
         );
     }
-
+  
     // getPasses() {
     //     return axios.get('passes');
     // }
