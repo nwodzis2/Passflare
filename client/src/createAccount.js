@@ -20,7 +20,7 @@ class AccountCreation extends React.Component{
             email: this.state[email],
             orgID: 0 //Need to change this when the time comes / add way of obtaining it in the form
         }
-        axios.post("http://localhpst:5000/user/add", obj);
+        axios.post("http://localhost:5000/user/add", obj);
     }
 
     handleChange(event) {

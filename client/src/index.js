@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Header, LoginPage} from "./userLogin.js";
-import UserView from "./userView.js";
-import AccountCreation from "./createAccount.js";
+import Payment from "./payment";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 
@@ -14,11 +13,7 @@ import { BrowserRouter as Router,
 ReactDOM.render(
     <Router>
       <Header/>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        <Route exact path="/userView" component={UserView}/>
-        <Route exact path="/UserCreation" component={AccountCreation}/>
-      </Switch>
+      <Payment/>
     </Router>,
   document.getElementById('root'),
 );
