@@ -1,5 +1,6 @@
 import React, { Component, useDebugValue } from 'react';
 import ReactDOM from 'react-dom';
+import { Link, Redirect } from "react-router-dom";
 import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Helmet} from "react-helmet"
@@ -71,10 +72,14 @@ class NameForm extends React.Component {
       password: this.state.userPassword
     } 
 
-    axios.post("http://localhost:5000/user/validate", myObject)
+    axios.get("http://localhost:5000/user/validate", myObject)
     .then(function(response){
       console.log(response);
-    })
+      <Link to={{
+        pathname: '/UserView',
+        state: {userEmail: this.state.userEmail, userPassword: this.state.userPassword }}}
+      />}
+    )
     .catch(function(error){
       console.log(error);
     })
@@ -92,10 +97,10 @@ class NameForm extends React.Component {
           SMS messages from Passflare and its affiliates.</p>
         <Row>
           <Col md="8">
-            <button className="btn btn-dark passBtn">Create Account</button>
+            <Link to= "/UserCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
           </Col>
           <Col md="4">
-            <button className="btn btn-dark passBtn" type="submit">
+            <button className="btn btn-dark passBtnNext" type="submit">
              Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
             </button>
           </Col>
