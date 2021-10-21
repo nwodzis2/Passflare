@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import reportWebVitals from './reportWebVitals';
+import { Route } from "react-router-dom";
 import UserCode from "./enterCodeLogin.js";
 import GatekeeperLoginPage from "./gatekeeperLogin.js";
 import Passes from "./passes.js";
-
-//Routing still needs done, for now replace Component under 'Header' with whatever you want to render
-ReactDOM.render(
-    <Router>
+import {Header, LoginPage} from "./userLogin.js";
+import Payment from "./payment";
+function App() {
+  return (
+    <div>
       <Header/>
-      <Passes/>
-    </Router>,
-  document.getElementById('root'),
-);
+      <Route exact path="/">
+        <LoginPage />
+      </Route>
+      <Route path="/passes">
+        <Passes />
+      </Route>
+      <Route path="/payment">
+        <Payment />
+      </Route>
+    </div>
+  );
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export default App;

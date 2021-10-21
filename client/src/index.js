@@ -6,14 +6,14 @@ import {Header, LoginPage} from "./userLogin.js";
 import Payment from "./payment";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
+  import App from './App';
 
 
 
 //Routing still needs done, for now replace Component under 'Header' with whatever you want to render
 ReactDOM.render(
     <Router>
-      <Header/>
-      <Payment/>
+      <App/>
     </Router>,
   document.getElementById('root'),
 );
