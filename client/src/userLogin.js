@@ -1,13 +1,13 @@
 import React, { Component, useDebugValue } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Helmet} from "react-helmet"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-export class Header extends React.Component{
+class Header extends React.Component{
   render(){
     return(
       <Helmet>
@@ -26,32 +26,7 @@ export class Header extends React.Component{
   }
 }
 
-
-
-function PassFlareTitleUser(){
-    return(
-      <Container fluid>
-        <Row>
-          <Col md="12">
-              <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
-          </Col>
-        </Row>
-        <UserLogin/>
-      </Container>
-    );
-}
-
-function UserLogin(){
-    return (
-      <Row>
-        <Col md="12">
-          <NameForm/>
-        </Col>
-      </Row>
-    );
-}
-
-class NameForm extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {userEmail: '', userPassword: ''};
@@ -75,10 +50,8 @@ class NameForm extends React.Component {
     axios.get("http://localhost:5000/user/validate", myObject)
     .then(function(response){
       console.log(response);
-      <Link to={{
-        pathname: '/UserView',
-        state: {userEmail: this.state.userEmail, userPassword: this.state.userPassword }}}
-      />}
+      this.props.history.push('/userView');
+      }
     )
     .catch(function(error){
       console.log(error);
@@ -88,34 +61,39 @@ class NameForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
-        <br/>
-        <input type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
-        <br/>
-        <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
-          SMS messages from Passflare and its affiliates.</p>
-        <Row>
-          <Col md="8">
-            <Link to= "/UserCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
-          </Col>
-          <Col md="4">
-            <button className="btn btn-dark passBtnNext" type="submit">
-             Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
-            </button>
-          </Col>
-        </Row>
-      </form>
+    <Container fluid>
+      <Row>
+        <Col md="12">
+          <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col md="12">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
+            <br/>
+            <input type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
+            <br/>
+            <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
+              SMS messages from Passflare and its affiliates.</p>
+            <Row>
+              <Col md="8">
+                <Link to= "/UserCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
+              </Col>
+              <Col md="4">
+                <button className="btn btn-dark passBtnNext" type="submit">
+                Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+                </button>
+              </Col>
+            </Row>
+          </form>
+        </Col>
+      </Row>
+    </Container>
     );
   }
 }
 
-export class LoginPage extends React.Component{
-  render(){
-    return(
-    <div>
-    <PassFlareTitleUser/>
-    </div>
-    );
-  }
+export{
+  Header, LoginPage
 }

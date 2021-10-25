@@ -12,11 +12,15 @@ class Passes extends React.Component{
         return(
             <Container fluid>  
                 <Row>
-                    <Col md="6">
-                      <h2><i class="fas fa-arrow-left"></i></h2>
+                    <Col md="4">
+                    <Link to= "/userView" style={{textDecoration: 'none'}}>
+                      <h2 className="backArrow"><i class="fas fa-arrow-left"></i></h2>
+                    </Link>
                     </Col>
-                    <Col md="auto">
+                    <Col md="4" align="center">
                         <h2>Passes</h2>
+                    </Col>
+                    <Col md="4">
                     </Col>
                 </Row>
             </Container>

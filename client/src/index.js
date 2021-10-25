@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Header, LoginPage} from "./userLogin.js";
+import {UserView, UserNav} from "./userView.js";
+import AccountCreation from "./createAccount.js";
 import Payment from "./payment";
+import Passes from "./passes.js";
+import AdminNav from "./adminView.js";
+import EventCreation from "./eventCreation.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 
@@ -13,7 +18,26 @@ import { BrowserRouter as Router,
 ReactDOM.render(
     <Router>
       <Header/>
-      <Payment/>
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/userView">
+          <UserView/>
+          <UserNav/>
+        </Route>
+        <Route exact path="/UserCreation" component={AccountCreation}/>
+        <Route exact path="/Passes">
+          <Passes/>
+        </Route>
+        <Route exact path="/gatekeeperView">
+
+        </Route>
+        <Route exact path="/adminView">
+          <AdminNav/>
+        </Route>
+        <Route exact path="/eventCreation">
+          <EventCreation/>
+        </Route>
+      </Switch>
     </Router>,
   document.getElementById('root'),
 );

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col, Navbar} from 'react-bootstrap';
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
-  import { withRouter } from "react-router";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
@@ -67,7 +66,7 @@ class UserView extends React.Component{
 
               </div>
         </Row>
-        <Row>
+        <Row id="userViewBottom">
               <h1 className="eventTitle">Theater</h1>
               <div className="eventDisplay">
 
@@ -78,4 +77,40 @@ class UserView extends React.Component{
   }
 }
 
-export default UserView;
+class UserNav extends React.Component {
+
+  render(){
+    return(
+      <Navbar fixed="bottom" bg="dark" className="userNavbar">
+          <Col align="center">
+          <Link to= "/Passes" style={{textDecoration: 'none'}}>
+            <i class="fas fa-compass"></i>
+            <p>Browse</p>
+          </Link>
+          </Col>
+          <Col align="center">
+          <Link to= "/Passes" style={{textDecoration: 'none'}}>
+            <i class="fas fa-search"></i>
+            <p>Search</p>
+          </Link>
+          </Col>
+          <Col align="center">
+             <Link to= "/Passes" style={{textDecoration: 'none'}}>
+              <i class="fas fa-ticket-alt"></i>
+              <p>Passes</p>
+            </Link>
+          </Col>
+          <Col align="center">
+          <Link to= "/Passes" style={{textDecoration: 'none'}}>
+            <i class="fas fa-heart"></i>
+            <p>Favorites</p>
+          </Link>
+          </Col>
+      </Navbar>
+    )
+  }
+}
+
+export{ 
+  UserView, UserNav
+}

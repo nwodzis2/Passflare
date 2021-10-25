@@ -246,6 +246,68 @@ input:focus{
     border-color:#c9c9c9;
 }
 
+.userNavbar{
+    padding-bottom: 0;
+}
+.userNavbar>div>a>p{
+    margin-bottom: 0.2rem;
+    font-size: 0.8rem;
+}
+
+.userNavbar>div>a{
+    color: white;
+}
+
+.userNavbar>div>a:hover{
+    color: orange;
+}
+
+#userViewBottom{
+    margin-bottom: 5rem;
+}
+
+.backArrow {
+    color: white;
+    text-align: left;
+}
+
+.backArrow>i:hover{
+    color: orange;
+}
+
+#adminBrand{
+    color: white;
+}
+
+#adminBrand:hover{
+    color: orange;
+}
+
+#brandBreak{
+    font-size: 0.8em;
+    position: relative;
+    bottom: 0.2em;
+    color: #666666;
+}
+
+#adminLogo{
+    font-size: 0.7em;
+    font-style: normal;
+}
+
+#adminChoices>a{
+    color: white;
+}
+
+#adminChoices>a:hover{
+    color: orange;
+}
+
+.navbar-toggler{
+    background-color:#6b6b6b;
+    position: relative;
+    bottom: 0.2em;
+}
 
 .paymenth2{
     margin-top: 50px 20px;

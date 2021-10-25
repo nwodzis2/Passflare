@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
+import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
@@ -47,7 +48,11 @@ class EventCreation extends React.Component{
         return(
             <Container fluid>
                 <Row>
-                    <Col></Col>
+                    <Col>
+                    <Link to= "/adminView" style={{textDecoration: 'none'}}>
+                      <h2 className="backArrow"><i class="fas fa-arrow-left"></i></h2>
+                    </Link>
+                    </Col>
                     <Col><h2>Create Event</h2></Col>
                     <Col></Col>
                 </Row> 
