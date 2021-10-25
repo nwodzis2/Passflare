@@ -11,6 +11,7 @@ import AdminNav from "./adminView.js";
 import EventCreation from "./eventCreation.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
+  import App from './App';
 
 
 
