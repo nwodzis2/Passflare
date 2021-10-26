@@ -28,7 +28,6 @@ userRoutes.route("user/add").post(function (req, res) {
           console.log(derivedKey.toString('hex'));
       }).toString('hex');
     let myobj = {
-      
       Number : req.body.number,
       Name : req.body.name,
       Email : req.body.email,
@@ -36,7 +35,6 @@ userRoutes.route("user/add").post(function (req, res) {
       Hash : hash,
       Salt : salt,
       Iterations : iterations
-
     };
     db_connect
         .collection("Users")

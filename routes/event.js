@@ -18,13 +18,12 @@ eventRoutes.route("/events/create").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
     let myObj = {
           Name : req.body.name,
-          Header : req.body.header,
-          Descriptin: req.body.description,
-          OrgID : req.body.orgid,
+          Description: req.body.description,
+          Price: req.body.price,
+          OrgID : req.body.orgID,
           Image : req.body.image,
-          DateTime : req.body.datetime,
+          DateTime : req.body.dateTime,
           Location : req.body.location,
-          Tickets: req.body.tickets
       };
     var event = db_connect
         .collection("Events")

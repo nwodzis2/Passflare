@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
+import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card, InputGroup} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
@@ -9,39 +9,51 @@ class EventCreation extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            name: '', 
-            header: '', 
-            description: '', 
-            orgID: '', 
+            name: '',
+            description: '',
+            price: '',
+            orgID: '', //Need to get orgID from signed in organization administrator
             image: '',
             dateTime: '',
             location: '',
-            tickets: ''
         };
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    submitEvent() {
-        const {name, header, description, orgID, image, dateTime, location, tickets} = this.state
+    submitEvent(event) {
+        const {name, description, price, orgID, dateTime, location} = this.state;
+
+        const data = new FormData();
+        data.append("name", name);
+        data.append("description", description);
+        data.append("price", price);
+        data.append("orgID", orgID);
+        data.append("dateTime", dateTime);
+        data.append("location", location);
+        data.append('image', event.target.files[0]);
+        
+        axios.post("http://localhost:5000/events/create", data);
+
+        //Save below just in case above totally messes everything up
+        /*const {name, description, price, orgID, image, dateTime, location} = this.state;
         let obj = {
             name: this.state[name],
-            header: this.state[header],
             description: this.state[description],
-            orgID: this.state[orgID],
+            price: this.state[price],
+            orgID: this.state[orgID], //Need to get orgID from signed in organization administrator
             image: this.state[image],
             dateTime: this.state[dateTime],
             location: this.state[location],
-            tickets: this.state[tickets],
         }
-
-        axios.post("http://localhpst:5000/events/create", obj);
+        axios.post("http://localhost:5000/events/create", obj);*/
     }
 
     handleChange(event) {
         this.setState({
             [event.target.name] : event.target.value
         });
+        console.log(this.state);
     }
 
     render(){
@@ -64,19 +76,26 @@ class EventCreation extends React.Component{
                         <Form onSubmit={this.submitEvent}>
                             <FormGroup>       
                                 <FormLabel>Event Name: </FormLabel>
-                                <FormControl type="text" name='name' onChange={this.handleChange} placeholder="Enter event name..."/>
+                                <FormControl className="eventInput" type="text" name='name' autoComplete="off" onChange={this.handleChange} placeholder="Enter event name..."/>
                                 <hr/>
                                 <FormLabel>Description: </FormLabel>
-                                <FormControl type="text" name='description' onChange={this.handleChange} placeholder="Enter event description..."/>
+                                <FormControl className="eventInput" type="text" as="textarea" name='description' autoComplete="off" onChange={this.handleChange} placeholder="Enter event description..."/>
                                 <hr/>
-                                <FormLabel>Orginization ID: </FormLabel>
-                                <FormControl type="text" name='orgID' onChange={this.handleChange} placeholder="Enter organization ID..."/>
+                                <FormLabel>Price: </FormLabel>
+                                <InputGroup>
+                                    <InputGroup.Text>$</InputGroup.Text>
+                                    <FormControl className="eventInput" type="text" name='price' autoComplete="off" onChange={this.handleChange} placeholder="X.XX"/>
+                                </InputGroup>
                                 <hr/>
                                 <FormLabel>Date and Time </FormLabel>
-                                <FormControl type="text" name='dateTime' onChange={this.handleChange} placeholder="Change to date and time selectors..."/>
+                                <FormControl className="eventInput" type="date" name='dateTime' autoComplete="off" onChange={this.handleChange} placeholder="Enter event date..."/>
                                 <hr/>
                                 <FormLabel>Location: </FormLabel>
-                                <FormControl type="text" name='location' onChange={this.handleChange} placeholder="Enter event location..."/>
+                                <FormControl className="eventInput" type="text" name='location' onChange={this.handleChange} placeholder="Enter event location..."/>
+                                <hr/>
+                                <FormLabel>Thumbnail: </FormLabel>
+                                <br/>
+                                <FormControl className="eventInput" type="file" name='thumbnail' onChange={this.handleChange} placeholder="Choose event thumbnail image..."/>
                             </FormGroup>
                             <br/>
                         <Row>

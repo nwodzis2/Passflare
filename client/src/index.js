@@ -15,7 +15,7 @@ import { BrowserRouter as Router,
 
 
 
-//Routing still needs done, for now replace Component under 'Header' with whatever you want to render
+//Routing still needs done, for now replace Componont of the Route with path "/" with whatever you want to render
 ReactDOM.render(
     <Router>
       <Header/>

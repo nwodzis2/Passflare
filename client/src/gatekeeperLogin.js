@@ -4,6 +4,7 @@ import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
+import { axios } from "axios"
 
 class GatekeeperLoginPage extends React.Component{
   constructor(props) {
@@ -54,7 +55,7 @@ class GatekeeperLoginPage extends React.Component{
             <Row>
               <Col md="12">
                 <form method="post" action="enterCodeLogin.html">
-                  <input type="text" placeholder="Enter your Event ID"/>
+                  <input className="defaultText" type="text" placeholder="Enter your Event ID"/>
                   <br/>
                   <button class="btn btn-dark passBtn" type="submit"> 
                       Next &nbsp;&nbsp;<i class="fas fa-arrow-right"></i>

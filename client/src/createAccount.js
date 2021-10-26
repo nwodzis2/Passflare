@@ -13,7 +13,7 @@ class AccountCreation extends React.Component{
     }
 
     submitUser() {
-        const {email, name, phone} = this.state
+        const {email, name, phone} = this.state;
         let obj = {
             number: this.state[phone],
             name: this.state[name],
@@ -27,6 +27,7 @@ class AccountCreation extends React.Component{
         this.setState({
             [event.target.name] : event.target.value
         });
+        console.log(this.state);
     }
 
     render(){
@@ -45,13 +46,13 @@ class AccountCreation extends React.Component{
                         <Form onSubmit={this.submitUser}>
                             <FormGroup>       
                                 <FormLabel>Name: </FormLabel>
-                                <FormControl type="text" name='name' onChange={this.handleChange} placeholder="Enter name..."/>
+                                <FormControl className="defaultText" type="text" name='name' onChange={this.handleChange} placeholder="Enter name..."/>
                                 <hr/>
                                 <FormLabel>Email Address: </FormLabel>
-                                <FormControl type="email" name='email' onChange={this.handleChange} placeholder="Enter email..."/>
+                                <FormControl className="defaultEmail" type="email" name='email' onChange={this.handleChange} placeholder="Enter email..."/>
                                 <hr/>
                                 <FormLabel>Phone Number: </FormLabel>
-                                <FormControl type="text" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
+                                <FormControl className="defaultText" type="text" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
                             </FormGroup>
                             <br/>
                         <Row>

@@ -15,10 +15,10 @@ class AccountEdit extends React.Component{
                         <Form>
                             <FormGroup>       
                                 <FormLabel>Name: </FormLabel>
-                                <FormControl type="text" placeholder="Enter name..."/>
+                                <FormControl className="defaultText" type="text" placeholder="Enter name..."/>
                                 <hr/>
                                 <FormLabel>Email Address: </FormLabel>
-                                <FormControl type="email" placeholder="Enter email..."/>
+                                <FormControl className="defaultEmail" type="email" placeholder="Enter email..."/>
                             </FormGroup>
                         </Form>
                         <br/>

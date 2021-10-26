@@ -129,7 +129,9 @@ form>p {
     text-align: center;
 }
 
-input[type=text], input[type=email], input[type=tel], input[type=password]{
+/*input[type=text], input[type=email], input[type=tel], input[type=password]*/
+/*Had to replace the above with the below since using the above seems to always override other css*/
+.defaultText, .defaultEmail, .defaultTel, .defaultPassword {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,6 +146,45 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
     border: 1px solid #c9c9c9;
 }
 
+.eventInput  {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #261359;
+    background-color: rgba(252,163,18,1);
+    background-clip: padding-box;
+    border: 1px solid rgba(255,0,0,1);
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.eventInput:focus{
+    background-color: rgb(252, 184, 74);
+    color: #261359;
+}
+
+.eventInput:-webkit-autofill {
+    background-color: rgb(252, 184, 74) !important;
+}
+
+.input-group-text {
+    background-color: rgba(255,0,0,1);
+    color: #261359;
+    border: 1px solid rgba(255,0,0,1);
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+#file-upload-button {
+    background-color: rgba(255,0,0,1);
+    color: #261359;
+    border: 1px solid rgba(255,0,0,1);
+}
 
 input[type=number]{
     text-align: center;

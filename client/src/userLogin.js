@@ -70,9 +70,9 @@ class LoginPage extends React.Component {
       <Row>
         <Col md="12">
           <form onSubmit={this.handleSubmit}>
-            <input type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
+            <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
             <br/>
-            <input type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
+            <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
             <br/>
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
               SMS messages from Passflare and its affiliates.</p>
