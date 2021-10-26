@@ -31,7 +31,7 @@ userRoutes.route("user/add").post(function (req, res) {
       Number : req.body.number,
       Name : req.body.name,
       Email : req.body.email,
-      OrgID : req.body.orgid,
+      OrgID : req.body.orgID,
       Hash : hash,
       Salt : salt,
       Iterations : iterations
