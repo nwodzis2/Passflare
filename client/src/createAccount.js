@@ -7,17 +7,17 @@ import axios from 'axios';
 class AccountCreation extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {name:'', email:'', phone:''};
+        this.state = {name:'', email:'', phone:'', password:''};
         this.submitUser = this.submitUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     submitUser() {
-        const {email, name, phone} = this.state;
         let obj = {
-            number: this.state[phone],
-            name: this.state[name],
-            email: this.state[email],
+            number: this.state.phone,
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
             orgID: 0 //Need to change this when the time comes / add way of obtaining it in the form
         }
         axios.post("http://localhost:5000/user/add", obj);
@@ -27,7 +27,6 @@ class AccountCreation extends React.Component{
         this.setState({
             [event.target.name] : event.target.value
         });
-        console.log(this.state);
     }
 
     render(){
@@ -50,6 +49,9 @@ class AccountCreation extends React.Component{
                                 <hr/>
                                 <FormLabel>Email Address: </FormLabel>
                                 <FormControl className="defaultEmail" type="email" name='email' onChange={this.handleChange} placeholder="Enter email..."/>
+                                <hr/>
+                                <FormLabel>Password: </FormLabel>
+                                <FormControl className="defaultText" type="text" name='password' onChange={this.handleChange} placeholder="**********"/>
                                 <hr/>
                                 <FormLabel>Phone Number: </FormLabel>
                                 <FormControl className="defaultText" type="text" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
