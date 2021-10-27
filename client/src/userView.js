@@ -7,18 +7,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 var eventCard;
-var myobject =
-{
-      number : 3303091898,
-      name : "Robin Oster",
-      email : "moster@kent.edu",
-      orgid : 21
-};
 
 class UserView extends React.Component{
   
   componentWillMount() {
-     console.log(axios.get("http://localhost:5000/events"));
+    let obj = {
+      orgID: 0
+    }
+    axios.post("http://localhost:5000/events/:orgID", obj).then(
+      function(response){
+        console.log(response.data);
+      }
+    );
      
       eventCard = (
         <div class="eventCard">
@@ -37,40 +37,23 @@ class UserView extends React.Component{
   render(){
     return(
       <Container fluid>
+        <userNav/>
         <Row>
           <Col md="12">
               <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           </Col>
         </Row>
         <Row>
-              <h1 className="eventTitle">By School</h1>
+              <h1 className="eventTitle">Tickets owned:</h1>
               <div id="testEvent" className="eventDisplay">
                   
-                </div>
+              </div>
         </Row>
         <Row>
-              <h1 className="eventTitle">Popular Near You</h1>
-              <div className="eventDisplay">
-
-                </div>
-        </Row>
-        <Row>
-              <h1 className="eventTitle">By Category</h1>
-              <div className="eventDisplay">
-
-                </div>
-        </Row>
-        <Row>
-              <h1 className="eventTitle">Sports</h1>
+              <h1 className="eventTitle">Events to check out</h1>
               <div className="eventDisplay">
 
               </div>
-        </Row>
-        <Row id="userViewBottom">
-              <h1 className="eventTitle">Theater</h1>
-              <div className="eventDisplay">
-
-                </div>
         </Row>
       </Container>
     );
@@ -78,7 +61,6 @@ class UserView extends React.Component{
 }
 
 class UserNav extends React.Component {
-
   render(){
     return(
       <Navbar fixed="bottom" bg="dark" className="userNavbar">

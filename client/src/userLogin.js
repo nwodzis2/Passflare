@@ -45,12 +45,20 @@ class LoginPage extends React.Component {
     var myObject = {
       email: this.state.userEmail,
       password: this.state.userPassword
-    } 
+    }
 
-    axios.get("http://localhost:5000/user/validate", myObject)
+    var tempProps = this.props;
+
+    axios.post("http://localhost:5000/user/validate", myObject)
     .then(function(response){
-      console.log(response);
-      this.props.history.push('/userView');
+      var resjson = response.data;
+      if (resjson.validationReport == "valid") {
+        tempProps.history.push('/userView');
+      } else {
+        alert(resjson.validationReport);
+      }
+      
+      
       }
     )
     .catch(function(error){
