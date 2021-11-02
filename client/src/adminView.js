@@ -18,7 +18,7 @@ class AdminNav extends React.Component {
                     <Nav className="ms-auto" id="adminChoices">
                         <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                         <Nav.Link href="/stats">Stats</Nav.Link>
-                        <Nav.Link href="/gatekeepers">Gatekeepers</Nav.Link>
+                        <Nav.Link href="/addGatekeepers">Gatekeepers</Nav.Link>
                         <Nav.Link href="/eventCreation">Event Creation</Nav.Link>
                         <Nav.Link href="/Financials">Financials</Nav.Link>
                         <Nav.Link href="/returns">Returns</Nav.Link>

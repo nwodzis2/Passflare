@@ -7,29 +7,12 @@ import {Helmet} from "react-helmet"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-class Header extends React.Component{
-  render(){
-    return(
-      <Helmet>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Passflare Login</title>
-        <meta name="description" content=""/>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"/>        
-        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'/>
-        <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
-        <link rel="stylesheet" href="styles.css"></link>
-        
-      </Helmet>
-    );
-  }
-}
+
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {userEmail: '', userPassword: ''};
+    this.state = {userEmail: '', userPassword: '', redirect: false};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,16 +30,26 @@ class LoginPage extends React.Component {
       password: this.state.userPassword
     } 
 
-    axios.get("http://localhost:5000/user/validate", myObject)
+    this.props.success = axios.get("http://localhost:5000/user/validate", myObject)
     .then(function(response){
       console.log(response);
-      this.props.history.push('/userView');
       }
     )
     .catch(function(error){
       console.log(error);
     })
     event.preventDefault();
+
+    this.loginSuccess(this.props);
+  }
+
+  loginSuccess(props){
+    if (props.success){
+      this.props.history.push("/userView");
+    }
+    else{
+      return(<p>Incorrect email or password. Please try again.</p>);
+    }
   }
 
   render() {
@@ -87,6 +80,13 @@ class LoginPage extends React.Component {
               </Col>
             </Row>
           </form>
+
+        </Col>
+      </Row>
+      <Row>
+        <br/>
+        <Col md="12">
+          <Link to= "/gatekeeperView" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Switch to Gatekeeper</button></Link>
         </Col>
       </Row>
     </Container>
@@ -94,6 +94,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export{
-  Header, LoginPage
-}
+export default withRouter(LoginPage);

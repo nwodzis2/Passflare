@@ -3,16 +3,28 @@ const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
-//var nodemailer = require('nodemailer');
+/*
+        const nodemailer = require("nodemailer");
+            let transporter = nodemailer.createTransport({
+                host: "in-v3.mailjet.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: "ed9355acc25344588ce7cdd1d7218e23",
+                    pass: "e1d668cadc2dab4726a2e3f345dc720a"
+                },
+            });
 
-/*var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'youremail@gmail.com',
-    pass: 'yourpassword'
-  }
-});*/
+            let info = await transporter.sendMail({
+                from: '"Passflare" <passflare@gmail.com>',
+                to: "moster@kent.edu",
+                subject: "Become a Passflare Gatekeeeper",
+                text: "Congratulations on being chosen as a Passflare gatekeeper!",
+                html: "<p>Click <a href='#'>this link</a> to finish your confirmation and become a gatekeeper.</p>"
+            });
 
+            console.log("Message sent: %s", info.messageId);
+*/
 
 //create user
 userRoutes.route("/user/add").post(function (req, res) {

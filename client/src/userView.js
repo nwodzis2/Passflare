@@ -83,13 +83,13 @@ class UserNav extends React.Component {
     return(
       <Navbar fixed="bottom" bg="dark" className="userNavbar">
           <Col align="center">
-          <Link to= "/Passes" style={{textDecoration: 'none'}}>
+          <Link to= "/userView" style={{textDecoration: 'none'}}>
             <i class="fas fa-compass"></i>
             <p>Browse</p>
           </Link>
           </Col>
           <Col align="center">
-          <Link to= "/Passes" style={{textDecoration: 'none'}}>
+          <Link to= "/eventSearch" style={{textDecoration: 'none'}}>
             <i class="fas fa-search"></i>
             <p>Search</p>
           </Link>
