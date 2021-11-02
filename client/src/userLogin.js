@@ -30,11 +30,6 @@ class LoginPage extends React.Component {
       password: this.state.userPassword
     }
 
-<<<<<<< HEAD
-    this.props.success = axios.get("http://localhost:5000/user/validate", myObject)
-    .then(function(response){
-      console.log(response);
-=======
     var tempProps = this.props;
 
     axios.post("http://localhost:5000/user/validate", myObject)
@@ -47,7 +42,6 @@ class LoginPage extends React.Component {
       }
       
       
->>>>>>> 03e7ba61fb5921aeb6285ffeeed9e3f6fe690021
       }
     )
     .catch(function(error){

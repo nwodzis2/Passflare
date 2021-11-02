@@ -10,11 +10,11 @@ import AccountCreation from "./createAccount.js";
 import Payment from "./payment";
 import Passes from "./passes.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
-import GatekeeperView from "./gateKeeperView.js";
 import AdminNav from "./adminView.js";
 import EventCreation from "./eventCreation.js";
 import EmailGatekeeper from "./addGatekeeper.js";
 import AccountEdit from "./editAccount.js";
+import GatekeeperView from "./gateKeeperView";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
   import App from './App';

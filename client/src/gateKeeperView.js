@@ -1,21 +1,4 @@
-<<<<<<< HEAD
-import React, { Component, useDebugValue } from 'react';
-import ReactDOM from 'react-dom';
-import { Link, Redirect, withRouter } from "react-router-dom";
-import './styles.css';
-import { Container, Row, Col} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 
-class GatekeeperView extends React.Component{
-    render() {
-        return (
-        <Container fluid>
-          <Row>
-          </Row>
-        </Container>
-        );
-=======
 import React, { Component, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
@@ -77,7 +60,6 @@ class GatekeeperView extends React.Component{
           </Row>
         </Container>
       );
->>>>>>> 03e7ba61fb5921aeb6285ffeeed9e3f6fe690021
     }
 }
 

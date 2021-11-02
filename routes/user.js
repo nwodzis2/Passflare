@@ -3,23 +3,9 @@ const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
-<<<<<<< HEAD
-/*
-        const nodemailer = require("nodemailer");
-            let transporter = nodemailer.createTransport({
-                host: "in-v3.mailjet.com",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: "ed9355acc25344588ce7cdd1d7218e23",
-                    pass: "e1d668cadc2dab4726a2e3f345dc720a"
-                },
-            });
-=======
 const { ContinuousColorLegend } = require("react-vis");
 //var nodemailer = require('nodemailer');
->>>>>>> 03e7ba61fb5921aeb6285ffeeed9e3f6fe690021
-
+/*
             let info = await transporter.sendMail({
                 from: '"Passflare" <passflare@gmail.com>',
                 to: "moster@kent.edu",
