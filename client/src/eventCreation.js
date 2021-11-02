@@ -22,38 +22,41 @@ class EventCreation extends React.Component{
     }
 
     submitEvent(event) {
-        const {name, description, price, orgID, dateTime, location} = this.state;
-
-        const data = new FormData();
-        data.append("name", name);
-        data.append("description", description);
-        data.append("price", price);
-        data.append("orgID", orgID);
-        data.append("dateTime", dateTime);
-        data.append("location", location);
-        data.append('image', event.target.files[0]);
         
-        axios.post("http://localhost:5000/events/create", data);
+        /*const data = new FormData();
+        data.append("name", this.state.name);
+        data.append("description", this.state.description);
+        data.append("price", this.state.price);
+        data.append("orgID", this.state.orgID);
+        data.append("dateTime", this.state.dateTime);
+        data.append("location", this.state.location);
+        data.append('image', this.image);
+
+        axios.post("http://localhost:5000/events/create", data);*/
 
         //Save below just in case above totally messes everything up
-        /*const {name, description, price, orgID, image, dateTime, location} = this.state;
         let obj = {
-            name: this.state[name],
-            description: this.state[description],
-            price: this.state[price],
-            orgID: this.state[orgID], //Need to get orgID from signed in organization administrator
-            image: this.state[image],
-            dateTime: this.state[dateTime],
-            location: this.state[location],
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price,
+            orgID: 0, //Need to get orgID from signed in organization administrator
+            image: this.state.image,
+            dateTime: this.state.dateTime,
+            location: this.state.location
         }
-        axios.post("http://localhost:5000/events/create", obj);*/
+        axios.post("http://localhost:5000/events/create", obj);
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name] : event.target.value
-        });
-        console.log(this.state);
+        if (event.target.name == "image"){
+            this.setState({
+                image : event.target.files[0]
+            });
+        } else {
+            this.setState({
+                [event.target.name] : event.target.value
+            });
+        }
     }
 
     render(){
@@ -95,7 +98,7 @@ class EventCreation extends React.Component{
                                 <hr/>
                                 <FormLabel>Thumbnail: </FormLabel>
                                 <br/>
-                                <FormControl className="eventInput" type="file" name='thumbnail' onChange={this.handleChange} placeholder="Choose event thumbnail image..."/>
+                                <FormControl className="eventInput" type="file" name='image' onChange={this.handleChange} placeholder="Choose event thumbnail image..."/>
                             </FormGroup>
                             <br/>
                         <Row>

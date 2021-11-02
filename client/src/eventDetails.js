@@ -10,21 +10,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class EventDetails extends React.Component{
     render(){
         return(
-        <Container fluid>
-        <Row>
-          <Col md="12">
-            <Card className="darkCardWide">
-                <img src='images/eventPlaceholder.jpg' alt="placeholder text"/>
-                <Card.Body>
-                    <Card.Text>Event: [Event Title]</Card.Text>
-                    <Card.Text>Date: [Event Date]</Card.Text>
-                    <Card.Text>Name: [Name]</Card.Text>
-                    <Card.Text>Ticket ID: [TicketID]</Card.Text>
-                </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        </Container>
+          <Container fluid>
+            <Row>
+              <Col md="12">
+                <Card className="darkCardWide">
+                  <img src='images/eventPlaceholder.jpg' alt="placeholder text"/>
+                  <Card.Body>
+                      <Card.Text>Event: [Event Title]</Card.Text>
+                      <Card.Text>Date: [Event Date]</Card.Text>
+                      <Card.Text>Name: [Name]</Card.Text>
+                      <Card.Text>Ticket ID: [TicketID]</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         );
     }
 }

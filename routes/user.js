@@ -3,6 +3,7 @@ const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
+<<<<<<< HEAD
 /*
         const nodemailer = require("nodemailer");
             let transporter = nodemailer.createTransport({
@@ -14,6 +15,10 @@ const dbo = require("../db/conn");
                     pass: "e1d668cadc2dab4726a2e3f345dc720a"
                 },
             });
+=======
+const { ContinuousColorLegend } = require("react-vis");
+//var nodemailer = require('nodemailer');
+>>>>>>> 03e7ba61fb5921aeb6285ffeeed9e3f6fe690021
 
             let info = await transporter.sendMail({
                 from: '"Passflare" <passflare@gmail.com>',
@@ -56,11 +61,23 @@ userRoutes.route("/user/add").post(function (req, res) {
     });
 });
 //validate user by password
-userRoutes.route("/user/validate").get(function (req, res) {
+userRoutes.route("/user/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
-    var myUser = db_connect.collection("Users").findOne(query);
-    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512').toString('hex');
+    var myUser = db_connect.collection("Users").findOne(query,
+      function(err, user){
+        if (err) {
+           res.json({validationReport: err});
+        } else {
+          var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, user.Iterations, 64, 'sha512').toString('hex');
+          var validation = (user.Hash == referenceHash);
+          if (validation) {
+            res.json({validationReport: "valid"});
+          } else {
+            res.json({validationReport: "password incorrect"});
+          }
+        }
+      });
   });
 //recover account
 /*userRoutes.route("/user/recover").get(function (req, res){

@@ -28,11 +28,26 @@ class LoginPage extends React.Component {
     var myObject = {
       email: this.state.userEmail,
       password: this.state.userPassword
-    } 
+    }
 
+<<<<<<< HEAD
     this.props.success = axios.get("http://localhost:5000/user/validate", myObject)
     .then(function(response){
       console.log(response);
+=======
+    var tempProps = this.props;
+
+    axios.post("http://localhost:5000/user/validate", myObject)
+    .then(function(response){
+      var resjson = response.data;
+      if (resjson.validationReport == "valid") {
+        tempProps.history.push('/userView');
+      } else {
+        alert(resjson.validationReport);
+      }
+      
+      
+>>>>>>> 03e7ba61fb5921aeb6285ffeeed9e3f6fe690021
       }
     )
     .catch(function(error){

@@ -15,6 +15,8 @@ eventRoutes.route("/events").get(function (req, res) {
   });
 //create event
 eventRoutes.route("/events/create").post(function (req, res){
+    console.log(req.body);
+    console.log(JSON.stringify(req.body.image));
     let db_connect = dbo.getDb("Passflare");
     let myObj = {
           Name : req.body.name,
@@ -74,5 +76,17 @@ eventRoutes.route("/events/:id").get(function (req, res){
         .collection("Events")
         .findOne(id);
     res.json(event);
+});
+//get event by org id
+eventRoutes.route("/events/:orgID").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    var orgid = req.body.orgID;
+    db_connect
+      .collection("Events")
+      .find({OrgID: orgid})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
 });
 module.exports = eventRoutes;
