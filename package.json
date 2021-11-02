@@ -10,7 +10,8 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "server": "node server.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev" : "npm run build && nodemon server.js"
   },
   "keywords": [],
   "author": "",
