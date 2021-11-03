@@ -47,6 +47,13 @@ hr {
 .eventTitle {
     font-size: 1.5rem;
     padding-left: 20px;
+    padding-right: 0px;
+}
+
+.eventRow {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .eventDisplay {
@@ -58,12 +65,17 @@ hr {
 }
 
 .eventCard {
+    display: inline-block;
     margin: 10px;
     width: 120px;
     height: auto;
     text-align: center;
     font-size: 12px;
     font-family: 'Aclonica';
+}
+
+.eventDisplay > a {
+    color: white;
 }
 
 .eventCardImage {
@@ -108,6 +120,50 @@ hr {
     margin-left: 0rem
 }
 
+.userNav {
+    background-color: rgb(37, 37, 37);
+    margin: 0;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    height: 50px;
+    border-bottom: 1px solid rgba(252,163,18,1);
+}
+
+.userNav > h1 {
+    position: absolute;
+    height: auto;
+    left: 10px;
+    top: 25px;
+    margin: 0px;
+    transform: translateY(-50%);
+}
+
+.userNav > .dropdown{
+    position: absolute;
+    top: 25px;
+    height: auto;
+    width: auto;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.userNav > .dropdown > button {
+    padding: 0px 4px;
+}
+
+.userNav > .dropdown > .dropdown-menu {
+    background-color: #252525;
+    border: 1px solid white;
+}
+
+.userNav > .dropdown > .dropdown-menu > a > a {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+
+
 .logo{
     width: 7%;
     margin-bottom: 0.4rem;
@@ -124,6 +180,7 @@ hr {
     color: rgb(252,163,18);
     color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
 }
+
 
 form>p {
     text-align: center;
@@ -285,22 +342,6 @@ input:focus{
 .list-group-item {
     background-color: #1a1a1a;
     border-color:#c9c9c9;
-}
-
-.userNavbar{
-    padding-bottom: 0;
-}
-.userNavbar>div>a>p{
-    margin-bottom: 0.2rem;
-    font-size: 0.8rem;
-}
-
-.userNavbar>div>a{
-    color: white;
-}
-
-.userNavbar>div>a:hover{
-    color: orange;
 }
 
 #userViewBottom{

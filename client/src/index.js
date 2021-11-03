@@ -9,6 +9,8 @@ import Payment from "./payment";
 import Passes from "./passes.js";
 import AdminNav from "./adminView.js";
 import EventCreation from "./eventCreation.js";
+import AccountEdit from "./editAccount.js";
+import EventDetails from "./eventDetails.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
   import App from './App';
@@ -23,7 +25,6 @@ ReactDOM.render(
         <Route exact path="/" component={LoginPage} />
         <Route exact path="/userView">
           <UserView/>
-          <UserNav/>
         </Route>
         <Route exact path="/UserCreation" component={AccountCreation}/>
         <Route exact path="/Passes">
@@ -37,6 +38,12 @@ ReactDOM.render(
         </Route>
         <Route exact path="/eventCreation">
           <EventCreation/>
+        </Route>
+        <Route exact path="/editAccount">
+          <AccountEdit/>
+        </Route>
+        <Route exact path="/eventDetails">
+          <EventDetails/>
         </Route>
       </Switch>
     </Router>,

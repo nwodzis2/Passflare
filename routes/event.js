@@ -24,8 +24,10 @@ eventRoutes.route("/events/create").post(function (req, res){
           Price: req.body.price,
           OrgID : req.body.orgID,
           Image : req.body.image,
-          DateTime : req.body.dateTime,
-          Location : req.body.location,
+          Date : req.body.date,
+          StartTime: req.body.startTime,
+          EndTime: req.body.endTime,
+          Location : req.body.location
       };
     var event = db_connect
         .collection("Events")

@@ -49,10 +49,26 @@ class LoginPage extends React.Component {
 
     var tempProps = this.props;
 
+    //Validate user
     axios.post("http://localhost:5000/user/validate", myObject)
     .then(function(response){
       var resjson = response.data;
       if (resjson.validationReport == "valid") {
+
+        let emailObj = {
+          email: myObject.email
+        }
+        //If valid fetch user data
+        axios.post("http://localhost:5000/user/email", emailObj).then(function(userResponse){
+          localStorage.setItem("userEmail", userResponse.data.response.Email);
+          localStorage.setItem("userName", userResponse.data.response.Name);
+          localStorage.setItem("orgID", userResponse.data.response.OrgID);
+        })
+        .catch(function(error){
+          console.log(error);
+        });
+
+
         tempProps.history.push('/userView');
       } else {
         alert(resjson.validationReport);
@@ -62,7 +78,7 @@ class LoginPage extends React.Component {
       }
     )
     .catch(function(error){
-      console.log(error);
+      console.log(error); 
     })
     event.preventDefault();
   }

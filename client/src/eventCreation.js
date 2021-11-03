@@ -14,8 +14,10 @@ class EventCreation extends React.Component{
             price: '',
             orgID: '', //Need to get orgID from signed in organization administrator
             image: '',
-            dateTime: '',
-            location: '',
+            date: '',
+            startTime: '',
+            endTime: '',
+            location: ''
         };
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -41,7 +43,9 @@ class EventCreation extends React.Component{
             price: this.state.price,
             orgID: 0, //Need to get orgID from signed in organization administrator
             image: this.state.image,
-            dateTime: this.state.dateTime,
+            date: this.state.date,
+            startTime: this.state.startTime,
+            endTime: this.state.endTime,
             location: this.state.location
         }
         axios.post("http://localhost:5000/events/create", obj);
@@ -90,8 +94,14 @@ class EventCreation extends React.Component{
                                     <FormControl className="eventInput" type="text" name='price' autoComplete="off" onChange={this.handleChange} placeholder="X.XX"/>
                                 </InputGroup>
                                 <hr/>
-                                <FormLabel>Date and Time </FormLabel>
-                                <FormControl className="eventInput" type="date" name='dateTime' autoComplete="off" onChange={this.handleChange} placeholder="Enter event date..."/>
+                                <FormLabel>Date </FormLabel>
+                                <FormControl className="eventInput" type="date" name='date' autoComplete="off" onChange={this.handleChange} placeholder="Enter event date..."/>
+                                <hr/>
+                                <FormLabel>Starting Time </FormLabel>
+                                <FormControl className="eventInput" type="text" name='startTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
+                                <hr/>
+                                <FormLabel>Ending Time </FormLabel>
+                                <FormControl className="eventInput" type="text" name='endTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
                                 <hr/>
                                 <FormLabel>Location: </FormLabel>
                                 <FormControl className="eventInput" type="text" name='location' onChange={this.handleChange} placeholder="Enter event location..."/>

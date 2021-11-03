@@ -44,8 +44,23 @@ userRoutes.route("/user/add").post(function (req, res) {
       if (err) throw err;
     });
 });
-//validate user by password
-userRoutes.route("/user/validate").post(function (req, res) {
+
+//Fetch user information by email
+userRoutes.route("/user/email").post(function (req, res) {
+    let db_connect = dbo.getDb("Passflare");
+    var query = {Email : req.body.email};
+    var myUser = db_connect.collection("Users").findOne(query,
+      function(err, user){
+        if (err) {
+          res.json({response: err});
+        } else {
+          res.json({response: user});
+        }
+      });
+  });
+  
+  //validate user by password
+  userRoutes.route("/user/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
     var myUser = db_connect.collection("Users").findOne(query,
@@ -122,5 +137,7 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
       console.log("user deleted");
     });
   });
+
+  
   
   module.exports = userRoutes;
