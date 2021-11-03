@@ -110,4 +110,37 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
       console.log("user deleted");
     });
   });
+  //send gatekeeper email
+  adminRoutes.route("/admin/sendMail").get(function (req, res){
+    const nodemailer = require("nodemailer");
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+        auth: {
+            user: "passflare@gmail.com",
+            pass: "CapSquadAdmin2021?"
+        },
+    });
+
+    var email = req.query.email;
+    let db_connect = dbo.getDb("Passflare");
+    var query = {Email : email};
+    var myUser = db_connect.collection("Users").findOne(query);
+    var name = myUser.Name;
+
+    const newTo = {
+      pathname: "/createGatekeeper",
+      email: email,
+      name: name
+    }
+    
+    let info = transporter.sendMail({
+        from: '"Passflare" <passflare@gmail.com>',
+        to: String(email),
+        subject: "Become a Passflare Gatekeeeper",
+        text: "Congratulations on being chosen as a Passflare gatekeeper!",
+        html: '<p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="http://localhost:5000/gatekeeperVerification/' + email + 
+          '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
+    });
+  });
+
   module.exports = adminRoutes;

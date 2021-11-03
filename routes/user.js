@@ -5,15 +5,17 @@ const crypto = require("crypto");
 const dbo = require("../db/conn");
 const { ContinuousColorLegend } = require("react-vis");
 //var nodemailer = require('nodemailer');
+/*
+            let info = await transporter.sendMail({
+                from: '"Passflare" <passflare@gmail.com>',
+                to: "moster@kent.edu",
+                subject: "Become a Passflare Gatekeeeper",
+                text: "Congratulations on being chosen as a Passflare gatekeeper!",
+                html: "<p>Click <a href='#'>this link</a> to finish your confirmation and become a gatekeeper.</p>"
+            });
 
-/*var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'youremail@gmail.com',
-    pass: 'yourpassword'
-  }
-});*/
-
+            console.log("Message sent: %s", info.messageId);
+*/
 
 //create user
 userRoutes.route("/user/add").post(function (req, res) {
