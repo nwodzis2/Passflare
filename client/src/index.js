@@ -15,7 +15,6 @@ import EventCreation from "./eventCreation.js";
 import AccountEdit from "./editAccount.js";
 import EventDetails from "./eventDetails.js";
 import EmailGatekeeper from "./addGatekeeper.js";
-import AccountEdit from "./editAccount.js";
 import GatekeeperView from "./gateKeeperView";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
