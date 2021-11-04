@@ -4,6 +4,7 @@ body, html{
     margin: 0px;
     padding: 0px;
     border: 0px;
+    font-size: 16px;
 }
 .body-no-scroll{
     overflow: hidden;
@@ -38,7 +39,7 @@ hr {
 .title{
     margin: auto;
     margin-top: 12rem;
-    margin-bottom: 8rem;
+    margin-bottom: 5rem;
     font-weight: normal;
 }
 
@@ -199,7 +200,7 @@ form>p {
     margin: auto;
     width: 13rem;
     height: 1.8em;
-    font-size: 0.8em;
+    font-size: .9em;
     color: white;
     padding-left: 1rem;
     background-color: #121212;
@@ -302,15 +303,17 @@ input:focus{
 
 .passBtn{
     display:flex;
-    padding: 0.4em;
+    padding: 0.6em;
     justify-content: center;
     align-items: center;
     text-align: center;
     border: none;
-    border-radius: 1rem;
+    border-radius: .75rem;
     margin:auto;
     margin-bottom: 0em;
     background-color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1rem;
 }
 
 .passBtnDark{
@@ -328,15 +331,24 @@ input:focus{
 
 .passBtnNext{
     display:flex;
-    padding: 0.4em;
+    padding: 0.6em;
     justify-content: center;
     align-items: center;
     text-align: center;
     border: none;
-    border-radius: 1rem;
+    border-radius: .75rem;
     margin-bottom: 0em;
+    line-height: 1rem;
 }
-
+.create-account-btn{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.create-account-btn:hover{
+    color: grey;
+}
 .eventImg{
     width: 20em;
     height: 20em;
