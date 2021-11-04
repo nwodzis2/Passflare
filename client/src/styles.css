@@ -339,6 +339,7 @@ input:focus{
     border-radius: .75rem;
     margin-bottom: 0em;
     line-height: 1rem;
+    cursor: pointer;
 }
 .create-account-btn{
     text-decoration: none;
