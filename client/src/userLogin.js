@@ -17,7 +17,12 @@ class LoginPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  componentDidMount(){
+    document.body.classList.add('body-no-scroll');
+  }
+  componentWillUnmount(){
+    document.body.classList.remove('body-no-scroll');
+  }
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -79,7 +84,7 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-    <Container fluid>
+    <Container fluid style={{overflow: 'hidden'}}>
       <Row>
         <Col md="12">
           <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
@@ -95,10 +100,10 @@ class LoginPage extends React.Component {
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
               SMS messages from Passflare and its affiliates.</p>
             <Row>
-              <Col md="8">
+              <Col sm="8" md="8">
                 <Link to= "/UserCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
               </Col>
-              <Col md="4">
+              <Col sm="4" md="4">
                 <button className="btn btn-dark passBtnNext" type="submit">
                 Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                 </button>

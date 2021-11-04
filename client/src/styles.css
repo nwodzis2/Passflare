@@ -5,7 +5,11 @@ body, html{
     padding: 0px;
     border: 0px;
 }
-
+.body-no-scroll{
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -325,7 +329,6 @@ input:focus{
 .passBtnNext{
     display:flex;
     padding: 0.4em;
-    margin-left: -3em;
     justify-content: center;
     align-items: center;
     text-align: center;
