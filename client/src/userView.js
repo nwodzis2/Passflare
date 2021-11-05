@@ -56,19 +56,16 @@ class UserView extends React.Component{
   }
 
   render(){
-    if(validated === null){
-      return(
-        <Redirect to="/" />
-      )
-    }
+
     return(
       <Container fluid style={{padding: 0}}>
         <UserNav/>
-        <Row className="eventRow" style={{maxWidth: "100%"}, {marginTop: 15}}>
+        <Row className="eventRow" style={{}, {marginTop: 15}}>
               <h1 className="eventTitle">Tickets owned:</h1>
               <div id="testEvent" className="eventDisplay">
                 {ownedTickets}
               </div>
+
         </Row>
         <Row className="eventRow">
               <h1 className="eventTitle">Events to check out</h1>
@@ -115,6 +112,7 @@ class UserNav extends React.Component {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
     localStorage.removeItem('validated');
+    <Redirect to="/" />
   }
 
   render(){

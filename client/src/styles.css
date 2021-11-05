@@ -65,6 +65,7 @@ hr {
     width: 100%;
     margin-left: 0px;
     margin-right: 0px;
+    
 }
 
 .eventDisplay {
@@ -73,6 +74,8 @@ hr {
     width: 90%;
     float: left;
     min-height: 100px;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 .eventCard {
@@ -83,10 +86,13 @@ hr {
     text-align: center;
     font-size: 12px;
     font-family: 'Aclonica';
+    background-color: #121212;
+    border-radius: 5%;
 }
 
 .eventDisplay > a {
     color: white;
+    
 }
 
 .eventCardImage {
@@ -471,3 +477,12 @@ input:focus{
 	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,0,0,1);
 	transform: scale(0.99);
 }
+/*Gatekeeper*/
+#top-buttons{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+/*Gatekeeper*/
