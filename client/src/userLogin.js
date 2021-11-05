@@ -46,6 +46,7 @@ class LoginPage extends React.Component {
           localStorage.setItem("userEmail", userResponse.data.response.Email);
           localStorage.setItem("userName", userResponse.data.response.Name);
           localStorage.setItem("orgID", userResponse.data.response.OrgID);
+          localStorage.setItem("validated", true);
         })
         .catch(function(error){
           console.log(error);
@@ -79,13 +80,13 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-    <Container fluid style={{overflow: 'hidden'}}>
+    <Container fluid >
       <Col md="12" style={{dispax:'flex', justifyContent: 'right', paddingTop: '2vh'}}>
           <Link to= "/gatekeeperView" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Switch to Gatekeeper &nbsp; <i class="fas fa-chevron-right" style={{fontSize:'12px'}}></i></button></Link>
         </Col>
       <Row>
         <Col md="12">
-          <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
+          <h1 className="title"><i className="fas fa-ticket-alt passTicket passflareTextGradient"></i> Passflare</h1>
         </Col>
       </Row>
       <Row>

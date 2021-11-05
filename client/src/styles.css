@@ -36,7 +36,10 @@ hr {
     color: white;
     font-family: 'Aclonica';
 }
-
+.welcome-to-passflare{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .title{
     margin: auto;
     margin-top: 12rem;
@@ -184,9 +187,10 @@ hr {
 }
 
 .passTicket{
-    
-    color: rgb(252,163,18);
-    color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
+
+    background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 
@@ -294,7 +298,11 @@ input:focus{
     padding-left: 2em;
     padding-right: 2em;
 }
-
+.passflareTextGradient{
+    background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 .darkCardWide{
     background-color: #1a1a1a;
     padding-top: 1em;
