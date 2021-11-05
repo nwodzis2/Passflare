@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Container, Row, Navbar, Dropdown, DropdownButton} from 'react-bootstrap';
-import { BrowserRouter as Router,
-  Switch, Route, Link} from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import EventDetails from './eventDetails';
@@ -13,7 +13,7 @@ const userEmail = localStorage.getItem('userEmail');
 const orgID = parseInt(localStorage.getItem('orgID'));
 const userName = localStorage.getItem('userName');
 const userID = localStorage.getItem('userID');
-
+const validated = localStorage.getItem('validated')
 
 class UserView extends React.Component{
   constructor(props){
@@ -22,15 +22,16 @@ class UserView extends React.Component{
     this.state = {
       loading: true,
     }
-
-
     this.fetchEventData = this.fetchEventData.bind(this);
   }
 
   componentDidMount() {
+    
     this.fetchEventData();
   }
-
+  componentWillMount(){
+    
+  }
   fetchEventData = () => {
     let obj = {
       orgID: orgID
@@ -54,8 +55,12 @@ class UserView extends React.Component{
     );
   }
 
-
   render(){
+    if(validated === null){
+      return(
+        <Redirect to="/" />
+      )
+    }
     return(
       <Container fluid style={{padding: 0}}>
         <UserNav/>
@@ -98,19 +103,22 @@ class EventCard extends React.Component {
 }
 
 class UserNav extends React.Component {
+  
   constructor(props){
     super(props);
 
     this.signOut = this.signOut.bind(this);
   }
-
+  
   signOut = () => {
     localStorage.removeItem('orgID');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
+    localStorage.removeItem('validated');
   }
 
   render(){
+    
     return(
         <Container className="userNav">
           <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
