@@ -43,7 +43,7 @@ class UserView extends React.Component{
       unownedTickets.pop();
     }
 
-    axios.post("http://localhost:5000/events/:orgID", obj).then(
+    axios.post("/events/:orgID", obj).then(
       response => {
         //Need to change this to sort owned and unowned tickets
         for (let i = 0; i < response.data.length; ++i) {
@@ -56,10 +56,6 @@ class UserView extends React.Component{
 
 
   render(){
-    if (this.state.loading){
-      return <div>Loading...</div>
-    }
-
     return(
       <Container fluid style={{padding: 0}}>
         <UserNav/>

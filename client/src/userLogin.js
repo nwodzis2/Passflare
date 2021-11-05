@@ -30,6 +30,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     var myObject = {
       email: this.state.userEmail,
       password: this.state.userPassword
@@ -38,7 +39,7 @@ class LoginPage extends React.Component {
     var tempProps = this.props;
 
     //Validate user
-    axios.post("http://localhost:5000/user/validate", myObject)
+    axios.post("/user/validate", myObject)
     .then(function(response){
       var resjson = response.data;
       if (resjson.validationReport == "valid") {
@@ -47,7 +48,7 @@ class LoginPage extends React.Component {
           email: myObject.email
         }
         //If valid fetch user data
-        axios.post("http://localhost:5000/user/email", emailObj).then(function(userResponse){
+        axios.post("/user/email", emailObj).then(function(userResponse){
           localStorage.setItem("userEmail", userResponse.data.response.Email);
           localStorage.setItem("userName", userResponse.data.response.Name);
           localStorage.setItem("orgID", userResponse.data.response.OrgID);
@@ -68,7 +69,7 @@ class LoginPage extends React.Component {
     .catch(function(error){
       console.log(error); 
     })
-    event.preventDefault();
+    
 
     this.loginSuccess(this.props);
   }
