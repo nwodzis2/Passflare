@@ -95,7 +95,7 @@ class LoginPage extends React.Component {
       </Row>
       <Row>
         <Col md="12">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} id="log-in-form">
             <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
             <br/>
             <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
@@ -106,7 +106,7 @@ class LoginPage extends React.Component {
             
             <Row>
               <Col md="12">
-                <button className="btn btn-dark passBtnNext" type="submit">
+                <button className="btn btn-dark passBtnNext" type="submit" form="log-in-form">
                 Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                 </button>
               </Col>
