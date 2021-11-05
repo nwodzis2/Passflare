@@ -113,7 +113,7 @@ class UserNav extends React.Component {
   render(){
     return(
         <Container className="userNav">
-          <h1><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
+          <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           <DropdownButton variant='dark' title={userName} align="end">
             <Dropdown.Item variant='dark'><Link to="/editAccount">Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>

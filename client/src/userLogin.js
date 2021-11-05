@@ -17,12 +17,6 @@ class LoginPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount(){
-    document.body.classList.add('body-no-scroll');
-  }
-  componentWillUnmount(){
-    document.body.classList.remove('body-no-scroll');
-  }
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;

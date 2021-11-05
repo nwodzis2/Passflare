@@ -5,6 +5,7 @@ body, html{
     padding: 0px;
     border: 0px;
     font-size: 16px;
+    font-family: "Roboto";
 }
 .body-no-scroll{
     overflow: hidden;
@@ -20,7 +21,7 @@ input::-webkit-inner-spin-button {
 
 h1 {
     color: white;
-    font-family: 'Aclonica';
+
 }
 
 h2 {
@@ -41,6 +42,8 @@ hr {
     margin-top: 12rem;
     margin-bottom: 5rem;
     font-weight: normal;
+    font-size: 40px;
+    font-family: 'Aclonica';
 }
 
 .smallTitle {
@@ -126,7 +129,6 @@ hr {
 }
 
 .userNav {
-    background-color: rgb(37, 37, 37);
     margin: 0;
     width: 100%;
     left: 0px;
@@ -139,7 +141,7 @@ hr {
     position: absolute;
     height: auto;
     left: 10px;
-    top: 25px;
+    top: 30px;
     margin: 0px;
     transform: translateY(-50%);
 }
@@ -182,6 +184,7 @@ hr {
 }
 
 .passTicket{
+    
     color: rgb(252,163,18);
     color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
 }
@@ -200,7 +203,7 @@ form>p {
     margin: auto;
     width: 13rem;
     height: 1.8em;
-    font-size: .9em;
+    font-size: 16px;
     color: white;
     padding-left: 1rem;
     background-color: #121212;
