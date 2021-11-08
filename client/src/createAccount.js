@@ -20,7 +20,7 @@ class AccountCreation extends React.Component{
             password: this.state.password,
             orgID: 0 //Need to change this when the time comes / add way of obtaining it in the form
         }
-        axios.post("http://localhost:5000/user/add", obj);
+        axios.post("/user/add", obj);
     }
 
     handleChange(event) {
@@ -32,12 +32,10 @@ class AccountCreation extends React.Component{
     render(){
         return(
             <Container fluid>
-                <Row>
-                    <Col></Col>
-                    <Col><h2>Welcome to Passflare!</h2></Col>
-                    <Col></Col>
+                <Row className="welcome-to-passflare">
+                    <Col md="12"><h2>Welcome to Passflare!</h2></Col>
                 </Row> 
-              <Row>
+              <Row >
                 <Col md="12">
                     <Card className="darkCard">
                         <Card.Title>Please enter your information below.</Card.Title>                            

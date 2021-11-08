@@ -18,7 +18,6 @@ class LoginPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleGatekeeperSubmit = this.handleGatekeeperSubmit.bind(this);
   }
-
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -26,6 +25,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     var myObject = {
       email: this.state.userEmail,
       password: this.state.userPassword
@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
     var tempProps = this.props;
 
     //Validate user
-    axios.post("http://localhost:5000/user/validate", myObject)
+    axios.post("/user/validate", myObject)
     .then(function(response){
       var resjson = response.data;
       if (resjson.validationReport == "valid") {
@@ -43,10 +43,11 @@ class LoginPage extends React.Component {
           email: myObject.email
         }
         //If valid fetch user data
-        axios.post("http://localhost:5000/user/email", emailObj).then(function(userResponse){
+        axios.post("/user/email", emailObj).then(function(userResponse){
           localStorage.setItem("userEmail", userResponse.data.response.Email);
           localStorage.setItem("userName", userResponse.data.response.Name);
           localStorage.setItem("orgID", userResponse.data.response.OrgID);
+          localStorage.setItem("validated", true);
         })
         .catch(function(error){
           console.log(error);
@@ -64,7 +65,7 @@ class LoginPage extends React.Component {
     .catch(function(error){
       console.log(error); 
     })
-    event.preventDefault();
+    
 
     this.loginSuccess(this.props);
   }
@@ -130,10 +131,13 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-    <Container fluid>
+    <Container fluid >
+      <Col md="12" style={{dispax:'flex', justifyContent: 'right', paddingTop: '2vh'}}>
+          <Link to= "/gatekeeperView" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Switch to Gatekeeper &nbsp; <i class="fas fa-chevron-right" style={{fontSize:'12px'}}></i></button></Link>
+        </Col>
       <Row>
         <Col md="12">
-          <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
+          <h1 className="title"><i className="fas fa-ticket-alt passTicket passflareTextGradient"></i> Passflare</h1>
         </Col>
       </Row>
       <Row>
@@ -143,32 +147,27 @@ class LoginPage extends React.Component {
             <br/>
             <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
             <br/>
+            
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
               SMS messages from Passflare and its affiliates.</p>
+            
             <Row>
-              <Col md="8">
-                <Link to= "/UserCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
-              </Col>
-              <Col md="4">
-              <button className="btn btn-dark passBtnNext" type="submit" onClick={this.handleSubmit}>
+              <Col md="12">
+                <button className="btn btn-dark passBtnNext" type="submit">
                 Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                 </button>
               </Col>
             </Row>
+            <br/>
             <Row>
-                <br/>
-                  <Col md="12">
-                    <button className="btn btn-dark passBtn" type="submit" onClick={this.handleGatekeeperSubmit}>Login as Gatekeeper</button>
-                  </Col>
-                </Row>
+            <Link to= "/UserCreation" className="create-account-btn"><u>Create Account</u></Link>
+            </Row>
           </form>
         </Col>
       </Row>
       <Row>
         <br/>
-        <Col md="12">
-          <Link to= "/gatekeeperView" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Switch to Gatekeeper</button></Link>
-        </Col>
+        
       </Row>
     </Container>
     );

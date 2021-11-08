@@ -4,8 +4,14 @@ body, html{
     margin: 0px;
     padding: 0px;
     border: 0px;
+    font-size: 16px;
+    font-family: "Roboto";
 }
-
+.body-no-scroll{
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -15,7 +21,7 @@ input::-webkit-inner-spin-button {
 
 h1 {
     color: white;
-    font-family: 'Aclonica';
+
 }
 
 h2 {
@@ -30,12 +36,17 @@ hr {
     color: white;
     font-family: 'Aclonica';
 }
-
+.welcome-to-passflare{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .title{
     margin: auto;
     margin-top: 12rem;
-    margin-bottom: 8rem;
+    margin-bottom: 5rem;
     font-weight: normal;
+    font-size: 40px;
+    font-family: 'Aclonica';
 }
 
 .smallTitle {
@@ -54,6 +65,7 @@ hr {
     width: 100%;
     margin-left: 0px;
     margin-right: 0px;
+    
 }
 
 .eventDisplay {
@@ -62,6 +74,8 @@ hr {
     width: 90%;
     float: left;
     min-height: 100px;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 .eventCard {
@@ -72,10 +86,13 @@ hr {
     text-align: center;
     font-size: 12px;
     font-family: 'Aclonica';
+    background-color: #121212;
+    border-radius: 5%;
 }
 
 .eventDisplay > a {
     color: white;
+    
 }
 
 .eventCardImage {
@@ -121,7 +138,6 @@ hr {
 }
 
 .userNav {
-    background-color: rgb(37, 37, 37);
     margin: 0;
     width: 100%;
     left: 0px;
@@ -134,7 +150,7 @@ hr {
     position: absolute;
     height: auto;
     left: 10px;
-    top: 25px;
+    top: 30px;
     margin: 0px;
     transform: translateY(-50%);
 }
@@ -177,8 +193,10 @@ hr {
 }
 
 .passTicket{
-    color: rgb(252,163,18);
-    color: linear-gradient(90deg, rgba(252,163,18,1) 50%, rgba(255,0,0,1) 100%);
+
+    background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 
@@ -195,7 +213,7 @@ form>p {
     margin: auto;
     width: 13rem;
     height: 1.8em;
-    font-size: 0.8em;
+    font-size: 16px;
     color: white;
     padding-left: 1rem;
     background-color: #121212;
@@ -286,7 +304,11 @@ input:focus{
     padding-left: 2em;
     padding-right: 2em;
 }
-
+.passflareTextGradient{
+    background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 .darkCardWide{
     background-color: #1a1a1a;
     padding-top: 1em;
@@ -298,15 +320,17 @@ input:focus{
 
 .passBtn{
     display:flex;
-    padding: 0.4em;
+    padding: 0.6em;
     justify-content: center;
     align-items: center;
     text-align: center;
     border: none;
-    border-radius: 1rem;
+    border-radius: .75rem;
     margin:auto;
     margin-bottom: 0em;
     background-color: #1a1a1a;
+    font-size: 14px;
+    line-height: 1rem;
 }
 
 .passBtnDark{
@@ -324,16 +348,25 @@ input:focus{
 
 .passBtnNext{
     display:flex;
-    padding: 0.4em;
-    margin-left: -3em;
+    padding: 0.6em;
     justify-content: center;
     align-items: center;
     text-align: center;
     border: none;
-    border-radius: 1rem;
+    border-radius: .75rem;
     margin-bottom: 0em;
+    line-height: 1rem;
+    cursor: pointer;
 }
-
+.create-account-btn{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.create-account-btn:hover{
+    color: grey;
+}
 .eventImg{
     width: 20em;
     height: 20em;
@@ -444,3 +477,12 @@ input:focus{
 	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,0,0,1);
 	transform: scale(0.99);
 }
+/*Gatekeeper*/
+#top-buttons{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+/*Gatekeeper*/

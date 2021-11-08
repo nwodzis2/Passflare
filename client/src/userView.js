@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Container, Row, Navbar, Dropdown, DropdownButton} from 'react-bootstrap';
-import { BrowserRouter as Router,
-  Switch, Route, Link} from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import EventDetails from './eventDetails';
@@ -13,7 +13,7 @@ const userEmail = localStorage.getItem('userEmail');
 const orgID = parseInt(localStorage.getItem('orgID'));
 const userName = localStorage.getItem('userName');
 const userID = localStorage.getItem('userID');
-
+const validated = localStorage.getItem('validated')
 
 class UserView extends React.Component{
   constructor(props){
@@ -22,15 +22,16 @@ class UserView extends React.Component{
     this.state = {
       loading: true,
     }
-
-
     this.fetchEventData = this.fetchEventData.bind(this);
   }
 
   componentDidMount() {
+    
     this.fetchEventData();
   }
-
+  componentWillMount(){
+    
+  }
   fetchEventData = () => {
     let obj = {
       orgID: orgID
@@ -43,7 +44,7 @@ class UserView extends React.Component{
       unownedTickets.pop();
     }
 
-    axios.post("http://localhost:5000/events/:orgID", obj).then(
+    axios.post("/events/:orgID", obj).then(
       response => {
         //Need to change this to sort owned and unowned tickets
         for (let i = 0; i < response.data.length; ++i) {
@@ -54,20 +55,17 @@ class UserView extends React.Component{
     );
   }
 
-
   render(){
-    if (this.state.loading){
-      return <div>Loading...</div>
-    }
 
     return(
       <Container fluid style={{padding: 0}}>
         <UserNav/>
-        <Row className="eventRow" style={{maxWidth: "100%"}, {marginTop: 15}}>
+        <Row className="eventRow" style={{}, {marginTop: 15}}>
               <h1 className="eventTitle">Tickets owned:</h1>
               <div id="testEvent" className="eventDisplay">
                 {ownedTickets}
               </div>
+
         </Row>
         <Row className="eventRow">
               <h1 className="eventTitle">Events to check out</h1>
@@ -102,22 +100,26 @@ class EventCard extends React.Component {
 }
 
 class UserNav extends React.Component {
+  
   constructor(props){
     super(props);
 
     this.signOut = this.signOut.bind(this);
   }
-
+  
   signOut = () => {
     localStorage.removeItem('orgID');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
+    localStorage.removeItem('validated');
+    <Redirect to="/" />
   }
 
   render(){
+    
     return(
         <Container className="userNav">
-          <h1><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
+          <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           <DropdownButton variant='dark' title={userName} align="end">
             <Dropdown.Item variant='dark'><Link to="/editAccount">Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
