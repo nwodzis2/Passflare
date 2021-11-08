@@ -15,7 +15,7 @@ class EmailGatekeeper extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
-    async onSubmit(event){
+    onSubmit(event){
         const requestOne = axios.get("http://localhost:5000/admin/sendMail", {
             params:{
                 email: this.state.email
