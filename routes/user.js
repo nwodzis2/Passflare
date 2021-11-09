@@ -72,12 +72,16 @@ userRoutes.route("/user/email").post(function (req, res) {
         if (err) {
            res.json({validationReport: err});
         } else {
-          var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, user.Iterations, 64, 'sha512').toString('hex');
-          var validation = (user.Hash == referenceHash);
-          if (validation) {
-            res.json({validationReport: "valid"});
+          if (user == null){
+            res.json({validationReport: "Not a verified user."});
           } else {
-            res.json({validationReport: "password incorrect"});
+            var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, user.Iterations, 64, 'sha512').toString('hex');
+            var validation = (user.Hash == referenceHash);
+            if (validation) {
+              res.json({validationReport: "valid"});
+            } else {
+              res.json({validationReport: "password incorrect"});
+            }
           }
         }
       });

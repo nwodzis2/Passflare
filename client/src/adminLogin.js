@@ -27,7 +27,7 @@ class AdminLogin extends React.Component {
             password: this.state.userPassword
           }
       
-          var tempProps = this.props;
+          var self = this;
       
           //Validate user
           axios.post("/user/validate", myObject)
@@ -40,25 +40,22 @@ class AdminLogin extends React.Component {
               }
               //If valid fetch user data
               axios.post("/user/email", emailObj).then(function(userResponse){
-                localStorage.setItem("userEmail", userResponse.data.response.Email);
-                localStorage.setItem("userName", userResponse.data.response.Name);
-                localStorage.setItem("orgID", userResponse.data.response.OrgID);
-              })
-              .catch(function(error){
-                console.log(error);
-              });
-      
-              axios.post("/admin/validate", emailObj)
+                axios.post("/admin/validate", emailObj)
                 .then(function(response){
                   resjson = response.data;
                   if (resjson.validationReport == "adminValid")
-                    tempProps.history.push('/adminView');
+                    self.props.history.push("/adminView", {userData: userResponse.data.response});
                   else 
                     alert(resjson.validationReport);
                 })
                 .catch(function (error){
                   console.log(error);
                 })
+              })
+              .catch(function(error){
+                console.log(error);
+              });
+      
             } else {
               alert(resjson.validationReport);
             }
