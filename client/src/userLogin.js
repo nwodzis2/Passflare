@@ -73,7 +73,7 @@ class LoginPage extends React.Component {
       </Row>
       <Row>
         <Col md="12">
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
             <br/>
             <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
