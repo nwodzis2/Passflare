@@ -1,6 +1,6 @@
 import React, { Component, useDebugValue } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Helmet} from "react-helmet"
@@ -52,9 +52,7 @@ class LoginPage extends React.Component {
         .catch(function(error){
           console.log(error);
         });
-
-
-        tempProps.history.push('/userView');
+        <Redirect to="/userView" />
       } else {
         alert(resjson.validationReport);
       }
@@ -79,7 +77,7 @@ class LoginPage extends React.Component {
     var tempProps = this.props;
 
     //Validate user
-    axios.post("http://localhost:5000/user/validate", myObject)
+    axios.post("/user/validate", myObject)
     .then(function(response){
       var resjson = response.data;
       if (resjson.validationReport == "valid") {
@@ -88,7 +86,7 @@ class LoginPage extends React.Component {
           email: myObject.email
         }
         //If valid fetch user data
-        axios.post("http://localhost:5000/user/email", emailObj).then(function(userResponse){
+        axios.post("/user/email", emailObj).then(function(userResponse){
           localStorage.setItem("userEmail", userResponse.data.response.Email);
           localStorage.setItem("userName", userResponse.data.response.Name);
           localStorage.setItem("orgID", userResponse.data.response.OrgID);
@@ -97,7 +95,7 @@ class LoginPage extends React.Component {
           console.log(error);
         });
 
-        axios.post("http://localhost:5000/gatekeeper/validate", emailObj)
+        axios.post("/gatekeeper/validate", emailObj)
           .then(function(response){
             resjson = response.data;
             if (resjson.validationReport == "gatekeeperValid")
