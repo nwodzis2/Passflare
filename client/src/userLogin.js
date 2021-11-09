@@ -52,7 +52,6 @@ class LoginPage extends React.Component {
         .catch(function(error){
           console.log(error);
         });
-        <Redirect to="/userView" />
       } else {
         alert(resjson.validationReport);
       }
@@ -120,7 +119,7 @@ class LoginPage extends React.Component {
 
   loginSuccess(props){
     if (props.success){
-      this.props.history.push("/userView");
+      return <Redirect to="/userView" />
     }
     else{
       return(<p>Incorrect email or password. Please try again.</p>);
