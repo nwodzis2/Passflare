@@ -55,7 +55,11 @@ class TicketOperation extends React.Component {
   }
 
   componentWillMount() {
-    this.generateQRCode();
+    if (this.props.owned) {
+      this.generateQRCode();
+    } else {
+      this.setState({loading: false});
+    }
   }
 
   generateQRCode = () => {
