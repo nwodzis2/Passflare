@@ -18,6 +18,7 @@ import AccountEdit from "./editAccount.js";
 import EventDetails from "./eventDetails.js";
 import EmailGatekeeper from "./addGatekeeper.js";
 import GatekeeperView from "./gateKeeperView";
+import FAQ from "./FAQ.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
   import App from './App';
@@ -78,7 +79,8 @@ ReactDOM.render(
         <Route exact path="/eventDetails" component={EventDetails}/>
         <Route exact path="/addGatekeepers" component={EmailGatekeeper}/>
         <Route exact path="/editAccount" component={AccountEdit}/>
-        <Route exact path="/payment" component={Payment}/>
+        <Route exact path="/payment" component={Payment} />
+        <Route exact path="/faq" component={FAQ} />
       </Switch>
     </Router>,
   document.getElementById('root'),
