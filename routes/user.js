@@ -120,7 +120,6 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
         Number : req.body.number,
         Name : req.body.name,
         Email : req.body.email,
-        OrgID : req.body.orgid
       },
     };
     db_connect

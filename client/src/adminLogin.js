@@ -30,7 +30,7 @@ class AdminLogin extends React.Component {
           var tempProps = this.props;
       
           //Validate user
-          axios.post("http://localhost:5000/user/validate", myObject)
+          axios.post("/user/validate", myObject)
           .then(function(response){
             var resjson = response.data;
             if (resjson.validationReport == "valid") {
@@ -39,7 +39,7 @@ class AdminLogin extends React.Component {
                 email: myObject.email
               }
               //If valid fetch user data
-              axios.post("http://localhost:5000/user/email", emailObj).then(function(userResponse){
+              axios.post("/user/email", emailObj).then(function(userResponse){
                 localStorage.setItem("userEmail", userResponse.data.response.Email);
                 localStorage.setItem("userName", userResponse.data.response.Name);
                 localStorage.setItem("orgID", userResponse.data.response.OrgID);
@@ -48,7 +48,7 @@ class AdminLogin extends React.Component {
                 console.log(error);
               });
       
-              axios.post("http://localhost:5000/admin/validate", emailObj)
+              axios.post("/admin/validate", emailObj)
                 .then(function(response){
                   resjson = response.data;
                   if (resjson.validationReport == "adminValid")

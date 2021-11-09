@@ -16,12 +16,12 @@ class EmailGatekeeper extends React.Component{
     }
 
     onSubmit(event){
-        const requestOne = axios.get("http://localhost:5000/admin/sendMail", {
+        const requestOne = axios.get("/admin/sendMail", {
             params:{
                 email: this.state.email
             }
         })
-        const requestTwo = axios.post("http://localhost:5000/gatekeeper/add", {
+        const requestTwo = axios.post("/gatekeeper/add", {
                 email: this.state.email,
                 verified: false
             }

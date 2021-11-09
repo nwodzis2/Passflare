@@ -98,7 +98,7 @@ ReactDOM.render(
         <Route exact path="/addGatekeepers">
           <EmailGatekeeper/>
         </Route>
-        <Route exact path="/editAccount">
+        <Route exact path="/editAccount/:id">
           <AccountEdit/>
         </Route>
       </Switch>
