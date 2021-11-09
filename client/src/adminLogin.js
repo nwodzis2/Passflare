@@ -108,7 +108,7 @@ class AdminLogin extends React.Component {
                     </Row>
                     <br/>
                     <Row md="8">
-                        <Link to= "/adminCreation" style={{textDecoration: 'none'}}><u>Create Account</u></Link>
+                        <Link to= "/adminCreation" className="create-account-btn"><u>Create Account</u></Link>
                     </Row>
                   </form>
                 </Col>
