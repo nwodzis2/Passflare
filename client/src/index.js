@@ -4,7 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import Helmet from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from "./userLogin.js";
-import {UserView, UserNav} from "./userView.js";
+import UserView from "./userView.js";
 import EventSearch from "./eventSearch.js";
 import AccountCreation from "./createAccount.js";
 import Payment from "./payment";
@@ -67,43 +67,18 @@ ReactDOM.render(
       <Header/>
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        <Route exact path="/userView">
-          <UserView/>
-        </Route>
+        <Route exact path="/userView" component={UserView}/>
         <Route exact path="/UserCreation" component={AccountCreation}/>
-        <Route exact path="/Passes">
-          <Passes/>
-        </Route>
-        <Route exact path="/eventSearch">
-          <EventSearch/>
-        </Route>
-        <Route exact path="/gatekeeperVerification/:email">
-          <GatekeeperVerification/>
-        </Route>
-        <Route exact path="/gatekeeperView">
-          <GatekeeperView/>
-        </Route>
-        <Route exact path="/adminLogin">
-          <AdminLogin/>
-        </Route>
-        <Route exact path="/adminCreation">
-          <AdminCreation/>
-        </Route>
-        <Route exact path="/adminView">
-          <AdminNav/>
-        </Route>
-        <Route exact path="/eventCreation">
-          <EventCreation/>
-        </Route>
-        <Route exact path="/eventDetails">
-          <EventDetails/>
-        </Route>
-        <Route exact path="/addGatekeepers">
-          <EmailGatekeeper/>
-        </Route>
-        <Route exact path="/editAccount">
-          <AccountEdit/>
-        </Route>
+        <Route exact path="/Passes" component={Passes}/>
+        <Route exact path="/eventSearch" component={EventSearch}/>
+        <Route exact path="/gatekeeperVerification/:email" component={GatekeeperVerification}/>
+        <Route exact path="/gatekeeperView" component={GatekeeperView}/>
+        <Route exact path="/adminView" component={AdminNav}/>
+        <Route exact path="/eventCreation" component={EventCreation}/>
+        <Route exact path="/eventDetails" component={EventDetails}/>
+        <Route exact path="/addGatekeepers" component={EmailGatekeeper}/>
+        <Route exact path="/editAccount" component={AccountEdit}/>
+        <Route exact path="/payment" component={Payment}/>
       </Switch>
     </Router>,
   document.getElementById('root'),

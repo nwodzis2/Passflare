@@ -79,17 +79,19 @@ eventRoutes.route("/events/:id").get(function (req, res){
         .findOne(id);
     res.json(event);
 });
+
+
 //get event by org id
 eventRoutes.route("/events/:orgID").post(function (req, res){
-    let db_connect = dbo.getDb("Passflare");
-    var orgid = req.body.orgID;
-    db_connect
-      .collection("Events")
-      .find({OrgID: orgid})
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
+  let db_connect = dbo.getDb("Passflare");
+  var orgid = req.body.orgID;
+  db_connect
+    .collection("Events")
+    .find({OrgID: orgid})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 
