@@ -36,7 +36,7 @@ import { BrowserRouter as Router,
           <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'/>
           <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-          <meta name="apple-mobile-web-app-title" content="Brew"/>
+          <meta name="apple-mobile-web-app-title" content="Passflare"/>
           <meta name="apple-mobile-web-app-capable" content="yes"/>
           <link rel="stylesheet" href="styles.css"></link>
           {/* iPhone X (1125px x 2436px) */}
