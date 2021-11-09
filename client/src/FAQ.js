@@ -8,7 +8,7 @@ import { BrowserRouter as Router,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+const [rows, setRowsOption] = useState(null);
 const data = {
     title: "FAQ (How it works)",
     rows: [
@@ -49,11 +49,13 @@ const config = {
 class FAQ extends React.Component {
     render() {
         return (
-            <Container fluid>
-                <div>
-                    <Faq data={data} />
+            <div>
+                <h2 className="section-title">FAQ section</h2>
+
+                <div className="faq-style-wrapper">
+                    <Faq data={data} getRowOptions={setRowsOption} />
                 </div>
-            </Container>
+            </div>
         );
     }
 }
