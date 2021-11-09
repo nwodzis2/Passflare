@@ -1,5 +1,5 @@
 import Faq from "react-faq-component";
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
 import { Container, Row, Col, Card, } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import { BrowserRouter as Router,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const [rows, setRowsOption] = useState(null);
+
 const data = {
     title: "FAQ (How it works)",
     rows: [
@@ -54,7 +54,7 @@ class FAQ extends React.Component {
                     <h2 className="section-title">FAQ section</h2>
 
                     <div className="faq-style-wrapper">
-                        <Faq data={data} getRowOptions={setRowsOption} />
+                        <Faq data={data} styles={styles} config={config} />
                     </div>
                 </div>
             </Container>
