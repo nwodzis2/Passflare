@@ -4,7 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import Helmet from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from "./userLogin.js";
-import {UserView, UserNav} from "./userView.js";
+import UserView from "./userView.js";
 import EventSearch from "./eventSearch.js";
 import AccountCreation from "./createAccount.js";
 import Payment from "./payment";
@@ -36,23 +36,26 @@ import { BrowserRouter as Router,
           <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'/>
           <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+          <meta name="apple-mobile-web-app-title" content="Passflare"/>
+          <meta name="apple-mobile-web-app-capable" content="yes"/>
           <link rel="stylesheet" href="styles.css"></link>
           {/* iPhone X (1125px x 2436px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/passflareLogo.png"></link>
           {/* iPhone 8, 7, 6s, 6 (750px x 1334px) */}
           <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/* iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="/passflareLogo.png"></link>
           {/* iPhone 5 (640px x 1136px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/* iPad Mini, Air (1536px x 2048px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/* iPad Pro 10.5" (1668px x 2224px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/* iPad Pro 12.9" (2048px x 2732px) */}
-          <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="passflareLogo.png"></link>
+          <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/*icon for ios*/}
-          <link rel="apple-touch-icon" sizes="180x180" href="passflareLogo.png"></link>
+          <link rel="apple-touch-icon" sizes="180x180" href="/passflareLogo.png"></link>
+          
         </Helmet>
       );
     }
@@ -64,43 +67,20 @@ ReactDOM.render(
       <Header/>
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        <Route exact path="/userView">
-          <UserView/>
-        </Route>
+        <Route exact path="/userView" component={UserView}/>
         <Route exact path="/UserCreation" component={AccountCreation}/>
-        <Route exact path="/Passes">
-          <Passes/>
-        </Route>
-        <Route exact path="/eventSearch">
-          <EventSearch/>
-        </Route>
-        <Route exact path="/gatekeeperVerification/:email">
-          <GatekeeperVerification/>
-        </Route>
-        <Route exact path="/gatekeeperView">
-          <GatekeeperView/>
-        </Route>
-        <Route exact path="/adminLogin">
-          <AdminLogin/>
-        </Route>
-        <Route exact path="/adminCreation">
-          <AdminCreation/>
-        </Route>
-        <Route exact path="/adminView">
-          <AdminNav/>
-        </Route>
-        <Route exact path="/eventCreation">
-          <EventCreation/>
-        </Route>
-        <Route exact path="/eventDetails">
-          <EventDetails/>
-        </Route>
-        <Route exact path="/addGatekeepers">
-          <EmailGatekeeper/>
-        </Route>
-        <Route exact path="/editAccount/:id">
-          <AccountEdit/>
-        </Route>
+        <Route exact path="/Passes" component={Passes}/>
+        <Route exact path="/eventSearch" component={EventSearch}/>
+        <Route exact path="/gatekeeperVerification/:email" component={GatekeeperVerification}/>
+        <Route exact path="/gatekeeperView" component={GatekeeperView}/>
+        <Route exact path="/adminView" component={AdminNav}/>
+        <Route exact path="/adminLogin" component={AdminLogin}/>
+        <Route exact path="/eventCreation" component={EventCreation}/>
+        <Route exact path="/eventDetails" component={EventDetails}/>
+        <Route exact path="/adminCreation" component={AdminCreation}/>
+        <Route exact path="/addGatekeepers" component={EmailGatekeeper}/>
+        <Route exact path="/editAccount" component={AccountEdit}/>
+        <Route exact path="/payment" component={Payment}/>
       </Switch>
     </Router>,
   document.getElementById('root'),

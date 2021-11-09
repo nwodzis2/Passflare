@@ -1,93 +1,117 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Container, Row, Navbar, Dropdown, DropdownButton} from 'react-bootstrap';
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import EventDetails from './eventDetails';
-
-const ownedTickets = [];
-const unownedTickets = [];
-const userEmail = localStorage.getItem('userEmail');
-const orgID = parseInt(localStorage.getItem('orgID'));
-const userName = localStorage.getItem('userName');
-const userID = localStorage.getItem('userID');
-const validated = localStorage.getItem('validated')
 
 class UserView extends React.Component{
   constructor(props){
     super(props);
 
     this.state = {
+      ticketsLoading: true,
+      eventsLoading: true,
       loading: true,
+      ownedTickets: [],
+      orgEvents: [],
+      ownedCards: [],
+      unownedCards: [],
+      userData: this.props.location.state.userData
     }
+
+
     this.fetchEventData = this.fetchEventData.bind(this);
+    this.loadEventCardsData = this.loadEventCardsData.bind(this);
   }
 
   componentDidMount() {
-    
     this.fetchEventData();
   }
-  componentWillMount(){
-    
-  }
-  fetchEventData = () => {
-    let obj = {
-      orgID: orgID
-    }
-    
-    while (ownedTickets.length > 0){
-      ownedTickets.pop();
-    }
-    while (unownedTickets.length > 0) {
-      unownedTickets.pop();
+
+  loadEventCardsData = ()=> {
+    if (!this.state.ticketsLoading && !this.state.eventsLoading) {
+      var tempOwned = [];
+      var tempUnowned = [];
+
+      for (let i = 0; i < this.state.orgEvents.length; ++i) {
+        var eventOwned = false;
+        var ticket;
+
+        for (let j = 0; j < this.state.ownedTickets.length; ++j) {
+          if (this.state.ownedTickets[j].EventID == this.state.orgEvents[i]._id) {
+            eventOwned = true;
+            ticket = this.state.ownedTickets[j];
+          }
+        }
+
+        var card = <EventCard ticketDetails={ticket} userDetails={this.state.userData} owned={eventOwned} event={this.state.orgEvents[i]}/>
+
+        if (eventOwned) {
+          tempOwned.push(card);
+        } else {
+          tempUnowned.push(card);
+        }
+      }
+
     }
 
-    axios.post("/events/:orgID", obj).then(
+    this.setState({loading: false, ownedCards: tempOwned, unownedCards: tempUnowned});
+  }
+
+  fetchEventData = () => {
+    axios.post("/tickets/:userID", {userID: this.state.userData._id}).then(
       response => {
-        //Need to change this to sort owned and unowned tickets
-        for (let i = 0; i < response.data.length; ++i) {
-          ownedTickets.push(<EventCard event={response.data[i]}></EventCard>);
-        }
-        this.setState({loading: false});
+        this.setState({ticketsLoading: false, ownedTickets: response.data}, this.loadEventCardsData);
+        
+      }
+    );
+
+    axios.post("/events/:orgID", {orgID: this.state.userData.OrgID}).then(
+      response => {
+        this.setState({eventsLoading: false, orgEvents: response.data}, this.loadEventCardsData);
       }
     );
   }
 
   render(){
-
-    return(
-      <Container fluid style={{padding: 0}}>
-        <UserNav/>
-        <Row className="eventRow" style={{}, {marginTop: 15}}>
-              <h1 className="eventTitle">Tickets owned:</h1>
-              <div id="testEvent" className="eventDisplay">
-                {ownedTickets}
-              </div>
-
-        </Row>
-        <Row className="eventRow">
-              <h1 className="eventTitle">Events to check out</h1>
-              <div className="eventDisplay">
-                {unownedTickets}
-              </div>
-        </Row>
-      </Container>
-    );
+    if (!this.state.loading) {
+      return(
+        <Container fluid style={{padding: 0}}>
+          <UserNav userData={this.state.userData}/>
+          <Row className="eventRow" style={{}, {marginTop: 15}}>
+                <h1 className="eventTitle">Tickets owned:</h1>
+                <div className="eventDisplay">
+                  {this.state.ownedCards}
+                </div>
+          </Row>
+          <Row className="eventRow">
+                <h1 className="eventTitle">Events to check out</h1>
+                <div className="eventDisplay">
+                  {this.state.unownedCards}
+                </div>
+          </Row>
+        </Container>
+      );
+    } else {
+      return(
+        <Container fluid style={{padding: 0}}>
+          <p>Loading...</p>
+        </Container>
+      );
+    }
   }
 }
 
 class EventCard extends React.Component {
   constructor(props){
     super(props);
-    console.log(this.props);
   }
 
-
   render() {
+    //Also need to implement images once image backend is working
     return(
-      <Link to="/eventDetails">
+      <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
         <div class="eventCard">
           <div class="eventCardImage"></div>
           <div class="eventCardName">{this.props.event.Name}</div>
@@ -108,10 +132,6 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
-    localStorage.removeItem('orgID');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('validated');
     <Redirect to="/" />
   }
 
@@ -120,7 +140,7 @@ class UserNav extends React.Component {
     return(
         <Container className="userNav">
           <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
-          <DropdownButton variant='dark' title={userName} align="end">
+          <DropdownButton variant='dark' title={this.props.userData.Name} align="end">
             <Dropdown.Item variant='dark'><Link to="/editAccount">Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
           </DropdownButton>
@@ -129,6 +149,4 @@ class UserNav extends React.Component {
   }
 }
 
-export{ 
-  UserView
-}
+export default UserView;
