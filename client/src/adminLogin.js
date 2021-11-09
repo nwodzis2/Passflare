@@ -100,14 +100,15 @@ class AdminLogin extends React.Component {
                     <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
                       SMS messages from Passflare and its affiliates.</p>
                     <Row>
-                      <Col md="8">
-                        <Link to= "/adminCreation" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Create Account</button></Link>
-                      </Col>
-                      <Col md="4">
+                      <Col md="12">
                       <button className="btn btn-dark passBtnNext" type="submit" onClick={this.handleSubmit}>
                         Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                         </button>
                       </Col>
+                    </Row>
+                    <br/>
+                    <Row md="8">
+                        <Link to= "/adminCreation" style={{textDecoration: 'none'}}><u>Create Account</u></Link>
                     </Row>
                   </form>
                 </Col>
