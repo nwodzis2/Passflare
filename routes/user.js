@@ -44,7 +44,9 @@ userRoutes.route("/user/add").post(function (req, res) {
         //.createIndex({Email: 1}, { unique: true} )
         .insertOne(myobj, function (err, res) {
       if (err) throw err;
+      console.log("success");
     });
+    return;
 });
 
 //Fetch user information by email

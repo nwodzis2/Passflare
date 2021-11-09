@@ -16,26 +16,9 @@ const dbo = require("../db/conn");
 //create user
 adminRoutes.route("/admin/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
-    var salt = crypto.randomBytes(128).toString('base64');
-    var iterations = 10000;
-    const hash = crypto.pbkdf2Sync(String(req.body.password), salt, iterations, 64,
-        'sha512', function (err, derivedKey) {
-          
-          if (err) throw err;
-         
-          // Prints derivedKey
-          console.log(derivedKey.toString('hex'));
-      }).toString('hex');
     let myobj = {
-      
-      Number : req.body.number,
-      Name : req.body.name,
       Email : req.body.email,
-      OrgID : req.body.orgid,
-      Hash : hash,
-      Salt : salt,
-      Iterations : iterations
-
+      OrgID : req.body.orgID
     };
     db_connect
         .collection("Admin")
@@ -43,13 +26,19 @@ adminRoutes.route("/admin/add").post(function (req, res) {
         .insertOne(myobj, function (err, res) {
       if (err) throw err;
     });
+    return;
 });
 //validate user by password
-adminRoutes.route("/admin/validate").get(function (req, res) {
+adminRoutes.route("/admin/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
-    var myUser = db_connect.collection("Admin").findOne(query);
-    return myUser.Hash == crypto.pbkdf2Sync(String(req.body.password), myUser.Salt, myUser.Iterations, 32, 'sha512').toString('hex');
+    var admin = db_connect.collection("Admin").findOne(query);
+  if (admin == null){
+    res.json({validationReport: "Please validate your account."});
+  }
+  else{
+    res.json({validationReport: "adminValid"});
+  }
   });
 //recover account
 /*userRoutes.route("/user/recover").get(function (req, res){

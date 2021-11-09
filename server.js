@@ -24,6 +24,7 @@ app.use(require("./routes/admin"));
 app.use(require("./routes/gatekeeper"));
 app.use(require("./routes/ticket"));
 
+app.use(require("./routes/organization"));
 // We send whichever file
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));

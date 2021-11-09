@@ -15,6 +15,7 @@ class LoginPage extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGatekeeperSubmit = this.handleGatekeeperSubmit.bind(this);
   }
   handleChange(event) {
     const name = event.target.name;
@@ -72,7 +73,7 @@ class LoginPage extends React.Component {
       </Row>
       <Row>
         <Col md="12">
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
             <br/>
             <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
@@ -93,7 +94,6 @@ class LoginPage extends React.Component {
             <Link to= "/UserCreation" className="create-account-btn"><u>Create Account</u></Link>
             </Row>
           </form>
-
         </Col>
       </Row>
       <Row>
