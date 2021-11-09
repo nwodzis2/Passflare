@@ -124,7 +124,6 @@ class LoginPage extends React.Component {
             
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
               SMS messages from Passflare and its affiliates.</p>
-            
             <Row>
               <Col md="12">
                 <button className="btn btn-dark passBtnNext" type="submit">

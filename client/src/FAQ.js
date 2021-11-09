@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from "react";
 import Faq from "react-faq-component";
+import React, { Component, useState } from 'react';
+import ReactDOM from 'react-dom';
+import './styles.css';
+import { Container, Row, Col, Card, } from 'react-bootstrap';
+import { BrowserRouter as Router,
+    Switch, Route, Link
+} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const data = {
     title: "FAQ (How it works)",
@@ -38,15 +46,20 @@ const config = {
     // tabFocus: true
 };
 
-export default function App {
+class FAQ extends React.Component {
+    render() {
+        return (
+            <Container fluid>
+                <div>
+                    <h2 className="section-title">FAQ section</h2>
 
-    return (
-        <div>
-            <Faq
-                data={data}
-                styles={styles}
-                config={config}
-            />
-        </div>
-    );
+                    <div className="faq-style-wrapper">
+                        <Faq data={data} styles={styles} config={config} />
+                    </div>
+                </div>
+            </Container>
+        );
+    }
 }
+
+export default FAQ; 
