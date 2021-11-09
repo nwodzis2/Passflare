@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@stripe/react-stripe-js": "^1.6.0",
-    "@stripe/stripe-js": "^1.20.3",
+    "@stripe/stripe-js": "^1.21.1",
     "axios": "^0.21.4",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.1.1",
@@ -33,7 +33,7 @@
     "nodemon": "^2.0.14",
     "qrcode": "^1.4.4",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.0",
+    "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-qr-reader": "^2.2.1",
@@ -42,7 +42,7 @@
     "react-vis": "^1.11.7",
     "react-webcam": "^6.0.0",
     "save": "^2.4.0",
-    "stripe": "^8.184.0",
+    "stripe": "^8.186.0",
     "web-vitals": "^2.1.2"
   }
 }

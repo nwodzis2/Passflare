@@ -10,6 +10,8 @@ import AccountCreation from "./createAccount.js";
 import Payment from "./payment";
 import Passes from "./passes.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
+import AdminLogin from "./adminLogin.js";
+import AdminCreation from "./createAdmin.js";
 import AdminNav from "./adminView.js";
 import EventCreation from "./eventCreation.js";
 import AccountEdit from "./editAccount.js";
@@ -78,6 +80,12 @@ ReactDOM.render(
         </Route>
         <Route exact path="/gatekeeperView">
           <GatekeeperView/>
+        </Route>
+        <Route exact path="/adminLogin">
+          <AdminLogin/>
+        </Route>
+        <Route exact path="/adminCreation">
+          <AdminCreation/>
         </Route>
         <Route exact path="/adminView">
           <AdminNav/>
