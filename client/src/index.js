@@ -36,6 +36,8 @@ import { BrowserRouter as Router,
           <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'/>
           <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+          <meta name="apple-mobile-web-app-title" content="Brew"/>
+          <meta name="apple-mobile-web-app-capable" content="yes"/>
           <link rel="stylesheet" href="styles.css"></link>
           {/* iPhone X (1125px x 2436px) */}
           <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/passflareLogo.png"></link>
@@ -53,7 +55,7 @@ import { BrowserRouter as Router,
           <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="/passflareLogo.png"></link>
           {/*icon for ios*/}
           <link rel="apple-touch-icon" sizes="180x180" href="/passflareLogo.png"></link>
-          <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+          
         </Helmet>
       );
     }
