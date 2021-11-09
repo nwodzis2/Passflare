@@ -21,7 +21,8 @@ const CARD_OPTIONS = {
 		}
 	}
 }
-export default function PaymentForm(){
+
+export default function PaymentForm(props){
     const [ success, setSuccess ] = useState(false)
     const stripe = useStripe()
     const elements = useElements()
@@ -36,13 +37,18 @@ export default function PaymentForm(){
         if (!error) {
             try {
                 const {id} = paymentMethod
-                const response = await axios.post("http://localhost:5000/payment", {
-                    amount: 1000, //Change this to change price
+                const response = await axios.post("/payment", {
+                    amount: parseFloat(props.eventDetails.Price) * 100, //Gotta multiply by 100, it accepts price in cents
                     id
                 })
 
                 if(response.data.success){
-                    console.log("Successful payment")
+                    let ticketObj = {
+                        eventID: props.eventDetails._id,
+                        userID: props.userDetails._id
+                    }
+
+                    axios.post("ticket/create", ticketObj);
                     setSuccess(true)
                 }
             } catch (error){
@@ -54,24 +60,24 @@ export default function PaymentForm(){
     }
 
     return(
-        <>
-            <div>
-                <h2 className="Paymenth2">Please Enter Card Information</h2>
-            </div>
+        <div>
             {!success ?
                 <form onSubmit={handleSubmit}>
+                    <div>
+                        <h2 className="Paymenth2">Please Enter Card Information</h2>
+                    </div>
                     <fieldset className="FormGroup">
                         <div className="FormRow">
                             <CardElement options={CARD_OPTIONS}/>
                         </div>
                     </fieldset>
-                    <button className="PayButton">Pay</button>
+                    <button className="PayButton">Submit: ${props.eventDetails.Price}</button>
                 </form>
                 :
                 <div>
                     <h2>Purchase successful!</h2>
                 </div>
             }
-        </>
+        </div>
     )
 }

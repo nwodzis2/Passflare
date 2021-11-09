@@ -1,9 +1,8 @@
 import React, { Component, useDebugValue } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
-import {Helmet} from "react-helmet"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
@@ -12,7 +11,7 @@ import axios from 'axios';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {userEmail: '', userPassword: '', redirect: false};
+    this.state = {userEmail: '', userPassword: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,52 +29,34 @@ class LoginPage extends React.Component {
       password: this.state.userPassword
     }
 
-    var tempProps = this.props;
+    var self = this;
 
     //Validate user
     axios.post("/user/validate", myObject)
     .then(function(response){
       var resjson = response.data;
+
       if (resjson.validationReport == "valid") {
 
         let emailObj = {
           email: myObject.email
         }
+
         //If valid fetch user data
         axios.post("/user/email", emailObj).then(function(userResponse){
-          localStorage.setItem("userEmail", userResponse.data.response.Email);
-          localStorage.setItem("userName", userResponse.data.response.Name);
-          localStorage.setItem("orgID", userResponse.data.response.OrgID);
-          localStorage.setItem("validated", true);
+          self.props.history.push("/userView", {userData: userResponse.data.response});
         })
         .catch(function(error){
           console.log(error);
         });
-
-
-        tempProps.history.push('/userView');
       } else {
-        alert(resjson.validationReport);
+        alert("Incorrect email or password. Please try again.");
       }
-      
-      
-      }
+    }
     )
     .catch(function(error){
       console.log(error); 
     })
-    
-
-    this.loginSuccess(this.props);
-  }
-
-  loginSuccess(props){
-    if (props.success){
-      this.props.history.push("/userView");
-    }
-    else{
-      return(<p>Incorrect email or password. Please try again.</p>);
-    }
   }
 
   render() {
@@ -124,4 +105,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;
