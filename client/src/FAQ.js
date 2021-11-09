@@ -49,13 +49,15 @@ const config = {
 class FAQ extends React.Component {
     render() {
         return (
-            <div>
-                <h2 className="section-title">FAQ section</h2>
+            <Container fluid>
+                <div>
+                    <h2 className="section-title">FAQ section</h2>
 
-                <div className="faq-style-wrapper">
-                    <Faq data={data} getRowOptions={setRowsOption} />
+                    <div className="faq-style-wrapper">
+                        <Faq data={data} getRowOptions={setRowsOption} />
+                    </div>
                 </div>
-            </div>
+            </Container>
         );
     }
 }
