@@ -15,7 +15,6 @@ class LoginPage extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleGatekeeperSubmit = this.handleGatekeeperSubmit.bind(this);
   }
   handleChange(event) {
     const name = event.target.name;
