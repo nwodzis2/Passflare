@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals.js';
 import Helmet from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from "./userLogin.js";
 import UserView from "./userView.js";
 import EventSearch from "./eventSearch.js";
 import AccountCreation from "./createAccount.js";
-import Payment from "./payment";
+import Payment from "./payment.js";
 import Passes from "./passes.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
 import AdminLogin from "./adminLogin.js";
@@ -17,7 +17,7 @@ import EventCreation from "./eventCreation.js";
 import AccountEdit from "./editAccount.js";
 import EventDetails from "./eventDetails.js";
 import EmailGatekeeper from "./addGatekeeper.js";
-import GatekeeperView from "./gateKeeperView";
+import GatekeeperView from "./gateKeeperView.js";
 import FAQ from "./FAQ.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
