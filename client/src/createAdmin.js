@@ -44,7 +44,7 @@ class AdminCreation extends React.Component{
         tempProps.history.push('/adminLogin');
 
         /*
-        await axios.post("http://localhost:5000/organization/add", obj)
+        await axios.post("http:///organization/add", obj)
         .then(function(response){
             console.log(response.data.orgID);
             var resjson = response.data;
