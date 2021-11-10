@@ -1,7 +1,7 @@
 const express = require("express");
 const ticketRoutes = express.Router();
 const dbo = require("../db/conn");
-
+const ObjectId = require("mongodb").ObjectId;
 
 
 //generate ticket by UserID
@@ -23,23 +23,21 @@ ticketRoutes.route("/ticket/create").post(function (req, res) {
 
 
 //get ticket by ticket id
-ticketRoutes.route("/tickets/bruh").post(function (req, res){
-  res.json({"bruh": "big bruh"});
-});
-  //let db_connect = dbo.getDb("Passflare");
-  /*var ticketObjID = req.body.ticketID;
+ticketRoutes.route("/tickets/byID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var ticketObjID = req.body.ticketID;
   db_connect
     .collection("Tickets")
-    .find({UserID: ""})//ObjectId(ticketObjID)})
+    .find({_id: ObjectId(ticketObjID)})
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
-    });*/
+    });
+});
 
 
 //Get tickets by userID
 ticketRoutes.route("/tickets/:userID").post(function (req, res){
-  console.log("here");
   let db_connect = dbo.getDb("Passflare");
   var userID = req.body.userID;
   db_connect
