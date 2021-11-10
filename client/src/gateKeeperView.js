@@ -7,52 +7,78 @@ import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
 import QrReader from 'react-qr-reader'
+
 const qrReaderStyle ={
   width: "100vw",
   height: "100vh",
   display: 'flex',
   "justify-content": "center",
 }
-const QRinitialState = {activationStatus: "", result : "no result", ticket : {ticketID : "", userID : "", eventID : "", active : ""}}
+
+const QRinitialState = {
+  queryingQR: false, 
+  activationStatus: "", 
+  result : "no result", 
+  ticket : {ticketID : "", userID : "", eventID : "", active : ""}
+}
+
 class QrScanner extends Component {
   constructor(props){
     super(props);
+
     this.state = QRinitialState;
+
     this.reactivate = this.reactivate.bind(this);
     this.deactivate = this.deactivate.bind(this);
+    this.handleScan = this.handleScan.bind(this);
   }
 
-  handleScan = data => {
+  handleScan(data) {
     if (data) {
       this.setState({
-        result: data
+        result: data,
       })
-      axios.post("/tickets/ticketID", {ticketID : data}).then(function(response){
-          var ticketState = {ticket : {ticketID : data, userID : response.data.UserID, eventID : response.data.EventID} }
-          console.log(ticketState)
-          this.setState(ticketState)
-      }).catch(function(err){
-        console.log(err)
-      })
+
+      var ticketObj = {
+        ticketID : data.toString()
+      }
+      
+      if (!this.state.queryingQR) {
+        var self = this;
+        axios.post("/tickets/:ticketID", ticketObj)
+        .then(function(response){
+          var ticketState = {
+            ticket : {ticketID : data, userID : response.data[0].UserID, eventID : response.data[0].EventID} 
+          }
+
+          self.setState(ticketState);
+        }).catch(function(err){
+          console.log(err)
+        })
+      }
     }
   }
-  handleError = err => {
+
+  handleError(err) {
     console.error(err)
   }
+
   reactivate(){
+    var self = this;
     axios.post("/tickets/deactivate/:ticketID", {ticketID: this.state.result}).then(function(response){
       if(response.data.ticketReport == "success"){
-        this.setState(QRinitialState);
-        this.setState({activationStatus: "deactive"})
+        self.setState(QRinitialState);
+        self.setState({activationStatus: "deactive"});
       }
     }
     );
   }
   deactivate(){
+    var self = this;
     axios.post("/tickets/activate/:ticketID", {ticketID: this.state.result}).then(function(response){
       if(response.data.ticketReport == "success"){
-        this.setState(QRinitialState);
-        this.setState({activationStatus: "active"})
+        self.setState(QRinitialState);
+        self.setState({activationStatus: "active"});
       }
     }
     );
