@@ -42,9 +42,10 @@ userRoutes.route("/user/add").post(function (req, res) {
     db_connect
         .collection("Users")
         //.createIndex({Email: 1}, { unique: true} )
-        .insertOne(myobj, function (err, res) {
+        .insertOne(myobj, function (err, user) {
       if (err) throw err;
       console.log("success");
+      res.json({sucess: true});
     });
     return;
 });

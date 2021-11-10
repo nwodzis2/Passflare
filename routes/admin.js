@@ -23,8 +23,9 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     db_connect
         .collection("Admin")
         //.createIndex({Email: 1}, { unique: true} )
-        .insertOne(myobj, function (err, res) {
+        .insertOne(myobj, function (err, admin) {
       if (err) throw err;
+      res.json({successAdmin: true})
     });
     return;
 });
