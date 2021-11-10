@@ -1,7 +1,7 @@
 const express = require("express");
 const ticketRoutes = express.Router();
 const dbo = require("../db/conn");
-
+var mongo = require('mongodb').ObjectId;
 //generate ticket by UserID
 ticketRoutes.route("/ticket/create").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -43,11 +43,72 @@ ticketRoutes.route("/tickets/:userID").post(function (req, res){
       res.json(result);
     });
 });
-
+//get ticket by ticket id
+ticketRoutes.route("/tickets/ticketID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  console.log(req.body.ticketID)
+  var ticket = db_connect
+    .collection("Tickets")
+    .find({_id : req.body.ticketID});
+    console.log(ticket)
+    res.json(ticket);
+});
 //Activate ticket
-
+ticketRoutes.route("/tickets/activate/:ticketID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var ticketID = req.body.ticketID;
+  var query = {_id : ticketID};
+  var myTicket = db_connect.collection("Tickets").findOne(query, 
+    function(err, ticket){
+      if(err){
+        res.json({ticketReport : err});
+      } else{
+        if(ticket.Activate == true){
+          res.json({ticketReport : "already active"});
+        }
+        else{
+          db_connect.collection("Tickets").updateOne(query, {Active : true}, function(err, res){
+            if(err){
+              res.json({ticketReport : err});
+            }
+            else{
+              res.json({ticketReport : "success"});
+            }
+          });
+          
+        }
+      }
+    }
+    );
+});
 //Deactivate ticket
-
+ticketRoutes.route("/tickets/deactivate/:ticketID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var ticketID = req.body.ticketID;
+  var query = {_id : ticketID};
+  var myTicket = db_connect.collection("Tickets").findOne(query, 
+    function(err, ticket){
+      if(err){
+        res.json({ticketReport : err});
+      } else{
+        if(ticket.Activate == false){
+          res.json({ticketReport : "already deactivated"});
+        }
+        else{
+          db_connect.collection("Tickets").updateOne(query, {Active : true}, function(err, res){
+            if(err){
+              res.json({ticketReport : err});
+            }
+            else{
+              res.json({ticketReport : "success"});
+            }
+          });
+          
+        }
+      }
+    }
+    );
+});
 
 
 module.exports = ticketRoutes;
