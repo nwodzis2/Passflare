@@ -40,12 +40,12 @@ class QrScanner extends Component {
       })
 
       var ticketObj = {
-        ticketID : data.toString()
+        ticketID : data
       }
       
       if (!this.state.queryingQR) {
         var self = this;
-        axios.post("/tickets/:ticketID", ticketObj)
+        axios.post("/tickets/bruh", ticketObj)
         .then(function(response){
           var ticketState = {
             ticket : {ticketID : data, userID : response.data[0].UserID, eventID : response.data[0].EventID} 

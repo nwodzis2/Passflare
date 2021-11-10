@@ -1,7 +1,6 @@
 const express = require("express");
 const ticketRoutes = express.Router();
 const dbo = require("../db/conn");
-const ObjectId = require('mongodb').ObjectId;
 
 
 
@@ -12,22 +11,40 @@ ticketRoutes.route("/ticket/create").post(function (req, res) {
       EventID : req.body.eventID,
       UserID: req.body.userID,
       Active: true,
-    };
+    }
     db_connect
         .collection("Tickets")
         //.createIndex({Email: 1}, { unique: true} )
-        .insertOne(myobj, function (err, res) {
-      if (err) throw err;
+        .insert(myobj, function(err, res){
+          if (err) throw err;
     });
 });
 
+
+
 //get ticket by ticket id
-ticketRoutes.route("/tickets/:ticketID").post(function (req, res){
-  let db_connect = dbo.getDb("Passflare");
-  var ticketObjID = req.body.ticketID;
+ticketRoutes.route("/tickets/bruh").post(function (req, res){
+  res.json({"bruh": "big bruh"});
+});
+  //let db_connect = dbo.getDb("Passflare");
+  /*var ticketObjID = req.body.ticketID;
   db_connect
     .collection("Tickets")
-    .find({_id: ObjectId(ticketObjID)})
+    .find({UserID: ""})//ObjectId(ticketObjID)})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });*/
+
+
+//Get tickets by userID
+ticketRoutes.route("/tickets/:userID").post(function (req, res){
+  console.log("here");
+  let db_connect = dbo.getDb("Passflare");
+  var userID = req.body.userID;
+  db_connect
+    .collection("Tickets")
+    .find({UserID: userID})
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
@@ -35,6 +52,10 @@ ticketRoutes.route("/tickets/:ticketID").post(function (req, res){
 });
 
 
+
+
+
+/*
 //Get tickets by orgID
 ticketRoutes.route("/tickets/:orgID").get(function (req, res){
   let db_connect = dbo.getDb("Passflare");
@@ -47,21 +68,6 @@ ticketRoutes.route("/tickets/:orgID").get(function (req, res){
       res.json(result);
     });
 });
-
-
-//Get tickets by userID
-ticketRoutes.route("/tickets/:userID").post(function (req, res){
-  let db_connect = dbo.getDb("Passflare");
-  var userID = req.body.userID;
-  db_connect
-    .collection("Tickets")
-    .find({UserID: userID})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
-});
-
 
 //Activate ticket
 ticketRoutes.route("/tickets/activate/:ticketID").post(function (req, res){
@@ -120,7 +126,7 @@ ticketRoutes.route("/tickets/deactivate/:ticketID").post(function (req, res){
       }
     }
     );
-});
+});*/
 
 
 module.exports = ticketRoutes;
