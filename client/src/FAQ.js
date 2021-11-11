@@ -3,7 +3,8 @@ import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
 import { Container, Row, Col, Card, } from 'react-bootstrap';
-import { BrowserRouter as Router,
+import {
+    BrowserRouter as Router,
     Switch, Route, Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,9 +34,9 @@ const data = {
 };
 
 const styles = {
-    // bgColor: 'white',
-    titleTextColor: "blue",
-    rowTitleColor: "blue",
+    bgColor: 'black',
+    titleTextColor: "orange",
+    rowTitleColor: "orange",
     // rowContentColor: 'grey',
     // arrowColor: "red",
 };
@@ -62,4 +63,4 @@ class FAQ extends React.Component {
     }
 }
 
-export default FAQ; 
+export default FAQ;
