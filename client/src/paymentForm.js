@@ -39,7 +39,9 @@ export default function PaymentForm(props){
                 const {id} = paymentMethod
                 const response = await axios.post("/payment", {
                     amount: parseFloat(props.eventDetails.Price) * 100, //Gotta multiply by 100, it accepts price in cents
-                    id
+                    id,
+                    userID: props.userDetails._id,
+                    eventID: props.eventDetails._id
                 })
 
                 if(response.data.success){
