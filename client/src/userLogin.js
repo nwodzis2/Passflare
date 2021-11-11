@@ -133,7 +133,11 @@ class LoginPage extends React.Component {
             </Row>
             <br/>
             <Row>
-            <Link to= "/UserCreation" className="create-account-btn"><u>Create Account</u></Link>
+            <Link to= "/userCreation" className="create-account-btn"><u>Create Account</u></Link>
+            </Row>
+            <br/>
+            <Row>
+            <Link to= "/adminLogin" className="create-account-btn"><u>Admin Login</u></Link>
             </Row>
           </form>
         </Col>

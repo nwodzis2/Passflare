@@ -408,6 +408,7 @@ input:focus{
 #adminLogo{
     font-size: 0.7em;
     font-style: normal;
+    font-family: 'Roboto';
 }
 
 #adminChoices>a{

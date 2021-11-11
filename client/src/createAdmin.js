@@ -42,22 +42,6 @@ class AdminCreation extends React.Component{
 
         var tempProps = this.props;
         tempProps.history.push('/adminLogin');
-
-        /*
-        await axios.post("http:///organization/add", obj)
-        .then(function(response){
-            console.log(response.data.orgID);
-            var resjson = response.data;
-            if (resjson.orgID != "orgID failed") {
-                obj.orgID = resjson.orgID;
-            }
-            else {
-                alert("Organization creation failed.");
-            }
-        })
-        .catch(function(error){
-            console.log(error);
-        })*/
     }
 
     handleChange(event) {

@@ -9,7 +9,7 @@ import axios from 'axios';
 class AdminLogin extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {userEmail: '', userPassword: '', redirect: false};
+        this.state = {userEmail: '', userPassword: ''};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,59 +22,50 @@ class AdminLogin extends React.Component {
       }
 
     handleSubmit(event){
-        var myObject = {
-            email: this.state.userEmail,
-            password: this.state.userPassword
-          }
-      
-          var self = this;
-      
-          //Validate user
-          axios.post("/user/validate", myObject)
-          .then(function(response){
-            var resjson = response.data;
-            if (resjson.validationReport == "valid") {
-      
-              let emailObj = {
-                email: myObject.email
-              }
-              //If valid fetch user data
-              axios.post("/user/email", emailObj).then(function(userResponse){
-                axios.post("/admin/validate", emailObj)
-                .then(function(response){
-                  resjson = response.data;
-                  if (resjson.validationReport == "adminValid")
-                    self.props.history.push("/adminView", {userData: userResponse.data.response});
-                  else 
-                    alert(resjson.validationReport);
-                })
-                .catch(function (error){
-                  console.log(error);
-                })
-              })
-              .catch(function(error){
-                console.log(error);
-              });
-      
-            } else {
-              alert(resjson.validationReport);
-            }
-          })
-          .catch(function(error){
-            console.log(error); 
-          })
-          event.preventDefault();
-      
-          this.loginSuccess(this.props);
+      var myObject = {
+          email: this.state.userEmail,
+          password: this.state.userPassword
         }
-      
-        loginSuccess(props){
-          if (props.success){
-            this.props.history.push("/adminView");
+    
+        var self = this;
+
+        //Validate user
+        axios.post("/user/validate", myObject)
+        .then(function(response){
+          var resjson = response.data;
+          if (resjson.validationReport == "valid") {
+    
+            let emailObj = {
+              email: myObject.email
+            }
+
+            //If valid fetch user data
+            axios.post("/user/email", emailObj).then(function(userResponse){
+              axios.post("/admin/validate", emailObj)
+              .then(function(response){
+                resjson = response.data;
+                if (resjson.validationReport == "adminValid") {
+                  self.props.history.push("/adminView", {adminData: userResponse.data.response});
+                }
+                else 
+                  alert(resjson.validationReport);
+              })
+              .catch(function (error){
+                console.log(error);
+              })
+            })
+            .catch(function(error){
+              console.log(error);
+            });
+    
+          } else {
+            alert(resjson.validationReport);
           }
-          else{
-            return(<p>Incorrect email or password. Please try again.</p>);
-          }
+        })
+        .catch(function(error){
+          console.log(error); 
+        })
+      event.preventDefault();
     }
 
     render(){
@@ -82,12 +73,7 @@ class AdminLogin extends React.Component {
             <Container fluid>
               <Row>
                 <Col md="12">
-                  <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="12">
-                  <h4 id="subtitle"> Admin</h4>
+                  <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i>  Passflare <span id="admin-login-admin"><i id="brandBreak">|</i> <i id="adminLogo">Admin</i></span></h1>
                 </Col>
               </Row>
               <Row>
@@ -108,7 +94,7 @@ class AdminLogin extends React.Component {
                     </Row>
                     <br/>
                     <Row md="8">
-                        <Link to= "/adminCreation" className="create-account-btn"><u>Create Account</u></Link>
+                        <Link to= "/adminCreation" className="create-account-btn"><u>Create Admin Account</u></Link>
                     </Row>
                   </form>
                 </Col>

@@ -4,6 +4,22 @@ import { Container, Row, Col, Card, Form, FormLabel, FormControl} from 'react-bo
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {AdminNav} from "./adminView.js";
+
+class AdminGatekeeper extends React.Component{
+    constructor(props) {
+        super(props);
+    }
+
+    render(){
+        return(
+        <Container fluid>
+            <AdminNav adminData={this.props.location.state.adminData}/>
+            <EmailGatekeeper adminData={this.props.location.state.adminData}/>
+        </Container>
+        );
+    }
+}
 
 class EmailGatekeeper extends React.Component{
     constructor(props) {
@@ -48,26 +64,17 @@ class EmailGatekeeper extends React.Component{
         return(
         <Container fluid>
             <Row>
-                <Col>
-                <Link to= "/adminView" style={{textDecoration: 'none'}}>
-                <h2 className="backArrow"><i class="fas fa-arrow-left"></i></h2>
-                </Link>
-                </Col>
-                <Col><h2>Send Gatekeeper Email</h2></Col>
-                <Col></Col>
-            </Row>
-            <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Please enter email information below.</Card.Title>                            
+                        <Card.Title>Add Gatekeeper via email invitation</Card.Title>                            
                         <br/>
                         <Form onSubmit={this.onSubmit}>
-                            <FormLabel>Email: </FormLabel>
+                            <FormLabel>Gatekeeper Email: </FormLabel>
                             <FormControl className="defaultEmail" type="email" name='email' autoComplete="off" onChange={this.handleChange} placeholder="Enter email..."/>
                             <br/>
                             <Row>
                                 <button type="submit" className="btn btn-dark passBtnDark"> 
-                                    Email Gatekeeper
+                                    Send Gatekeeper verification
                                 </button>
                             </Row> 
                         </Form>
@@ -79,4 +86,4 @@ class EmailGatekeeper extends React.Component{
     }
 }
 
-export default EmailGatekeeper;
+export default AdminGatekeeper;

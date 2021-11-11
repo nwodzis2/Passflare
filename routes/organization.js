@@ -11,15 +11,12 @@ orgRoutes.route("/organization/add").post(function (req, res) {
         NickName: req.body.orgNickName,
         ZipCode: req.body.orgZip,
     }
-    let newOrgID;
+
     db_connect
         .collection("Organization")
-        //.createIndex({Email: 1}, { unique: true} )
         .insertOne(myobj, function (err, result) {
             if (err) {throw err};
-            newOrgID = result.insertedId;
-            res.json({orgID: newOrgID});
-            console.log(newOrgID);
+            res.json({orgID: result.insertedId});
         })
 
 });

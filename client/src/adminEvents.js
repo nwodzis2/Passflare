@@ -4,6 +4,22 @@ import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card, Inp
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {AdminNav} from "./adminView.js";
+
+class AdminEvents extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+        <Container fluid>
+            <AdminNav adminData={this.props.location.state.adminData}/>
+            <EventCreation/>
+        </Container>
+        )
+    }
+}
 
 class EventCreation extends React.Component{
     constructor(props) {
@@ -125,4 +141,4 @@ class EventCreation extends React.Component{
     }
 }
 
-export default EventCreation;
+export default AdminEvents;
