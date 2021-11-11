@@ -59,17 +59,19 @@ class UserView extends React.Component{
     this.setState({loading: false, ownedCards: tempOwned, unownedCards: tempUnowned});
   }
 
-  fetchEventData = () => {
-    axios.post("/tickets/:userID", {userID: this.state.userData._id}).then(
+  fetchEventData() {
+    var self = this;
+
+    axios.post("/tickets/:userID", {userID: self.state.userData._id}).then(
       response => {
-        this.setState({ticketsLoading: false, ownedTickets: response.data}, this.loadEventCardsData);
+        self.setState({ticketsLoading: false, ownedTickets: response.data}, this.loadEventCardsData);
         
       }
     );
 
-    axios.post("/events/:orgID", {orgID: this.state.userData.OrgID}).then(
+    axios.post("/events/:orgID", {orgID: self.state.userData.OrgID}).then(
       response => {
-        this.setState({eventsLoading: false, orgEvents: response.data}, this.loadEventCardsData);
+        self.setState({eventsLoading: false, orgEvents: response.data}, this.loadEventCardsData);
       }
     );
   }

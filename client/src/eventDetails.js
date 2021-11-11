@@ -55,16 +55,17 @@ class TicketOperation extends React.Component {
   }
 
   componentWillMount() {
-    this.generateQRCode();
+    if (this.props.owned) {
+      this.generateQRCode();
+    } else {
+      this.setState({loading: false});
+    }
   }
 
   generateQRCode = () => {
-    console.log('here');
-
     var self = this;
 
     var qrcode = QRcode.toDataURL(this.props.ticketDetails._id).then(url => {
-      console.log(url);
       self.setState({loading: false, qrcode: <img src={url}/>});
     }).catch(err => {
       self.setState({loading: false, qrcode: <p>Failed to load QR code</p>});

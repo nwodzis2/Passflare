@@ -8,16 +8,28 @@ const dbo = require("../db/conn");
 
 
 paymentRoutes.route("/payment").post(async(req, res) => {
-    let { amount, id } = req.body
+    let db_connect = dbo.getDb("Passflare");
+
+    let amount = req.body.amount;
+    let paymentID = req.body.id;
+
+    var paymentObj = {
+        userID: req.body.userID,
+        eventID: req.body.eventID,
+        paymentIntents: "Payment Failed"
+    };
+
     try {
         const payment = await stripe.paymentIntents.create({
             amount,
             currency: "USD",
             description: "Event ticket",
-            payment_method: id,
+            payment_method: paymentID,
             confirm: true
         })
-        console.log("Payment", payment)
+
+        paymentObj.paymentIntents = payment;
+        
         res.json({
             message: "Payment Successful",
             success: true
@@ -28,7 +40,12 @@ paymentRoutes.route("/payment").post(async(req, res) => {
             message: "Payment failed",
             success: false
         })
+        
     }
+
+    db_connect
+        .collection("Payments")
+        .insertOne(paymentObj);
 })
 
 module.exports = paymentRoutes;

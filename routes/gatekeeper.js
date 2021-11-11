@@ -46,14 +46,23 @@ gatekeeperRoutes.route("/gatekeeper/validate").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var query = {Email : req.body.email, Verified : true};
   
-  var gatekeeper = db_connect.collection("GateKeeper").findOne(query);
-  if (gatekeeper == null){
-    res.json({validationReport: "Please validate your account."});
-  }
-  else{
-    res.json({validationReport: "gatekeeperValid"});
-  }
-
+  db_connect.collection("GateKeeper").findOne(query, function(err, gatekeeper){
+    if (err) {
+       res.json({validationReport: err});
+    } else {
+      if (gatekeeper == null){
+        res.json({validationReport: "Not a verified gatekeeper."});
+      }
+      else{
+        var validation = (gatekeeper.Verified === true);
+        if (validation) {
+          res.json({validationReport: "gatekeeperValid"});
+        } else {
+          res.json({validationReport: "Please validate your account."});
+        }
+      }
+    }
+  });
 });
 
 module.exports = gatekeeperRoutes;

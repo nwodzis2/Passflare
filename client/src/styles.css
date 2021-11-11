@@ -128,7 +128,7 @@ hr {
     margin-bottom: 6em;
     font-family: 'Abel';
     margin-top: -5.6em;
-    margin-left: 8em;
+    margin-left: 4.3em;
     font-weight: normal;
 }
 
@@ -408,6 +408,7 @@ input:focus{
 #adminLogo{
     font-size: 0.7em;
     font-style: normal;
+    font-family: 'Roboto';
 }
 
 #adminChoices>a{
@@ -514,7 +515,9 @@ input:focus{
     /*align-items: center;*/
     margin-top: 2vh;
 }
-.under-button{
-    font-size: 12px;
-}
+
 /*Gatekeeper*/
+section > section > div{
+    box-shadow: none !important;
+    border: none !important;
+}

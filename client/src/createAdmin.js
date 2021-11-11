@@ -27,7 +27,7 @@ class AdminCreation extends React.Component{
             orgZip: this.state.orgZip
         }
 
-        const requestOne = await axios.post("http://localhost:5000/organization/add", obj);
+        const requestOne = await axios.post("/organization/add", obj);
         var resjson = requestOne.data;
         if (resjson.orgID != "orgID failed"){
             obj.orgID = resjson.orgID;
@@ -37,27 +37,11 @@ class AdminCreation extends React.Component{
             alert("Organization creation failed.");
         }    
 
-        await axios.post("http://localhost:5000/user/add", obj);
-        await axios.post("http://localhost:5000/admin/add", obj);
+        await axios.post("/user/add", obj);
+        await axios.post("/admin/add", obj);
 
         var tempProps = this.props;
         tempProps.history.push('/adminLogin');
-
-        /*
-        await axios.post("http://localhost:5000/organization/add", obj)
-        .then(function(response){
-            console.log(response.data.orgID);
-            var resjson = response.data;
-            if (resjson.orgID != "orgID failed") {
-                obj.orgID = resjson.orgID;
-            }
-            else {
-                alert("Organization creation failed.");
-            }
-        })
-        .catch(function(error){
-            console.log(error);
-        })*/
     }
 
     handleChange(event) {
@@ -91,7 +75,7 @@ class AdminCreation extends React.Component{
                                 <FormControl className="defaultText" type="text" name='password' onChange={this.handleChange} placeholder="**********"/>
                                 <hr/>
                                 <FormLabel>Phone Number: </FormLabel>
-                                <FormControl className="defaultText" type="text" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
+                                <FormControl className="defaultText" type="tel" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
                                 <hr/>
                                 <FormLabel>Organization Name: </FormLabel>
                                 <FormControl className="defaultText" type="text" name='orgName' onChange={this.handleChange} placeholder="Enter organization name..."/>

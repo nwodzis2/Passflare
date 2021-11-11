@@ -14,7 +14,7 @@ class GatekeeperVerification extends React.Component{
 
     componentDidMount(){
         var email = this.props.match.params.email;
-        axios.post("http://localhost:5000/gatekeeper/verify", {
+        axios.post("/gatekeeper/verify", {
             email: email,
         });
     }

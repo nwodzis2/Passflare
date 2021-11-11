@@ -23,8 +23,9 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     db_connect
         .collection("Admin")
         //.createIndex({Email: 1}, { unique: true} )
-        .insertOne(myobj, function (err, res) {
+        .insertOne(myobj, function (err, admin) {
       if (err) throw err;
+      res.json({successAdmin: true})
     });
     return;
 });
@@ -32,13 +33,23 @@ adminRoutes.route("/admin/add").post(function (req, res) {
 adminRoutes.route("/admin/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var query = {Email : req.body.email};
-    var admin = db_connect.collection("Admin").findOne(query);
-  if (admin == null){
-    res.json({validationReport: "Please validate your account."});
-  }
-  else{
-    res.json({validationReport: "adminValid"});
-  }
+    db_connect.collection("Admin").findOne(query, function(err, admin){
+      if (err) {
+         res.json({validationReport: err});
+      } else {
+          if (admin == null){
+            res.json({validationReport: "Not a verified admin."});
+          }
+          else{
+            var validation = (admin.Email === req.body.email);
+            if (validation) {
+              res.json({validationReport: "adminValid"});
+            } else {
+              res.json({validationReport: "Please validate your account."});
+            }
+          }
+        }  
+      });
   });
 //recover account
 /*userRoutes.route("/user/recover").get(function (req, res){
@@ -127,7 +138,7 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
         to: String(email),
         subject: "Become a Passflare Gatekeeeper",
         text: "Congratulations on being chosen as a Passflare gatekeeper!",
-        html: '<p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="http://localhost:5000/gatekeeperVerification/' + email + 
+        html: '<p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="passflare.herokuapp.com/gatekeeperVerification/' + email + 
           '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
     });
   });

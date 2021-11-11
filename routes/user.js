@@ -42,9 +42,10 @@ userRoutes.route("/user/add").post(function (req, res) {
     db_connect
         .collection("Users")
         //.createIndex({Email: 1}, { unique: true} )
-        .insertOne(myobj, function (err, res) {
+        .insertOne(myobj, function (err, user) {
       if (err) throw err;
       console.log("success");
+      res.json({sucess: true});
     });
     return;
 });
@@ -72,12 +73,16 @@ userRoutes.route("/user/email").post(function (req, res) {
         if (err) {
            res.json({validationReport: err});
         } else {
-          var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, user.Iterations, 64, 'sha512').toString('hex');
-          var validation = (user.Hash == referenceHash);
-          if (validation) {
-            res.json({validationReport: "valid"});
+          if (user == null){
+            res.json({validationReport: "Incorrect email or password. Please try again."});
           } else {
-            res.json({validationReport: "password incorrect"});
+            var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, user.Iterations, 64, 'sha512').toString('hex');
+            var validation = (user.Hash == referenceHash);
+            if (validation) {
+              res.json({validationReport: "valid"});
+            } else {
+              res.json({validationReport: "password incorrect"});
+            }
           }
         }
       });
@@ -120,7 +125,6 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
         Number : req.body.number,
         Name : req.body.name,
         Email : req.body.email,
-        OrgID : req.body.orgid
       },
     };
     db_connect

@@ -60,11 +60,54 @@ class LoginPage extends React.Component {
     })
   }
 
+  handleGatekeeperSubmit(event){
+    var myObject = {
+      email: this.state.userEmail,
+      password: this.state.userPassword
+    }
+
+    var self = this;
+
+    //Validate user
+    axios.post("/user/validate", myObject)
+    .then(function(response){
+      var resjson = response.data;
+      if (resjson.validationReport == "valid") {
+
+        let emailObj = {
+          email: myObject.email
+        }
+        //If valid fetch user data
+        axios.post("/user/email", emailObj).then(function(userResponse){
+          axios.post("/gatekeeper/validate", emailObj)
+          .then(function(response){
+            resjson = response.data;
+            if (resjson.validationReport == "gatekeeperValid")
+              self.props.history.push("/gatekeeperView", {userData: userResponse.data.response});
+            else 
+              alert(resjson.validationReport);
+          })
+          .catch(function (error){
+            console.log(error);
+          })
+        })
+        .catch(function(error){
+          console.log(error);
+        });
+      } else {
+        alert(resjson.validationReport);
+      }
+    })
+    .catch(function(error){
+      console.log(error); 
+    })
+  }
+
   render() {
     return (
     <Container fluid >
       <Col md="12" style={{dispax:'flex', justifyContent: 'right', paddingTop: '2vh'}}>
-          <Link to= "/gatekeeperView" style={{textDecoration: 'none'}}><button className="btn btn-dark passBtn">Switch to Gatekeeper &nbsp; <i class="fas fa-chevron-right" style={{fontSize:'12px'}}></i></button></Link>
+          <button className="btn btn-dark passBtn" onClick={this.handleGatekeeperSubmit}>Switch to Gatekeeper &nbsp; <i class="fas fa-chevron-right" style={{fontSize:'12px'}}></i></button>
         </Col>
       <Row>
         <Col md="12">
@@ -81,7 +124,6 @@ class LoginPage extends React.Component {
             
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
               SMS messages from Passflare and its affiliates.</p>
-            
             <Row>
               <Col md="12">
                 <button className="btn btn-dark passBtnNext" type="submit">
@@ -91,7 +133,11 @@ class LoginPage extends React.Component {
             </Row>
             <br/>
             <Row>
-            <Link to= "/UserCreation" className="create-account-btn"><u>Create Account</u></Link>
+            <Link to= "/userCreation" className="create-account-btn"><u>Create Account</u></Link>
+            </Row>
+            <br/>
+            <Row>
+            <Link to= "/adminLogin" className="create-account-btn"><u>Admin Login</u></Link>
             </Row>
           </form>
         </Col>
