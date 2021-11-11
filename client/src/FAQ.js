@@ -11,11 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const data = {
-    title: "FAQ (How it works)",
+    title: "Frequently Asked Questions (FAQ)",
     rows: [
         {
             title: "How do I purchase a pass?",
-            content: `With money.`,
+            content: `Navigate to the event page and select the event you wish to attend. Purchasing options will be available below the event's details.`,
         },
         {
             title: "Where can I find events?",
@@ -25,6 +25,10 @@ const data = {
         {
             title: "Where do I find my purchased pass?",
             content: `Check the passes page. Alternatively you can also screen your QR code after purchase or add your pass to your virtual wallet. `,
+        },
+        {
+            title: "Pass cancellation policy",
+            content: `Please contact the organization's office of the event you would like to cancel. `,
         },
         {
             title: "What is the package version",
@@ -37,8 +41,8 @@ const styles = {
     bgColor: 'black',
     titleTextColor: "orange",
     rowTitleColor: "orange",
-    rowContentColor: 'orange',
-    arrowColor: "grey",
+    rowContentColor: 'white',
+    arrowColor: "white",
 };
 
 const config = {
