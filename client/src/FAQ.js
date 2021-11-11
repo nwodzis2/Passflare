@@ -37,8 +37,8 @@ const styles = {
     bgColor: 'black',
     titleTextColor: "orange",
     rowTitleColor: "orange",
-    // rowContentColor: 'grey',
-    // arrowColor: "red",
+    rowContentColor: 'orange',
+    arrowColor: "grey",
 };
 
 const config = {
