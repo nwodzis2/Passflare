@@ -64,7 +64,7 @@ class EmailUser extends React.Component{
         event.preventDefault();
         var self = this;
         axios.post("/orginization/orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
-            axios.get("/admin/sendUserMail", {params: {email: self.state.email, orgName: response.data[0].Name, orgID: response.data[0].OrgID}});
+            axios.get("/admin/sendUserMail", {params: {email: self.state.email, orgName: response.data[0].Name, orgID: response.data[0]._id}});
         });
         
     }
