@@ -15,56 +15,79 @@ class AdminEvents extends React.Component {
         return(
         <Container fluid>
             <AdminNav adminData={this.props.location.state.adminData}/>
-            <EventCreation/>
+            <EventData adminData={this.props.location.state.adminData}/>
+            <EventCreation adminData={this.props.location.state.adminData}/>
         </Container>
         )
+    }
+}
+
+class EventData extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            events: []
+        }
+
+        this.getOrgEvents = this.getOrgEvents.bind(this);
+    }
+
+    componentWillMount(){
+        this.getOrgEvents();
+    }
+
+    getOrgEvents(){
+        axios.post("/events/:orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
+            console.log(response.data);
+        });
+    }
+
+    render(){
+        return(
+            <Container fluid>
+            </Container>
+        );
     }
 }
 
 class EventCreation extends React.Component{
     constructor(props) {
         super(props);
+
+        
+
         this.state = {
             name: '',
             description: '',
             price: '',
-            orgID: '', //Need to get orgID from signed in organization administrator
+            orgID: this.props.adminData.OrgID,
             image: '',
             date: '',
             startTime: '',
             endTime: '',
             location: ''
         };
+
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     submitEvent(event) {
         
-        /*const data = new FormData();
-        data.append("name", this.state.name);
-        data.append("description", this.state.description);
-        data.append("price", this.state.price);
-        data.append("orgID", this.state.orgID);
-        data.append("dateTime", this.state.dateTime);
-        data.append("location", this.state.location);
-        data.append('image', this.image);
-
-        axios.post("http://localhost:5000/events/create", data);*/
-
-        //Save below just in case above totally messes everything up
         let obj = {
             name: this.state.name,
             description: this.state.description,
             price: this.state.price,
-            orgID: 0, //Need to get orgID from signed in organization administrator
+            orgID: this.state.orgID,
             image: this.state.image,
             date: this.state.date,
             startTime: this.state.startTime,
             endTime: this.state.endTime,
             location: this.state.location
         }
-        axios.post("http://localhost:5000/events/create", obj);
+        axios.post("/events/create", obj);
+        event.preventDefault();
     }
 
     handleChange(event) {

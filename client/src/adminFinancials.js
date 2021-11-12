@@ -13,13 +13,39 @@ class AdminFinancials extends React.Component {
         return(
         <Container fluid>
             <AdminNav adminData={this.props.location.state.adminData}/>
-            <Row>
-            <h1>Financial info</h1>
-            <h1>Financial info</h1>
-            <h1>Financial info</h1>
-            </Row>
+            <FinancialData adminData={this.props.location.state.adminData}/>
         </Container>
         )
     }
 }
+
+class FinancialData extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            payments: []
+        }
+
+        this.getOrgPayments = this.getOrgPayments.bind(this);
+    }
+
+    componentWillMount(){
+        this.getOrgPayments();
+    }
+
+    getOrgPayments(){
+        axios.post("/events/:orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
+            console.log(response.data);
+        });
+    }
+
+    render(){
+        return(
+            <Container fluid>
+            </Container>
+        );
+    }
+}
+
 export default AdminFinancials;

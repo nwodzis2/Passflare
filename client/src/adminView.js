@@ -35,20 +35,20 @@ class AdminNav extends React.Component {
     return(
       <Container fluid>
         <Navbar fixed="top" bg="dark" expand="lg" className="userNavbar">
-            <Container fluid>
-                <Navbar.Brand href="/adminView"><h4 id="adminBrand"><i className="fas fa-ticket-alt passTicket"/> Passflare <i id="brandBreak">|</i> <i id="adminLogo">Admin</i></h4> </Navbar.Brand>
-                <Navbar.Toggle aria-controls="resonsive-navbar-nav"/>
-                <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
-                    <Nav className="ms-auto" id="adminChoices">
-                        <NavLink to={{pathname: "/adminView", state: {adminData: this.props.adminData}}}>Dashboard</NavLink>
-                        <NavLink to={{pathname: "/adminGatekeeper", state: {adminData: this.props.adminData}}}>Gatekeepers</NavLink>
-                        <NavLink to={{pathname: "/adminUsers", state: {adminData: this.props.adminData}}}>Users</NavLink>
-                        <NavLink to={{pathname: "/adminEvents", state: {adminData: this.props.adminData}}}>Events</NavLink>
-                        <NavLink to={{pathname: "/adminFinancials", state: {adminData: this.props.adminData}}}>Financials</NavLink>
-                        <NavLink to="/editAccount"><i class="fas fa-user-circle"></i></NavLink>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+          <Container fluid>
+            <Navbar.Brand href="/adminView"><h4 id="adminBrand"><i className="fas fa-ticket-alt passTicket"/> Passflare <i id="brandBreak">|</i> <i id="adminLogo">Admin</i></h4> </Navbar.Brand>
+            <Navbar.Toggle aria-controls="resonsive-navbar-nav"/>
+            <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
+              <Nav className="ms-auto" id="adminChoices">
+                <NavLink to={{pathname: "/adminView", state: {adminData: this.props.adminData}}}>Dashboard</NavLink>
+                <NavLink to={{pathname: "/adminGatekeeper", state: {adminData: this.props.adminData}}}>Gatekeepers</NavLink>
+                <NavLink to={{pathname: "/adminUsers", state: {adminData: this.props.adminData}}}>Users</NavLink>
+                <NavLink to={{pathname: "/adminEvents", state: {adminData: this.props.adminData}}}>Events</NavLink>
+                <NavLink to={{pathname: "/adminFinancials", state: {adminData: this.props.adminData}}}>Financials</NavLink>
+                <NavLink to="/editAccount"><i class="fas fa-user-circle"></i></NavLink>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
         </Navbar>
       </Container>
     )

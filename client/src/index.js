@@ -10,11 +10,12 @@ import AccountCreation from "./createAccount.js";
 import Payment from "./payment.js";
 import Passes from "./passes.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
+import UserVerification from "./userVerification.js";
 import AdminLogin from "./adminLogin.js";
 import AdminCreation from "./createAdmin.js";
 import { AdminDashboard } from "./adminView.js";
 import AdminUsers from './adminUsers.js';
-import AdminGatekeeperView from "./adminGatekeeper.js";
+import AdminGatekeeper from "./adminGatekeeper.js";
 import AdminEvents from "./adminEvents.js";
 import AccountEdit from "./editAccount.js";
 import AdminFinancials from './adminFinancials.js';
@@ -79,6 +80,7 @@ ReactDOM.render(
         <Route exact path="/payment" component={Payment} />
         <Route exact path="/eventSearch" component={EventSearch}/>
         <Route exact path="/eventDetails" component={EventDetails}/>
+        <Route exact path="/userVerification/:email/:orgID" component={UserVerification}/>
 
         {/*Gatekeeper routes */}
         <Route exact path="/gatekeeperVerification/:email" component={GatekeeperVerification}/>
@@ -88,7 +90,7 @@ ReactDOM.render(
         <Route exact path="/adminView" component={AdminDashboard}/>
         <Route exact path="/adminLogin" component={AdminLogin}/>
         <Route exact path="/adminCreation" component={AdminCreation}/>
-        <Route exact path="/adminGatekeeper" component={AdminGatekeeperView}/>
+        <Route exact path="/adminGatekeeper" component={AdminGatekeeper}/>
         <Route exact path="/adminUsers" component={AdminUsers}/>
         <Route exact path="/adminEvents" component={AdminEvents}/>
         <Route exact path="/adminFinancials" component={AdminFinancials}/>

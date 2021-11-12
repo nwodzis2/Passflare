@@ -3,6 +3,7 @@ const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
+const ObjectId = require("mongodb").ObjectId;
 const { ContinuousColorLegend } = require("react-vis");
 //var nodemailer = require('nodemailer');
 /*
@@ -117,9 +118,8 @@ userRoutes.route("/user/email").post(function (req, res) {
 
 });*/
 //update a user
-userRoutes.route("/user/update/:id").post(function (req, res) {
+userRoutes.route("/user/edit").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
-    let myUser = { id: req.body.id };
     let newvalues = {
       $set: {
         Number : req.body.number,
@@ -129,9 +129,10 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
     };
     db_connect
       .collection("Users")
-      .updateOne(myUser, newvalues, function (err, res) {
+      .updateOne({_id: ObjectId(req.body.id)}, newvalues, function (err, user) {
         if (err) throw err;
         console.log("user updated");
+        res.json({sucess: true});
       });
   });
   //delete user
@@ -146,6 +147,39 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
     });
   });
 
+  //get user by orgID
+  userRoutes.route("/user/orgID").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    db_connect
+      .collection("Users")
+      .find({OrgID: req.body.orgID})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
+  //verify user
+  userRoutes.route("/user/verify").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+
+    let myobj = {
+        Email : req.body.email
+    }
+
+    let newvalues = {
+        $set: {
+          OrgID: req.body.orgID,
+        },
+      };
+
+    db_connect
+        .collection("Users")
+        .updateOne(myobj, newvalues, { upsert: true }, function(err, obj){
+          if (err) throw err;
+          res.json({message: "Added " + req.body.email + " as user"});
+        });
+});
   
   
   module.exports = userRoutes;

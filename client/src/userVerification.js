@@ -7,16 +7,17 @@ import { withRouter } from "react-router";
 import axios from 'axios';
 
 
-class GatekeeperVerification extends React.Component{
+class UserVerification extends React.Component{
     constructor(props) {
         super(props);
     }
 
     componentDidMount(){
         var email = this.props.match.params.email;
-        console.log(email);
-        axios.post("/gatekeeper/verify", {
+        var orgID = this.props.match.params.orgID;
+        axios.post("/user/verify", {
             email: email,
+            orgID: orgID
         });
     }
 
@@ -25,7 +26,7 @@ class GatekeeperVerification extends React.Component{
         <Container fluid>
         <Row>
             <Col md="12">
-                <h2>You're now registered as a gatekeeper!</h2>
+                <h2>Your account is now verified!</h2>
                 <br/>
             </Col>
         </Row>
@@ -39,4 +40,4 @@ class GatekeeperVerification extends React.Component{
     }
 }
 
-export default withRouter(GatekeeperVerification);
+export default withRouter(UserVerification);

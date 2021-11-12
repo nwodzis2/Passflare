@@ -2,6 +2,7 @@ const express = require("express");
 const { userInfo } = require("os");
 const orgRoutes = express.Router();
 const dbo = require("../db/conn");
+const ObjectId = require('mongodb').ObjectId;
 
 orgRoutes.route("/organization/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -20,5 +21,16 @@ orgRoutes.route("/organization/add").post(function (req, res) {
         })
 
 });
+
+orgRoutes.route("/orginization/orgID").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    db_connect
+      .collection("Organization")
+      .find({_id: ObjectId(req.body.orgID)})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
 
 module.exports = orgRoutes;

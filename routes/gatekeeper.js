@@ -12,6 +12,7 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
 
     let newvalues = {
         $set: {
+          OrgID: req.body.orgID,
           Email : req.body.email,
           Verified : req.body.verified
         },
@@ -19,13 +20,14 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
 
     db_connect
         .collection("GateKeeper")
-        //.createIndex({Email: 1}, { unique: true} )
-        .updateOne(myobj, newvalues, { upsert: true });
+        .updateOne(myobj, newvalues, { upsert: true }, function(err, obj){
+          if (err) throw err;
+          res.json({message: "Added " + req.body.email + " as Gatekeeper"});
+        });
 });
 
 gatekeeperRoutes.route("/gatekeeper/verify").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
-
     let myobj = {
         Email : req.body.email
     }
@@ -38,7 +40,6 @@ gatekeeperRoutes.route("/gatekeeper/verify").post(function (req, res){
 
     db_connect
         .collection("GateKeeper")
-        //.createIndex({Email: 1}, { unique: true} )
         .updateOne(myobj, newvalues, { upsert: true });
 });
 
@@ -63,6 +64,18 @@ gatekeeperRoutes.route("/gatekeeper/validate").post(function (req, res){
       }
     }
   });
+});
+
+//Get gatekeepers by orgID
+gatekeeperRoutes.route("/gatekeeper/orgID").post(function (req, res) {
+  let db_connect = dbo.getDb("Passflare");
+  db_connect
+    .collection("GateKeeper")
+    .find({OrgID : req.body.orgID})
+    .toArray(function(err, result){
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 module.exports = gatekeeperRoutes;

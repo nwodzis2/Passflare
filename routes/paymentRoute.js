@@ -48,4 +48,15 @@ paymentRoutes.route("/payment").post(async(req, res) => {
         .insertOne(paymentObj);
 })
 
+paymentRoutes.route("/payment/orgID").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    db_connect
+      .collection("Payments")
+      .find({OrgID: req.body.orgID})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
 module.exports = paymentRoutes;
