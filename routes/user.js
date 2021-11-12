@@ -3,6 +3,7 @@ const express = require("express");
 const userRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
+const ObjectId = require("mongodb").ObjectId;
 const { ContinuousColorLegend } = require("react-vis");
 //var nodemailer = require('nodemailer');
 /*
@@ -117,9 +118,8 @@ userRoutes.route("/user/email").post(function (req, res) {
 
 });*/
 //update a user
-userRoutes.route("/user/update/:id").post(function (req, res) {
+userRoutes.route("/user/edit").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
-    let myUser = { id: req.body.id };
     let newvalues = {
       $set: {
         Number : req.body.number,
@@ -129,9 +129,10 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
     };
     db_connect
       .collection("Users")
-      .updateOne(myUser, newvalues, function (err, res) {
+      .updateOne({_id: ObjectId(req.body.id)}, newvalues, function (err, user) {
         if (err) throw err;
         console.log("user updated");
+        res.json({sucess: true});
       });
   });
   //delete user
