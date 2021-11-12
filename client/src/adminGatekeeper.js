@@ -13,10 +13,40 @@ class AdminGatekeeper extends React.Component{
 
     render(){
         return(
-        <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData}/>
-            <EmailGatekeeper adminData={this.props.location.state.adminData}/>
-        </Container>
+            <Container fluid>
+                <AdminNav adminData={this.props.location.state.adminData}/>
+                <GatekeeperData adminData={this.props.location.state.adminData}/>
+                <EmailGatekeeper adminData={this.props.location.state.adminData}/>
+            </Container>
+        );
+    }
+}
+
+class GatekeeperData extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            gateKeepers: []
+        }
+
+        this.getOrgGatekeepers = this.getOrgGatekeepers.bind(this);
+    }
+
+    componentWillMount(){
+        this.getOrgGatekeepers();
+    }
+
+    getOrgGatekeepers(){
+        axios.post("/gatekeeper/orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
+            console.log(response.data);
+        });
+    }
+
+    render(){
+        return(
+            <Container fluid>
+            </Container>
         );
     }
 }
@@ -32,32 +62,22 @@ class EmailGatekeeper extends React.Component{
     }
 
     onSubmit(event){
-        const requestOne = axios.get("/admin/sendMail", {
-            params:{
-                email: this.state.email
-            }
-        })
-        const requestTwo = axios.post("/gatekeeper/add", {
+        axios.get("/admin/sendGatekeeperMail", {params: {email: this.state.email}});
+        axios.post("/gatekeeper/add", {           
+                orgID: this.props.adminData.OrgID,
                 email: this.state.email,
                 verified: false
             }
-        )
-
-        //use axios.all to make two concurrent requests
-        axios.all([requestOne, requestTwo])
-        .then(axios.spread((response1, response2) => {
-            console.log('response1', response1, 'response2', response2)
-        }))
-        .catch(function(error){
-            console.log(error);
+        ).then(function(response){
+            alert(response.data.message);
         });
+        event.preventDefault();
     }
 
     handleChange(event){
         this.setState({
             [event.target.name] : event.target.value
         });
-        console.log(this.state);
     }
 
     render(){
@@ -74,7 +94,7 @@ class EmailGatekeeper extends React.Component{
                             <br/>
                             <Row>
                                 <button type="submit" className="btn btn-dark passBtnDark"> 
-                                    Send Gatekeeper verification
+                                    Add Gatekeeper
                                 </button>
                             </Row> 
                         </Form>

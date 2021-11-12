@@ -146,6 +146,39 @@ userRoutes.route("/user/update/:id").post(function (req, res) {
     });
   });
 
+  //get user by orgID
+  userRoutes.route("/user/orgID").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    db_connect
+      .collection("Users")
+      .find({OrgID: req.body.orgID})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
+  //verify user
+  userRoutes.route("/user/verify").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+
+    let myobj = {
+        Email : req.body.email
+    }
+
+    let newvalues = {
+        $set: {
+          OrgID: req.body.orgID,
+        },
+      };
+
+    db_connect
+        .collection("Users")
+        .updateOne(myobj, newvalues, { upsert: true }, function(err, obj){
+          if (err) throw err;
+          res.json({message: "Added " + req.body.email + " as user"});
+        });
+});
   
   
   module.exports = userRoutes;

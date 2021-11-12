@@ -110,8 +110,9 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
       console.log("user deleted");
     });
   });
+
   //send gatekeeper email
-  adminRoutes.route("/admin/sendMail").get(function (req, res){
+  adminRoutes.route("/admin/sendGatekeeperMail").get(function (req, res){
     const nodemailer = require("nodemailer");
     let transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -121,25 +122,52 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
         },
     });
 
-    var email = req.query.email;
     let db_connect = dbo.getDb("Passflare");
-    var query = {Email : email};
-    var myUser = db_connect.collection("Users").findOne(query);
-    var name = myUser.Name;
+    db_connect.collection("Users").findOne({Email : req.query.email}, function(err, user){
+      if (err) {
+        res.json({response: err});
+      } else {
+        transporter.sendMail({
+          from: '"Passflare" <passflare@gmail.com>',
+          to: user.Email,
+          subject: "Become a Passflare Gatekeeeper",
+          text: "Congratulations on being chosen as a Passflare gatekeeper!",
+          html: '<p>' + user.Name + ',</p><p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="passflare.com/gatekeeperVerification/' + user.Email + 
+            '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
+        });
+      }
+    });
+  });
 
-    const newTo = {
-      pathname: "/createGatekeeper",
-      email: email,
-      name: name
-    }
-    
-    let info = transporter.sendMail({
-        from: '"Passflare" <passflare@gmail.com>',
-        to: String(email),
-        subject: "Become a Passflare Gatekeeeper",
-        text: "Congratulations on being chosen as a Passflare gatekeeper!",
-        html: '<p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="passflare.herokuapp.com/gatekeeperVerification/' + email + 
-          '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
+  //send user email
+  adminRoutes.route("/admin/sendUserMail").get(function (req, res){
+    const nodemailer = require("nodemailer");
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+        auth: {
+            user: "passflare@gmail.com",
+            pass: "CapSquadAdmin2021?"
+        },
+    });
+
+    let db_connect = dbo.getDb("Passflare");
+    var org = req.query.orgName;
+    var email = req.query.email;
+    db_connect.collection("Users").findOne({Email : email}, function(err, user){
+      if (err) {
+        res.json({response: err});
+      } else {
+        if (!user.Verified) {
+          transporter.sendMail({
+            from: '"Passflare" <passflare@gmail.com>',
+            to: user.Email,
+            subject: "Verify passflare user",
+            text: "Welcome to Passflare!",
+            html: '<p>' + user.Name + ',</p><p>Welcome to passflare!</p><p>Click <a href="passflare.com/userVerification/' + user.Email + 
+              '"> this link </a> to join ' + org + '</p>'
+          });
+        }
+      }
     });
   });
 
