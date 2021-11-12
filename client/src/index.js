@@ -80,7 +80,7 @@ ReactDOM.render(
         <Route exact path="/payment" component={Payment} />
         <Route exact path="/eventSearch" component={EventSearch}/>
         <Route exact path="/eventDetails" component={EventDetails}/>
-        <Route exact path="/userVerification/:email" component={UserVerification}/>
+        <Route exact path="/userVerification/:email/:orgID" component={UserVerification}/>
 
         {/*Gatekeeper routes */}
         <Route exact path="/gatekeeperVerification/:email" component={GatekeeperVerification}/>

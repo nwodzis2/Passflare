@@ -28,7 +28,6 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
 
 gatekeeperRoutes.route("/gatekeeper/verify").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
-
     let myobj = {
         Email : req.body.email
     }

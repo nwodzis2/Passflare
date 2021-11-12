@@ -151,7 +151,8 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
     });
 
     let db_connect = dbo.getDb("Passflare");
-    var org = req.query.orgName;
+    var orgName = req.query.orgName;
+    var orgID = req.query.orgID;
     var email = req.query.email;
     db_connect.collection("Users").findOne({Email : email}, function(err, user){
       if (err) {
@@ -164,7 +165,7 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
             subject: "Verify passflare user",
             text: "Welcome to Passflare!",
             html: '<p>' + user.Name + ',</p><p>Welcome to passflare!</p><p>Click <a href="passflare.com/userVerification/' + user.Email + 
-              '"> this link </a> to join ' + org + '</p>'
+              '/' + orgID + '"> this link </a> to join ' + orgName + '</p>'
           });
         }
       }

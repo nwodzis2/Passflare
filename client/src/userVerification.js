@@ -14,9 +14,10 @@ class UserVerification extends React.Component{
 
     componentDidMount(){
         var email = this.props.match.params.email;
-        console.log("email");
+        var orgID = this.props.match.params.orgID;
         axios.post("/user/verify", {
             email: email,
+            orgID: orgID
         });
     }
 
@@ -25,7 +26,7 @@ class UserVerification extends React.Component{
         <Container fluid>
         <Row>
             <Col md="12">
-                <h2>Your account is not verified!</h2>
+                <h2>Your account is now verified!</h2>
                 <br/>
             </Col>
         </Row>
