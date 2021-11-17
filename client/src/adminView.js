@@ -9,12 +9,13 @@ import axios from 'axios';
 class AdminDashboard extends React.Component {
   constructor(props){
     super(props);
+    this.state = {adminData: this.props.location.state.adminData}
   }
 
   render(){
     return(
       <Container fluid>
-        <AdminNav adminData={this.props.location.state.adminData}/>
+        <AdminNav adminData={this.state.adminData}/>
         <Row>
           <h1>Dashboard info</h1>
           <h1>Dashboard info</h1>
@@ -45,7 +46,7 @@ class AdminNav extends React.Component {
                 <NavLink to={{pathname: "/adminUsers", state: {adminData: this.props.adminData}}}>Users</NavLink>
                 <NavLink to={{pathname: "/adminEvents", state: {adminData: this.props.adminData}}}>Events</NavLink>
                 <NavLink to={{pathname: "/adminFinancials", state: {adminData: this.props.adminData}}}>Financials</NavLink>
-                <NavLink to="/editAccount"><i class="fas fa-user-circle"></i></NavLink>
+                <NavLink to={{pathname: "/editAccount", state: {user: this.props.adminData._id}}}><i class="fas fa-user-circle"></i></NavLink>
               </Nav>
             </Navbar.Collapse>
           </Container>

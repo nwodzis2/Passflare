@@ -8,7 +8,7 @@ import axios from 'axios';
 class AccountEdit extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {userID: props.location.state.user, userNumber: '', userName: '', userEmail: ''};
+        this.state = {userID: this.props.location.state.user, userNumber: '', userName: '', userEmail: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
@@ -31,7 +31,7 @@ class AccountEdit extends React.Component{
         axios.post("/user/edit", obj)
         .then(function(){
             var tempProps = this.props;
-            tempProps.history.push('/userView');
+            tempProps.history.pop();
         })
         .catch(function(error){
             console.log(error);
