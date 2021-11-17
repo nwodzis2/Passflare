@@ -19,7 +19,7 @@ const QRinitialState = {
   queryingQR: false, 
   activationStatus: "", 
   result : "no result", 
-  ticket : {ticketID : "", userID : "", eventID : "", active : ""}
+  ticket : {ticketID : null, userID : "", eventID : "", active : ""}
 }
 
 class QrScanner extends Component {
@@ -28,7 +28,7 @@ class QrScanner extends Component {
 
     this.state = QRinitialState;
 
-    this.reactivate = this.reactivate.bind(this);
+    this.activate = this.activate.bind(this);
     this.deactivate = this.deactivate.bind(this);
     this.handleScan = this.handleScan.bind(this);
   }
@@ -50,7 +50,6 @@ class QrScanner extends Component {
           var ticketState = {
             ticket : {ticketID : data, userID : response.data[0].UserID, eventID : response.data[0].EventID} 
           }
-
           self.setState(ticketState);
         }).catch(function(err){
           console.log(err)
@@ -63,28 +62,34 @@ class QrScanner extends Component {
     console.error(err)
   }
 
-  reactivate(){
+  deactivate(){
     var self = this;
     axios.post("/tickets/deactivate/:ticketID", {ticketID: this.state.result}).then(function(response){
       if(response.data.ticketReport == "success"){
         self.setState(QRinitialState);
         self.setState({activationStatus: "deactive"});
       }
+      else{
+        console.log("ticket deactivation failure %s", response.data.ticketReport)
+      }
     }
     );
   }
-  deactivate(){
+  activate(){
     var self = this;
     axios.post("/tickets/activate/:ticketID", {ticketID: this.state.result}).then(function(response){
       if(response.data.ticketReport == "success"){
         self.setState(QRinitialState);
         self.setState({activationStatus: "active"});
       }
+      else{
+        console.log("ticket activation failure %s", response.data.ticketReport )
+      }
     }
     );
   }
   render() {
-    if(this.state.ticket.ticketID == ""){
+    if(this.state.ticket.ticketID == null){
       return (
         <div>
           <QrReader
@@ -106,7 +111,8 @@ class QrScanner extends Component {
           <p>{this.state.ticket.userID}</p>
           <h3>Event ID: </h3>
           <p>{this.state.ticket.eventID}</p>
-          <button onClick={this.deactivate} class="btn btn-dark"></button>
+          <button onClick={this.deactivate} class="btn btn-dark">Admit</button>
+          <button onClick={this.activate} class="btn btn-dark">Reactivate</button>
         </div>
       )
     }
