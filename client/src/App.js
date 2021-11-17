@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
-import UserCode from "./enterCodeLogin.js";
 import GatekeeperLoginPage from "./gatekeeperLogin.js";
 import Passes from "./passes.js";
 import LoginPage from "./userLogin.js";

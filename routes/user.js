@@ -5,7 +5,15 @@ const crypto = require("crypto");
 const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 const { ContinuousColorLegend } = require("react-vis");
-//var nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+    auth: {
+        user: "passflare@gmail.com",
+        pass: "CapSquadAdmin2021?"
+    },
+});
+
 /*
             let info = await transporter.sendMail({
                 from: '"Passflare" <passflare@gmail.com>',
@@ -88,35 +96,68 @@ userRoutes.route("/user/email").post(function (req, res) {
         }
       });
   });
+
+  //change user password
+  userRoutes.route("/user/changePassword").post(function (req, res) {
+    let db_connect = dbo.getDb("Passflare");
+    var salt = crypto.randomBytes(128).toString('base64');
+    var iterations = 10000;
+    const hash = crypto.pbkdf2Sync(String(req.body.password), salt, iterations, 64,
+        'sha512', function (err, derivedKey) {
+          
+          if (err) throw err;
+         
+          // Prints derivedKey
+          console.log(derivedKey.toString('hex'));
+      }).toString('hex');
+    
+    let myUser = { Email: req.body.email };
+    let newvalues = {
+      $set: {
+        Hash : hash,
+        Salt : salt,
+      },
+    };
+    db_connect
+        .collection("Users")
+        //.createIndex({Email: 1}, { unique: true} )
+        .updateOne(myUser, newvalues, function (err, user) {
+      if (err) throw err;
+      res.json({passwordChangeSuccess: true});
+    });
+    return;
+});
+
 //recover account
-/*userRoutes.route("/user/recover").get(function (req, res){
+userRoutes.route("/user/recover").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var generated_code = [];
   for(var i = 0; i < 4; i++){
     generated_code[i] = Math.floor(Math.random() * 10);
   }
-  var mailOptions = {
-    from: 'wodzisz22@gmail.com',
-    to: req.body.email,
-    subject: 'Passflare Password Recovery' + req.body.email.split('@')[0],
-    text: `
-    <body>
-      <h1><i class=""></i>Passflare</h1>
-
-    </body>
-    `
-
-  };
   
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
+  db_connect.collection("Users").findOne({Email : req.body.email}, function(err, user){
+    if (err) {
+      res.json({valid: false});
     } else {
-      console.log('Email sent: ' + info.response);
+      if (user == null){
+        res.json({valid: false});
+      }
+      else{
+        transporter.sendMail({
+          from: '"Passflare" <passflare@gmail.com>',
+          to: user.Email,
+          subject: "Passflare Account Recovery",
+          text: "You're recieving this email because we recieved a request to reset the password for your account.",
+          html: '<p>You&apos;re recieving this email because the we recieved a request to reset the password for your account.</p><p>Your four-digit code is as follows: ' + generated_code[0] + 
+            + generated_code[1] + generated_code[2] + generated_code[3] + '</p><p>Please enter this code on the account recovery page.</p>'
+        });
+        res.json({recoveryCode: generated_code, valid: true});
+      }
     }
   });
+});
 
-});*/
 //update a user
 userRoutes.route("/user/edit").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");

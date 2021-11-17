@@ -95,6 +95,10 @@ class AdminLogin extends React.Component {
                     <Row md="8">
                         <Link to= "/adminCreation" className="create-account-btn"><u>Create Admin Account</u></Link>
                     </Row>
+                    <br/>
+                    <Row>
+                      <Link to= "/recoveryEmail" className="create-account-btn"><u>Forgot your password?</u></Link>
+                    </Row>
                   </form>
                 </Col>
               </Row>

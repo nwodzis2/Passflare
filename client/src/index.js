@@ -11,6 +11,7 @@ import Payment from "./payment.js";
 import Passes from "./passes.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
 import UserVerification from "./userVerification.js";
+import {RecoveryEmail, AccountRecovery, ChangePassword, PasswordChangeSuccess} from "./accountRecovery.js";
 import AdminLogin from "./adminLogin.js";
 import AdminCreation from "./createAdmin.js";
 import { AdminDashboard } from "./adminView.js";
@@ -25,6 +26,7 @@ import FAQ from "./FAQ.js";
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
   import App from './App';
+import { fileURLToPath } from 'url';
 
   class Header extends React.Component{
     render(){
@@ -81,6 +83,10 @@ ReactDOM.render(
         <Route exact path="/eventSearch" component={EventSearch}/>
         <Route exact path="/eventDetails" component={EventDetails}/>
         <Route exact path="/userVerification/:email/:orgID" component={UserVerification}/>
+        <Route exact path="/recoveryEmail" component={RecoveryEmail}/>
+        <Route exact path="/accountRecovery" component={AccountRecovery}/>
+        <Route exact path="/changePassword" component={ChangePassword}/>
+        <Route exact path="/passwordChangeSuccess" component={PasswordChangeSuccess}/>
 
         {/*Gatekeeper routes */}
         <Route exact path="/gatekeeperVerification/:email" component={GatekeeperVerification}/>
