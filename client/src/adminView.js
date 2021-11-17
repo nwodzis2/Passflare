@@ -6,6 +6,43 @@ import { BrowserRouter as Router,
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
+class EventStats extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      adminEventDet : [],
+      adminEventOpts : [],
+      orgID : this.props.adminData.OrgID
+    }
+    
+  }
+  componentWillMount(){
+    axios.post("/events/:orgID", {orgID: this.state.orgID}).then((response) => {
+      this.setState({adminEventDet: response.data});
+      var tempArray = []
+      var tempArray2 = []
+      tempArray2 = response.data
+      for(const e of tempArray2){
+        tempArray.push(<option value={e._id}>{e.Name}</option>)
+      }
+      this.setState({adminEventOpts : tempArray})
+    });
+  }
+  render(){
+    return(
+      <Container fluid>
+        <h2>Events</h2>
+        <button></button>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Select Event</option>
+          {this.state.adminEventOpts}
+        </select>
+
+      </Container>
+      
+    )
+  }
+}
 class AdminDashboard extends React.Component {
   constructor(props){
     super(props);
@@ -16,10 +53,15 @@ class AdminDashboard extends React.Component {
     return(
       <Container fluid>
         <AdminNav adminData={this.state.adminData}/>
+        <h1>Admin Dashboard</h1>
+
         <Row>
-          <h1>Dashboard info</h1>
-          <h1>Dashboard info</h1>
-          <h1>Dashboard info</h1>
+          <Col md="6">
+            <EventStats adminData={this.props.location.state.adminData}/>
+          </Col>
+          <Col md="6">
+            <h2>Financials</h2>
+          </Col>
         </Row>
       </Container>
     )
