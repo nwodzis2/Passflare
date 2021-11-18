@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './styles.css';
 import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, withRouter } from "react-router-dom";
 import axios from 'axios';
 
 class AccountEdit extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {userNumber: '', userName: '', userEmail: ''};
-    
+        this.state = {userID: this.props.location.state.user, userNumber: '', userName: '', userEmail: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
@@ -20,19 +20,18 @@ class AccountEdit extends React.Component{
     }
 
     async handleSubmit(event){
-        var userId = this.props.match.params.id;
-
         event.preventDefault();
         let obj = {
+            id: this.state.userID,
             number: this.state.userNumber,
             name: this.state.userName,
             email: this.state.userEmail,
         }
 
-        axios.post("/user/edit", { id: userId, number: obj.number, name: obj.name, email: obj.email })
+        axios.post("/user/edit", obj)
         .then(function(){
             var tempProps = this.props;
-            tempProps.history.push('/userView');
+            tempProps.history.pop();
         })
         .catch(function(error){
             console.log(error);
@@ -50,13 +49,13 @@ class AccountEdit extends React.Component{
                         <Form>
                             <FormGroup>       
                                 <FormLabel>Name: </FormLabel>
-                                <FormControl className="defaultText" type="text" name="userName" placeholder="Enter name..."/>
+                                <FormControl className="defaultText" type="text" name="userName" onChange={this.handleChange} placeholder="Enter name..."/>
                                 <hr/>
                                 <FormLabel>Phone Number: </FormLabel>
-                                <FormControl className="defaultTel" type="tel" name="userNumber" placeholder="Enter email..."/>
+                                <FormControl className="defaultTel" type="tel" name="userNumber" onChange={this.handleChange} placeholder="Enter email..."/>
                                 <hr/>
                                 <FormLabel>Email Address: </FormLabel>
-                                <FormControl className="defaultEmail" type="email" name="userEmail" placeholder="Enter email..."/>
+                                <FormControl className="defaultEmail" type="email" name="userEmail" onChange={this.handleChange} placeholder="Enter email..."/>
                             </FormGroup>
                         </Form>
                         <br/>
@@ -73,4 +72,4 @@ class AccountEdit extends React.Component{
     }
 }
 
-export default AccountEdit;
+export default withRouter(AccountEdit);

@@ -11,6 +11,7 @@ import AccountCreation from "./createAccount.js";
 import Payment from "./payment.js";
 import GatekeeperVerification from "./gatekeeperVerification.js";
 import UserVerification from "./userVerification.js";
+import {RecoveryEmail, AccountRecovery, ChangePassword, PasswordChangeSuccess} from "./accountRecovery.js";
 import AdminLogin from "./adminLogin.js";
 import AdminCreation from "./createAdmin.js";
 import { AdminDashboard } from "./adminView.js";
@@ -26,6 +27,7 @@ import { BrowserRouter as Router,
   Switch, Route, Link, Redirect, withRouter} from "react-router-dom";
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Container } from 'react-bootstrap';
+import { fileURLToPath } from 'url';
 
 
 class Header extends React.Component{

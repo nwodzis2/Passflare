@@ -93,4 +93,44 @@ eventRoutes.route("/events/:orgID").post(function (req, res){
       res.json(result);
     });
 });
+
+
+//search event by date
+eventRoutes.route("/events/:date").get(function (req, res) {
+    let db_connect = dbo.getDb("Passflare");
+    var query = {date: req.body.date}
+    db_connect
+      .collection("Events")
+      .find({Date: query})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
+//search event by location
+eventRoutes.route("/events/:location").get(function (req, res) {
+    let db_connect = dbo.getDb("Passflare");
+    var query = {date: req.body.location}
+    db_connect
+      .collection("Events")
+      .find({Location: query})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
+//search event by name
+eventRoutes.route("/events/:name").get(function (req, res) {
+    let db_connect = dbo.getDb("Passflare");
+    var query = {date: req.body.name}
+    db_connect
+      .collection("Events")
+      .find({Name: query})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
 module.exports = eventRoutes;

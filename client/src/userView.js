@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Navbar, Dropdown, DropdownButton} from 'react-bootstrap';
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { Redirect } from 'react-router';
+import props from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
@@ -144,7 +145,7 @@ class UserNav extends React.Component {
         <Container className="userNav">
           <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           <DropdownButton variant='dark' title={this.props.userData.Name} align="end">
-            <Dropdown.Item variant='dark'><Link to="/editAccount">Edit Account</Link></Dropdown.Item>
+            <Dropdown.Item variant='dark'><Link to={{pathname: "/editAccount", state: {user: this.props.userData._id}}}>Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
           </DropdownButton>
         </Container>

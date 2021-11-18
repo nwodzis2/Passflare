@@ -34,7 +34,18 @@ ticketRoutes.route("/tickets/byID").post(function (req, res){
       res.json(result);
     });
 });
-
+//Get tickets by eventID
+ticketRoutes.route("/tickets/eventID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var eventID = req.body.eventID;
+  db_connect
+    .collection("Tickets")
+    .find({EventID: eventID})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 //Get tickets by userID
 ticketRoutes.route("/tickets/:userID").post(function (req, res){
@@ -55,7 +66,7 @@ ticketRoutes.route("/tickets/:userID").post(function (req, res){
 
 /*
 //Get tickets by orgID
-ticketRoutes.route("/tickets/:orgID").get(function (req, res){
+ticketRoutes.route("/tickets/orgID").get(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var orgid = req.body.orgID;
   db_connect
@@ -66,32 +77,35 @@ ticketRoutes.route("/tickets/:orgID").get(function (req, res){
       res.json(result);
     });
 });
-
+*/
 //Activate ticket
 ticketRoutes.route("/tickets/activate/:ticketID").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var ticketID = req.body.ticketID;
-  var query = {_id : ticketID};
+  var query = {_id : ObjectId(ticketID)};
+  var result;
   var myTicket = db_connect.collection("Tickets").findOne(query, 
     function(err, ticket){
       if(err){
-        res.json({ticketReport : err});
+        result = {ticketReport : err};
       } else{
-        if(ticket.Activate == true){
-          res.json({ticketReport : "already active"});
+        if(ticket.Active == true){
+          result = {ticketReport : "already active"};
         }
         else{
-          db_connect.collection("Tickets").updateOne(query, {Active : true}, function(err, res){
+          result = {ticketReport : "success"};
+          db_connect.collection("Tickets").updateOne(query, {$set : {Active : true}}, function(err, res){
             if(err){
-              res.json({ticketReport : err});
+              throw err
             }
             else{
-              res.json({ticketReport : "success"});
+              result = {ticketReport : "success"};
             }
           });
           
         }
       }
+      res.json(result);
     }
     );
 });
@@ -100,31 +114,36 @@ ticketRoutes.route("/tickets/activate/:ticketID").post(function (req, res){
 //Deactivate ticket
 ticketRoutes.route("/tickets/deactivate/:ticketID").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");
+  
+  var result;
   var ticketID = req.body.ticketID;
-  var query = {_id : ticketID};
+  var query = {_id : ObjectId(ticketID)};
   var myTicket = db_connect.collection("Tickets").findOne(query, 
     function(err, ticket){
       if(err){
-        res.json({ticketReport : err});
+        result = {ticketReport : err};
       } else{
-        if(ticket.Activate == false){
-          res.json({ticketReport : "already deactivated"});
+        if(ticket.Active == false){
+          result = {ticketReport : "already deactivated"};
         }
         else{
-          db_connect.collection("Tickets").updateOne(query, {Active : true}, function(err, res){
+          result = {ticketReport : "success"};
+          db_connect.collection("Tickets").updateOne(query, {$set : {Active : false}}, function(err, res){
             if(err){
-              res.json({ticketReport : err});
+              throw err
+              
             }
             else{
-              res.json({ticketReport : "success"});
+              result = {ticketReport : "success"};
             }
           });
           
         }
       }
+      res.json(result);
     }
     );
-});*/
+});
 
 
 module.exports = ticketRoutes;
