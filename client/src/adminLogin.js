@@ -5,6 +5,7 @@ import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { setUncaughtExceptionCaptureCallback } from 'process';
 
 class AdminLogin extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class AdminLogin extends React.Component {
               .then(function(response){
                 resjson = response.data;
                 if (resjson.validationReport == "adminValid") {
+                  self.props.setAuth("validAdmin")
                   self.props.history.push("/adminView", {adminData: userResponse.data.response});
                 }
                 else 

@@ -9,6 +9,8 @@ class UserView extends React.Component{
   constructor(props){
     super(props);
 
+    console.log(this.props);
+
     this.state = {
       ticketsLoading: true,
       eventsLoading: true,
@@ -20,13 +22,12 @@ class UserView extends React.Component{
       userData: this.props.location.state.userData
     }
 
-
     this.fetchEventData = this.fetchEventData.bind(this);
     this.loadEventCardsData = this.loadEventCardsData.bind(this);
   }
 
   componentDidMount() {
-    this.fetchEventData();
+      this.fetchEventData();
   }
 
   loadEventCardsData = ()=> {

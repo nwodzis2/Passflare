@@ -27,7 +27,7 @@ class GatekeeperLoginPage extends React.Component{
       password: this.state.userPassword
     } 
 
-    axios.get("http://localhost:5000/user/validate", myObject)
+    axios.get("user/validate", myObject)
     .then(function(response){
       console.log(response);
       this.props.history.push('/gatekeeperView');

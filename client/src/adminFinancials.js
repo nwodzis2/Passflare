@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, Form, FormLabel, FormControl} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
 
 class AdminFinancials extends React.Component {
     constructor(props){
         super(props);
+
+        if (this.props.location.state == null) {
+            this.state = {
+                loginRedirect: true
+            }
+        }
     }
 
     render(){
+        if (this.state.loginRedirect) {
+            return(<Container fluid><Redirect to="/"/></Container>)
+        }
         return(
         <Container fluid>
             <AdminNav adminData={this.props.location.state.adminData}/>
