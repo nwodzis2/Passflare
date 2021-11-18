@@ -10,18 +10,9 @@ import {AdminNav} from "./adminView.js";
 class AdminEvents extends React.Component {
     constructor(props){
         super(props);
-
-        if (this.props.location.state == null) {
-            this.state = {
-                loginRedirect: true
-            }
-        }
     }
 
     render(){
-        if (this.state.loginRedirect) {
-            return(<Container fluid><Redirect to="/"/></Container>)
-        }
         return(
         <Container fluid>
             <AdminNav adminData={this.props.location.state.adminData}/>
@@ -64,8 +55,6 @@ class EventData extends React.Component{
 class EventCreation extends React.Component{
     constructor(props) {
         super(props);
-
-        
 
         this.state = {
             name: '',
