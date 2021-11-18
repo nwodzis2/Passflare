@@ -521,3 +521,8 @@ section > section > div{
     box-shadow: none !important;
     border: none !important;
 }
+/*Graphs*/
+.event-graph-container{
+    background-color: white;
+}
+/*Graphs*/

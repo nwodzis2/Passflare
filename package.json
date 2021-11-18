@@ -29,7 +29,7 @@
     "mongodb": "^4.1.1",
     "node": "^16.13.0",
     "node-mailjet": "^3.3.4",
-    "nodemailer": "^6.7.0",
+    "nodemailer": "^6.7.1",
     "nodemon": "^2.0.14",
     "qrcode": "^1.4.4",
     "react": "^17.0.2",

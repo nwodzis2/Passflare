@@ -5,16 +5,24 @@ import { BrowserRouter as Router,
   Switch, Route, Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+import '../node_modules/react-vis/dist/style.css';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
+const DATA = [
+  [{x: 1, y: 10}, {x: 2, y: 7}, {x: 3, y: 15}],
+  [{x: 1, y: 20}, {x: 2, y: 5}, {x: 3, y: 15}]
+];
 class EventStats extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       adminEventDet : [],
       adminEventOpts : [],
-      orgID : this.props.adminData.OrgID
+      orgID : this.props.adminData.OrgID,
+      eventSelect : "",
+      eventData : [],
+      crosshairValues: []
     }
-    
+    this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount(){
     axios.post("/events/:orgID", {orgID: this.state.orgID}).then((response) => {
@@ -28,16 +36,51 @@ class EventStats extends React.Component{
       this.setState({adminEventOpts : tempArray})
     });
   }
+  _onMouseLeave = () => {
+    this.setState({crosshairValues: []});
+  };
+  _onNearestX = (value) => {
+    this.setState({crosshairValues: this.state.eventData});
+  };
+  handleChange(event){
+    this.setState({eventSelect : event.target.value})
+    axios.post("/tickets/eventID", {eventID : event.target.value}).then((response) => {
+      var coords = {}
+      var coordsArray = []
+      for(const t of response.data){
+        var timestamp = t._id.toString().substring(0,8)
+        var date = new Date( parseInt( timestamp, 16 ) * 1000 )
+        date = date.toLocaleDateString("en-US")
+        coords[date] = (coords[date] + 1) || 1
+      }
+      for (var d in coords){
+        coordsArray.push({x : d, y : coords[d]})
+      }
+      this.setState({eventData : coordsArray})
+    })
+  }
   render(){
     return(
       <Container fluid>
         <h2>Events</h2>
-        <button></button>
-        <select class="form-select" aria-label="Default select example">
+        <select onChange={this.handleChange} class="form-select" aria-label="Default select example">
           <option selected>Select Event</option>
           {this.state.adminEventOpts}
         </select>
-
+        <div className="event-graph-container">
+          <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          <LineSeries onNearestX={this._onNearestX} data={this.state.eventData} />
+          <LineSeries data={this.state.eventData} />
+          <Crosshair
+            values={this.state.crosshairValues}
+            className={'test-class-name'}
+          />
+        </XYPlot>
+      </div>
       </Container>
       
     )
