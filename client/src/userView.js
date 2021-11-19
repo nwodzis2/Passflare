@@ -80,7 +80,7 @@ class UserView extends React.Component{
     if (!this.state.loading) {
       return(
         <Container fluid style={{padding: 0}}>
-          <UserNav userData={this.state.userData}/>
+          <UserNav history={this.props.history} userData={this.state.userData}/>
           <Row className="eventRow" style={{}, {marginTop: 15}}>
                 <h1 className="eventTitle">Tickets owned:</h1>
                 <div className="eventDisplay">
@@ -111,7 +111,6 @@ class EventCard extends React.Component {
   }
 
   render() {
-    console.log(this.props.event);
     return(
       <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
         <div class="eventCard">
@@ -134,6 +133,8 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
+    console.log("sign out");
+    localStorage.removeItem("passflareAuth");
     this.props.history.replace("/");
   }
 

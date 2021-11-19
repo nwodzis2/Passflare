@@ -28,7 +28,15 @@ import { BrowserRouter as Router,
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Container } from 'react-bootstrap';
 import { fileURLToPath } from 'url';
-let auth = window.localStorage.getItem("passflareAuth");
+
+function getAuth() {
+  if (window.location.pathname == "/" && performance.navigation.type == 0) {
+    localStorage.removeItem("passflareAuth");
+  }
+
+  //Set auth after it is changed on local storage
+  return localStorage.getItem("passflareAuth");
+}
 
 class Header extends React.Component{
   render(){
@@ -74,30 +82,28 @@ class PageRouter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      auth: auth
-    }
-
     this.setAuth = this.setAuth.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
   }
 
   setAuth(receievedAuth) {
-    auth = receievedAuth;
-    this.setState({auth: receievedAuth});
+    localStorage.setItem("passflareAuth", receievedAuth);
+    console.log("Set auth: " + receievedAuth);
   }
 
   checkAuth(routeType, routeComponent) {
+    let auth = getAuth();
+    console.log("Check auth: " + auth)
     if (routeType == "login") {
       return React.createElement(withRouter(routeComponent), {setAuth: this.setAuth});
     }
-    if ((this.state.auth == "validUser" && routeType == "user") || 
-      (this.state.auth == "validAdmin" && routeType == "admin") ||
-      (this.state.auth == "validGatekeeper" && routeType == "gatekeeper") ||
+    if ((auth == "validUser" && routeType == "user") || 
+      (auth == "validAdmin" && routeType == "admin") ||
+      (auth == "validGatekeeper" && routeType == "gatekeeper") ||
       routeType == "verification" ||
       routeType == "misc" ||
       routeType == "account" ||
-      (this.state.auth != undefined && routeType == "edit")) {
+      (auth != null && routeType == "edit")) {
       return React.createElement(withRouter(routeComponent));
     }
     return <Redirect to="/"/>
@@ -105,7 +111,6 @@ class PageRouter extends React.Component {
 
   render() {
     return(
-      <RefreshDetector>
         <Router>
           <Switch>
             {/*Login routes */}
@@ -144,36 +149,10 @@ class PageRouter extends React.Component {
           
           </Switch>
         </Router>
-      </RefreshDetector>
     );
   }
 }
 
-function RefreshDetector(props) {
-  useEffect(() => {
-    
-    if (window.performance) {
-
-      //Normal loading in, auth becomes undefined
-      if (performance.navigation.type == 0) { 
-        if (window.location.pathname == "/") {
-          window.localStorage.removeItem("passflareAuth");
-        }
-      }
-
-      //Other wise if a refresh, set the auth to previous auth
-      if (performance.navigation.type == 1) {
-          window.localStorage.setItem("passflareAuth", auth);
-      }
-    }
-  });
-
-  return(
-    <Container fluid>
-      {props.children}
-    </Container>
-  );
-}
 
 //Routing still needs done, for now replace Componont of the Route with path "/" with whatever you want to render
 ReactDOM.render(
