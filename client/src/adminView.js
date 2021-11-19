@@ -5,7 +5,7 @@ import { BrowserRouter as Router,
   Switch, Route, Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import '../node_modules/react-vis/dist/style.css';
+//import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
 const DATA = [
   [{x: 1, y: 10}, {x: 2, y: 7}, {x: 3, y: 15}],
