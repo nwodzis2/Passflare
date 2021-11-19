@@ -136,10 +136,10 @@ class PageRouter extends React.Component {
             <Route path="/gatekeeperVerification/:email" render={() => this.checkAuth("verification", GatekeeperVerification)}/>
 
             {/*Recovery routes */}
-            <Route path="/recoveryEmail" render={RecoveryEmail}/>
-            <Route path="/accountRecovery" render={AccountRecovery}/>
-            <Route path="/changePassword" render={ChangePassword}/>
-            <Route path="/passwordChangeSuccess" render={PasswordChangeSuccess}/>
+            <Route path="/recoveryEmail" component={RecoveryEmail}/>
+            <Route path="/accountRecovery" component={AccountRecovery}/>
+            <Route path="/changePassword" component={ChangePassword}/>
+            <Route path="/passwordChangeSuccess" component={PasswordChangeSuccess}/>
 
             {/*Gatekeeper routes */}
             <Route path="/gatekeeperView" render={() => this.checkAuth("gatekeeper", GatekeeperView)}/>
