@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, useEffect } from 'react';
+import ReactDOM, { render } from 'react-dom';
 import reportWebVitals from './reportWebVitals.js';
 import Helmet from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -28,7 +28,7 @@ import { BrowserRouter as Router,
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Container } from 'react-bootstrap';
 import { fileURLToPath } from 'url';
-
+let auth = window.localStorage.getItem("passflareAuth");
 
 class Header extends React.Component{
   render(){
@@ -75,7 +75,7 @@ class PageRouter extends React.Component {
     super(props);
 
     this.state = {
-      auth: "invalid"
+      auth: auth
     }
 
     this.setAuth = this.setAuth.bind(this);
@@ -83,6 +83,7 @@ class PageRouter extends React.Component {
   }
 
   setAuth(receievedAuth) {
+    auth = receievedAuth;
     this.setState({auth: receievedAuth});
   }
 
@@ -96,7 +97,7 @@ class PageRouter extends React.Component {
       routeType == "verification" ||
       routeType == "misc" ||
       routeType == "account" ||
-      (this.state.auth != "invalid" && routeType == "edit")) {
+      (this.state.auth != undefined && routeType == "edit")) {
       return React.createElement(withRouter(routeComponent));
     }
     return <Redirect to="/"/>
@@ -104,48 +105,75 @@ class PageRouter extends React.Component {
 
   render() {
     return(
-      <Router>
-        <Switch>
-          {/*Login routes */}
-          <Route exact path="/" render={() => this.checkAuth("login", LoginPage)}/>
-          <Route path="/adminLogin" render={() => this.checkAuth("login", AdminLogin)}/>
+      <RefreshDetector>
+        <Router>
+          <Switch>
+            {/*Login routes */}
+            <Route exact path="/" render={() => this.checkAuth("login", LoginPage)}/>
+            <Route path="/adminLogin" render={() => this.checkAuth("login", AdminLogin)}/>
+            
+            {/*Account routes */}
+            <Route path="/userCreation" render={() => this.checkAuth("account", AccountCreation)}/>
+            <Route path="/adminCreation" render={() => this.checkAuth("account", AdminCreation)}/>
+
+            {/*Edit routes */}
+            <Route path="/editAccount" render={() => this.checkAuth("edit", AccountEdit)}/>
+
+            {/*User routes */}
+            <Route path="/userView" render={() => this.checkAuth("user", UserView)}/>
+            <Route path="/payment" render={() => this.checkAuth("user", Payment)} />
+            <Route path="/eventSearch" render={() => this.checkAuth("user", EventSearch)}/>
+            <Route path="/eventDetails" render={() => this.checkAuth("user", EventDetails)}/>
           
-          {/*Account routes */}
-          <Route path="/userCreation" render={() => this.checkAuth("account", AccountCreation)}/>
-          <Route path="/adminCreation" render={() => this.checkAuth("account", AdminCreation)}/>
+            {/*Verification routes */}
+            <Route path="/userVerification/:email/:orgID" render={() => this.checkAuth("verification", UserVerification)}/>
+            <Route path="/gatekeeperVerification/:email" render={() => this.checkAuth("verification", GatekeeperVerification)}/>
 
-          {/*Edit routes */}
-          <Route path="/editAccount" render={() => this.checkAuth("edit", AccountEdit)}/>
-
-          {/*User routes */}
-          <Route path="/userView" render={() => this.checkAuth("user", UserView)}/>
-          <Route path="/payment" render={() => this.checkAuth("user", Payment)} />
-          <Route path="/eventSearch" render={() => this.checkAuth("user", EventSearch)}/>
-          <Route path="/eventDetails" render={() => this.checkAuth("user", EventDetails)}/>
-        
-          {/*Verification routes */}
-          <Route path="/userVerification/:email/:orgID" render={() => this.checkAuth("verification", UserVerification)}/>
-          <Route path="/gatekeeperVerification/:email" render={() => this.checkAuth("verification", GatekeeperVerification)}/>
-
-          {/*Gatekeeper routes */}
-          <Route path="/gatekeeperView" render={() => this.checkAuth("gatekeeper", GatekeeperView)}/>
-        
-          {/*Admin routes */}
-          <Route path="/adminView" render={() => this.checkAuth("admin", AdminDashboard)}/>
-          <Route path="/adminGatekeeper" render={() => this.checkAuth("admin", AdminGatekeeper)}/>
-          <Route path="/adminUsers" render={() => this.checkAuth("admin", AdminUsers)}/>
-          <Route path="/adminEvents" render={() => this.checkAuth("admin", AdminEvents)}/>
-          <Route path="/adminFinancials" render={() => this.checkAuth("admin", AdminFinancials)}/>
-        
-          {/*Misc. routes */}
-          <Route exact path="/faq" component={FAQ} /> 
-        
-        </Switch>
-      </Router>
+            {/*Gatekeeper routes */}
+            <Route path="/gatekeeperView" render={() => this.checkAuth("gatekeeper", GatekeeperView)}/>
+          
+            {/*Admin routes */}
+            <Route path="/adminView" render={() => this.checkAuth("admin", AdminDashboard)}/>
+            <Route path="/adminGatekeeper" render={() => this.checkAuth("admin", AdminGatekeeper)}/>
+            <Route path="/adminUsers" render={() => this.checkAuth("admin", AdminUsers)}/>
+            <Route path="/adminEvents" render={() => this.checkAuth("admin", AdminEvents)}/>
+            <Route path="/adminFinancials" render={() => this.checkAuth("admin", AdminFinancials)}/>
+          
+            {/*Misc. routes */}
+            <Route exact path="/faq" component={FAQ} /> 
+          
+          </Switch>
+        </Router>
+      </RefreshDetector>
     );
   }
 }
 
+function RefreshDetector(props) {
+  useEffect(() => {
+    
+    if (window.performance) {
+
+      //Normal loading in, auth becomes undefined
+      if (performance.navigation.type == 0) { 
+        if (window.location.pathname == "/") {
+          window.localStorage.removeItem("passflareAuth");
+        }
+      }
+
+      //Other wise if a refresh, set the auth to previous auth
+      if (performance.navigation.type == 1) {
+          window.localStorage.setItem("passflareAuth", auth);
+      }
+    }
+  });
+
+  return(
+    <Container fluid>
+      {props.children}
+    </Container>
+  );
+}
 
 //Routing still needs done, for now replace Componont of the Route with path "/" with whatever you want to render
 ReactDOM.render(

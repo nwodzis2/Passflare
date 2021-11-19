@@ -10,8 +10,6 @@ class UserView extends React.Component{
   constructor(props){
     super(props);
 
-    console.log(this.props);
-
     this.state = {
       ticketsLoading: true,
       eventsLoading: true,
@@ -113,11 +111,11 @@ class EventCard extends React.Component {
   }
 
   render() {
-    //Also need to implement images once image backend is working
+    console.log(this.props.event);
     return(
       <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
         <div class="eventCard">
-          <div class="eventCardImage"></div>
+          <div class="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
           <div class="eventCardName">{this.props.event.Name}</div>
           <div class="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
           <div class="eventCardDate">{this.props.event.Date}</div>
@@ -136,7 +134,7 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
-    <Redirect to="/" />
+    this.props.history.replace("/");
   }
 
   render(){

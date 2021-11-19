@@ -1,4 +1,7 @@
 const express = require("express");
+const formidible = require("formidable");
+const fs = require("fs");
+const path = require("path");
 const eventRoutes = express.Router();
 const dbo = require("../db/conn");
 
@@ -15,26 +18,38 @@ eventRoutes.route("/events").get(function (req, res) {
   });
 //create event
 eventRoutes.route("/events/create").post(function (req, res){
-    console.log(req.body);
-    console.log(JSON.stringify(req.body.image));
     let db_connect = dbo.getDb("Passflare");
-    let myObj = {
-          Name : req.body.name,
-          Description: req.body.description,
-          Price: req.body.price,
-          OrgID : req.body.orgID,
-          Image : req.body.image,
-          Date : req.body.date,
-          StartTime: req.body.startTime,
-          EndTime: req.body.endTime,
-          Location : req.body.location
+    const form = new formidible.IncomingForm();
+    
+    
+
+    form.parse(req, function(error, fields, files){
+      let encodedData = fs.readFileSync(files.image.filepath);
+
+      console.log(files.image);
+
+      let eventObj = {
+        Name : fields.name,
+        Description: fields.description,
+        Price: fields.price,
+        OrgID : fields.orgID,
+        Image : encodedData,
+        Date : fields.date,
+        StartTime: fields.startTime,
+        EndTime: fields.endTime,
+        Location : fields.location
       };
-    var event = db_connect
-        .collection("Events")
-        .insertOne(myObj, function(err, res){
-            if(err) throw err;
-            console.log("event created");
-        });
+
+      var event = db_connect
+      .collection("Events")
+      .insertOne(eventObj, function(err, res){
+          if(err) throw err;
+          console.log("event created");
+      });
+    });
+    
+    
+
 });
 //delete event by id
 eventRoutes.route("/events/delete/:id").post(function(req, res){
@@ -97,40 +112,41 @@ eventRoutes.route("/events/:orgID").post(function (req, res){
 
 //search event by date
 eventRoutes.route("/events/:date").get(function (req, res) {
-    let db_connect = dbo.getDb("Passflare");
-    var query = {date: req.body.date}
-    db_connect
-      .collection("Events")
-      .find({Date: query})
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-  });
+  let db_connect = dbo.getDb("Passflare");
+  var query = {date: req.body.date}
+  db_connect
+    .collection("Events")
+    .find({Date: query})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 //search event by location
 eventRoutes.route("/events/:location").get(function (req, res) {
-    let db_connect = dbo.getDb("Passflare");
-    var query = {date: req.body.location}
-    db_connect
-      .collection("Events")
-      .find({Location: query})
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-  });
+  let db_connect = dbo.getDb("Passflare");
+  var query = {date: req.body.location}
+  db_connect
+    .collection("Events")
+    .find({Location: query})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 //search event by name
 eventRoutes.route("/events/:name").get(function (req, res) {
-    let db_connect = dbo.getDb("Passflare");
-    var query = {date: req.body.name}
-    db_connect
-      .collection("Events")
-      .find({Name: query})
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-  });
+  let db_connect = dbo.getDb("Passflare");
+  var query = {date: req.body.name}
+  db_connect
+    .collection("Events")
+    .find({Name: query})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 module.exports = eventRoutes;
