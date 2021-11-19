@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Form, FormLabel, FormControl} from 'react-bo
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
 
 class AdminGatekeeper extends React.Component{

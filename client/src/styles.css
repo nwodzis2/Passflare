@@ -105,6 +105,15 @@ hr {
     border-radius: 10px;
     background-color: white;
     white-space: pre-wrap;
+    overflow: hidden;
+}
+
+.eventCardImage > img{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .eventCardName {
@@ -521,3 +530,8 @@ section > section > div{
     box-shadow: none !important;
     border: none !important;
 }
+/*Graphs*/
+.event-graph-container{
+    background-color: white;
+}
+/*Graphs*/

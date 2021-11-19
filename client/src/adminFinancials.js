@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, Form, FormLabel, FormControl} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
 
 class AdminFinancials extends React.Component {

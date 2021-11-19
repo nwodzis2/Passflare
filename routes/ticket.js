@@ -34,7 +34,18 @@ ticketRoutes.route("/tickets/byID").post(function (req, res){
       res.json(result);
     });
 });
-
+//Get tickets by eventID
+ticketRoutes.route("/tickets/eventID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var eventID = req.body.eventID;
+  db_connect
+    .collection("Tickets")
+    .find({EventID: eventID})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 //Get tickets by userID
 ticketRoutes.route("/tickets/:userID").post(function (req, res){
@@ -55,7 +66,7 @@ ticketRoutes.route("/tickets/:userID").post(function (req, res){
 
 /*
 //Get tickets by orgID
-ticketRoutes.route("/tickets/:orgID").get(function (req, res){
+ticketRoutes.route("/tickets/orgID").get(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var orgid = req.body.orgID;
   db_connect

@@ -35,6 +35,9 @@ class EventDetails extends React.Component{
           <Col md="12">
             <h3>{this.state.eventDetails.Date} @ {this.state.eventDetails.StartTime} - {this.state.eventDetails.EndTime}</h3>
           </Col>
+          <Col md="12">
+            <img src={`data:image/jpeg;base64,${this.state.eventDetails.Image}`}/>
+          </Col>
         </Row>
         <TicketOperation ticketDetails={this.state.ticketDetails} userDetails={this.state.userDetails} owned={this.state.owned} eventDetails={this.state.eventDetails}/>
       </Container>

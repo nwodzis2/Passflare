@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card, Inp
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
 
 class AdminEvents extends React.Component {
@@ -55,50 +56,31 @@ class EventCreation extends React.Component{
     constructor(props) {
         super(props);
 
+        //
         
-
-        this.state = {
-            name: '',
-            description: '',
-            price: '',
-            orgID: this.props.adminData.OrgID,
-            image: '',
-            date: '',
-            startTime: '',
-            endTime: '',
-            location: ''
-        };
-
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        this.state = {
+            formData: new FormData(document.getElementById("eventForm")),
+            orgID: this.props.adminData.OrgID
+        };
+
+    }
+
     submitEvent(event) {
-        
-        let obj = {
-            name: this.state.name,
-            description: this.state.description,
-            price: this.state.price,
-            orgID: this.state.orgID,
-            image: this.state.image,
-            date: this.state.date,
-            startTime: this.state.startTime,
-            endTime: this.state.endTime,
-            location: this.state.location
-        }
-        axios.post("/events/create", obj);
+        this.state.formData.set('orgID', this.state.orgID);
+        axios.post("/events/create", this.state.formData);
         event.preventDefault();
     }
 
     handleChange(event) {
-        if (event.target.name == "image"){
-            this.setState({
-                image : event.target.files[0]
-            });
+        if (event.target.name == "image") {
+            this.state.formData.set(event.target.name, event.target.files[0]);
         } else {
-            this.setState({
-                [event.target.name] : event.target.value
-            });
+            this.state.formData.set(event.target.name, event.target.value);
         }
     }
 
@@ -119,7 +101,7 @@ class EventCreation extends React.Component{
                     <Card className="darkCard">
                         <Card.Title>Please enter event information below.</Card.Title>                            
                         <br/>
-                        <Form onSubmit={this.submitEvent}>
+                        <Form id="eventForm" onSubmit={this.submitEvent}>
                             <FormGroup>       
                                 <FormLabel>Event Name: </FormLabel>
                                 <FormControl className="eventInput" type="text" name='name' autoComplete="off" onChange={this.handleChange} placeholder="Enter event name..."/>
