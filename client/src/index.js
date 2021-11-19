@@ -15,6 +15,7 @@ import {RecoveryEmail, AccountRecovery, ChangePassword, PasswordChangeSuccess} f
 import AdminLogin from "./adminLogin.js";
 import AdminCreation from "./createAdmin.js";
 import { AdminDashboard } from "./adminView.js";
+import CreateSubadmin from "./adminSubadmin.js";
 import AdminUsers from './adminUsers.js';
 import AdminGatekeeper from "./adminGatekeeper.js";
 import AdminEvents from "./adminEvents.js";
@@ -96,6 +97,7 @@ ReactDOM.render(
         <Route exact path="/adminView" component={AdminDashboard}/>
         <Route exact path="/adminLogin" component={AdminLogin}/>
         <Route exact path="/adminCreation" component={AdminCreation}/>
+        <Route exact path="/adminSubadmin" component={CreateSubadmin}/>
         <Route exact path="/adminGatekeeper" component={AdminGatekeeper}/>
         <Route exact path="/adminUsers" component={AdminUsers}/>
         <Route exact path="/adminEvents" component={AdminEvents}/>

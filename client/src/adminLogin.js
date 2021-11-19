@@ -41,10 +41,10 @@ class AdminLogin extends React.Component {
             //If valid fetch user data
             axios.post("/user/email", emailObj).then(function(userResponse){
               axios.post("/admin/validate", emailObj)
-              .then(function(response){
-                resjson = response.data;
+              .then(function(adminResponse){
+                resjson = adminResponse.data;
                 if (resjson.validationReport == "adminValid") {
-                  self.props.history.push("/adminView", {adminData: userResponse.data.response});
+                  self.props.history.push("/adminView", {adminData: userResponse.data.response, masterData: resjson.master});
                 }
                 else 
                   alert(resjson.validationReport);

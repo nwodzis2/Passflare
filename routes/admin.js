@@ -17,7 +17,8 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     let myobj = {
       Email : req.body.email,
-      OrgID : req.body.orgID
+      OrgID : req.body.orgID,
+      Master : req.body.master
     };
     db_connect
         .collection("Admin")
@@ -42,7 +43,7 @@ adminRoutes.route("/admin/validate").post(function (req, res) {
           else{
             var validation = (admin.Email === req.body.email);
             if (validation) {
-              res.json({validationReport: "adminValid"});
+              res.json({validationReport: "adminValid", master: admin.Master});
             } else {
               res.json({validationReport: "Please validate your account."});
             }
@@ -117,14 +118,20 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
       if (err) {
         res.json({response: err});
       } else {
-        transporter.sendMail({
-          from: '"Passflare" <passflare@gmail.com>',
-          to: user.Email,
-          subject: "Become a Passflare Gatekeeeper",
-          text: "Congratulations on being chosen as a Passflare gatekeeper!",
-          html: '<p>' + user.Name + ',</p><p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="http://passflare.herokuapp.com/gatekeeperVerification/' + user.Email + 
-            '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
-        });
+        if (user == null){
+          res.json({validationReport: "Not a registered email."});
+        }
+        else{
+          transporter.sendMail({
+            from: '"Passflare" <passflare@gmail.com>',
+            to: user.Email,
+            subject: "Become a Passflare Gatekeeeper",
+            text: "Congratulations on being chosen as a Passflare gatekeeper!",
+            html: '<p>' + user.Name + ',</p><p>Congratulations on being chosen as a Passflare gatekeeper!</p><p>Click <a href="http://passflare.herokuapp.com/gatekeeperVerification/' + user.Email + 
+              '"> this link </a> to finish your confirmation and become a gatekeeper.</p>'
+          });
+          res.json({validationReport: "success"});
+        }
       }
     });
   });
@@ -139,15 +146,19 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
       if (err) {
         res.json({response: err});
       } else {
-        if (!user.Verified) {
-          transporter.sendMail({
-            from: '"Passflare" <passflare@gmail.com>',
-            to: user.Email,
-            subject: "Verify passflare user",
-            text: "Welcome to Passflare!",
-            html: '<p>' + user.Name + ',</p><p>Welcome to passflare!</p><p>Click <a href="http://passflare.herokuapp.com/userVerification/' + user.Email + 
-              '/' + orgID + '"> this link </a> to join ' + orgName + '</p>'
-          });
+        if (user == null){
+          res.json({validationReport: "Not a registered email."});
+        } else{
+          if (!user.Verified) {
+            transporter.sendMail({
+              from: '"Passflare" <passflare@gmail.com>',
+              to: user.Email,
+              subject: "Verify passflare user",
+              text: "Welcome to Passflare!",
+              html: '<p>' + user.Name + ',</p><p>Welcome to passflare!</p><p>Click <a href="http://passflare.herokuapp.com/userVerification/' + user.Email + 
+                '/' + orgID + '"> this link </a> to join ' + orgName + '</p>'
+            });
+          }
         }
       }
     });

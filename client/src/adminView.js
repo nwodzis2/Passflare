@@ -6,6 +6,16 @@ import { BrowserRouter as Router,
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
+//Shows Subadmins option only if admin is Master admin
+function GetMaster(props){
+  const masterData = props.masterData;
+  console.log(masterData);
+  if(masterData){
+    return <NavLink to={{pathname: "/adminSubadmin", state: {adminData: props.adminData}}}>Subadmins</NavLink>
+  }
+  else return null;
+}
+
 class EventStats extends React.Component{
   constructor(props){
     super(props)
@@ -46,13 +56,15 @@ class EventStats extends React.Component{
 class AdminDashboard extends React.Component {
   constructor(props){
     super(props);
-    this.state = {adminData: this.props.location.state.adminData}
+    this.state = {adminData: this.props.location.state.adminData,
+      masterData: this.props.location.state.masterData
+    }
   }
 
   render(){
     return(
       <Container fluid>
-        <AdminNav adminData={this.state.adminData}/>
+        <AdminNav adminData={this.state.adminData} masterData={this.state.masterData}/>
         <h1>Admin Dashboard</h1>
 
         <Row>
@@ -71,7 +83,12 @@ class AdminDashboard extends React.Component {
 class AdminNav extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      adminData: this.props.adminData,
+      masterData: this.props.masterData
+    }
   }
+
 
 
   render(){
@@ -84,6 +101,7 @@ class AdminNav extends React.Component {
             <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
               <Nav className="ms-auto" id="adminChoices">
                 <NavLink to={{pathname: "/adminView", state: {adminData: this.props.adminData}}}>Dashboard</NavLink>
+                <GetMaster adminData={this.state.adminData} masterData={this.state.masterData}/>
                 <NavLink to={{pathname: "/adminGatekeeper", state: {adminData: this.props.adminData}}}>Gatekeepers</NavLink>
                 <NavLink to={{pathname: "/adminUsers", state: {adminData: this.props.adminData}}}>Users</NavLink>
                 <NavLink to={{pathname: "/adminEvents", state: {adminData: this.props.adminData}}}>Events</NavLink>
@@ -97,5 +115,7 @@ class AdminNav extends React.Component {
     )
   }
 }
+
+
 
 export { AdminNav, AdminDashboard };
