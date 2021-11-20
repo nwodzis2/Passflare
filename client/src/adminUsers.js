@@ -3,7 +3,8 @@ import { Container, Row, Col, Card, Form, FormLabel, FormControl} from 'react-bo
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import {AdminNav} from "./adminView.js";
-
+import '../node_modules/react-vis/dist/style.css';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
 class AdminUsers extends React.Component {
     constructor(props){
         super(props);
@@ -15,11 +16,65 @@ class AdminUsers extends React.Component {
             <AdminNav adminData={this.props.location.state.adminData}/>
             <UsersData adminData={this.props.location.state.adminData}/>
             <EmailUser adminData={this.props.location.state.adminData}/>
+            <UserGraph adminData={this.props.location.state.adminData}/>
         </Container>
         )
     }
 }
-
+class UserGraph extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+          userDet : [],
+          orgID : this.props.adminData.OrgID,
+          userData : [],
+          crosshairValues: []
+        }
+      }
+      componentWillMount(){
+        axios.post("/user/orgID", {orgID: this.state.orgID}).then((response) => {
+          this.setState({userDet: response.data});
+          var coords = {}
+          var coordsArray = []
+          for(const t of response.data){
+            var timestamp = t._id.toString().substring(0,8)
+            var date = new Date( parseInt( timestamp, 16 ) * 1000 )
+            date = date.toLocaleString("en-US", {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit'})
+            coords[date] = (coords[date] + 1) || 1
+          }
+          for (var d in coords){
+            coordsArray.push({x : d, y : coords[d]})
+          }
+          this.setState({userData : coordsArray})
+        });
+      }
+      _onMouseLeave = () => {
+        this.setState({crosshairValues: []});
+      };
+      _onNearestX = (value, index) => {
+        this.setState({crosshairValues: this.state.userData});
+      };
+    render(){
+        return(
+            <Container fluid className="user-graph-sect-container">
+                <h2>Users over time</h2>
+                <div className="event-graph-container">
+                    <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
+                    <XAxis />
+                    <YAxis />
+                    <LineSeries onNearestX={this._onNearestX} data={this.state.userData} />
+                    <Crosshair
+                        values={this.state.crosshairValues}
+                        className={'test-class-name'}
+                    />
+                    </XYPlot>
+                </div>
+            </Container>
+        )
+    }
+}
 class UsersData extends React.Component{
     constructor(props) {
         super(props);

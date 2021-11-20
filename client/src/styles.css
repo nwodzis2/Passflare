@@ -661,4 +661,7 @@ section > section > div{
 .event-graph-container{
     background-color: white;
 }
+.user-graph-sect-container{
+    margin-top: 20%;
+}
 /*Graphs*/
