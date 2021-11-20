@@ -5,13 +5,8 @@ import { BrowserRouter as Router,
   Switch, Route, Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-//import '../node_modules/react-vis/dist/style.css';
+import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
-const DATA = [
-  [{x: 1, y: 10}, {x: 2, y: 7}, {x: 3, y: 15}],
-  [{x: 1, y: 20}, {x: 2, y: 5}, {x: 3, y: 15}]
-];
-
 //Shows Subadmins option only if admin is Master admin
 function GetMaster(props){
   const masterData = props.masterData;
@@ -21,7 +16,6 @@ function GetMaster(props){
   }
   else return null;
 }
-
 class EventStats extends React.Component{
   constructor(props){
     super(props)
@@ -50,7 +44,7 @@ class EventStats extends React.Component{
   _onMouseLeave = () => {
     this.setState({crosshairValues: []});
   };
-  _onNearestX = (value) => {
+  _onNearestX = (value, index) => {
     this.setState({crosshairValues: this.state.eventData});
   };
   handleChange(event){
@@ -61,7 +55,7 @@ class EventStats extends React.Component{
       for(const t of response.data){
         var timestamp = t._id.toString().substring(0,8)
         var date = new Date( parseInt( timestamp, 16 ) * 1000 )
-        date = date.toLocaleDateString("en-US")
+        date = date.toLocaleString("en-US", {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit'})
         coords[date] = (coords[date] + 1) || 1
       }
       for (var d in coords){
@@ -85,7 +79,87 @@ class EventStats extends React.Component{
           <XAxis />
           <YAxis />
           <LineSeries onNearestX={this._onNearestX} data={this.state.eventData} />
-          <LineSeries data={this.state.eventData} />
+          <Crosshair
+            values={this.state.crosshairValues}
+            className={'test-class-name'}
+          />
+        </XYPlot>
+      </div>
+      </Container>
+      
+    )
+  }
+}
+class FinanceStats extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      adminEventDet : [],
+      adminEventOpts : [],
+      orgID : this.props.adminData.OrgID,
+      eventSelect : "",
+      eventData : [],
+      crosshairValues: []
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillMount(){
+    axios.post("/events/:orgID", {orgID: this.state.orgID}).then((response) => {
+      this.setState({adminEventDet: response.data});
+      var tempArray = []
+      var tempArray2 = []
+      tempArray2 = response.data
+      for(const e of tempArray2){
+        tempArray.push(<option value={e._id}>{e.Name}</option>)
+      }
+      this.setState({adminEventOpts : tempArray})
+    });
+  }
+  _onMouseLeave = () => {
+    this.setState({crosshairValues: []});
+  };
+  _onNearestX = (value, index) => {
+    this.setState({crosshairValues: this.state.eventData});
+  };
+  handleChange(event){
+    this.setState({eventSelect : event.target.value})
+    axios.post("/tickets/eventID", {eventID : event.target.value}).then((response) => {
+      var coords = {}
+      var coordsArray = []
+      for(const t of response.data){
+        var timestamp = t._id.toString().substring(0,8)
+        var date = new Date( parseInt( timestamp, 16 ) * 1000 )
+        date = date.toLocaleString("en-US", {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit'})
+        coords[date] = (coords[date] + 1) || 1
+      }
+      var payment = 1;
+      for(var e of this.state.adminEventDet){
+        if(e._id == event.target.value){
+          payment = e.Price;
+        }
+      }
+      for (var d in coords){
+        coordsArray.push({x : d, y : parseInt(coords[d])*parseFloat(payment)})
+      }
+      console.log(coordsArray)
+      this.setState({eventData : coordsArray})
+    })
+  }
+  render(){
+    return(
+      <Container fluid>
+        <h2>Events</h2>
+        <select onChange={this.handleChange} class="form-select" aria-label="Default select example">
+          <option selected>Select Event</option>
+          {this.state.adminEventOpts}
+        </select>
+        <div className="event-graph-container">
+          <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          <LineSeries onNearestX={this._onNearestX} data={this.state.eventData} />
           <Crosshair
             values={this.state.crosshairValues}
             className={'test-class-name'}
@@ -108,7 +182,7 @@ class AdminDashboard extends React.Component {
   render(){
     return(
       <Container fluid>
-        <AdminNav adminData={this.state.adminData} masterData={this.state.masterData}/>
+         <AdminNav adminData={this.state.adminData} masterData={this.state.masterData}/>
         <h1>Admin Dashboard</h1>
 
         <Row>
@@ -117,6 +191,7 @@ class AdminDashboard extends React.Component {
           </Col>
           <Col md="6">
             <h2>Financials</h2>
+            <FinanceStats adminData={this.props.location.state.adminData}/>
           </Col>
         </Row>
       </Container>
@@ -132,7 +207,6 @@ class AdminNav extends React.Component {
       masterData: this.props.masterData
     }
   }
-
 
 
   render(){
@@ -159,7 +233,5 @@ class AdminNav extends React.Component {
     )
   }
 }
-
-
 
 export { AdminNav, AdminDashboard };
