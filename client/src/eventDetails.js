@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles.css';
 import { Container, Row, Col, Card} from 'react-bootstrap';
 import { BrowserRouter as Router,
-  Switch, Route, Link} from "react-router-dom";
+  Switch, Route, Link, withRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QRcode = require('qrcode');
@@ -27,7 +27,12 @@ class EventDetails extends React.Component{
         </Row>
         <Row >
           <Col className="eventTitleContainer d-flex align-items-center">
-            <h1 className="eventTitle">{this.state.eventDetails.Name}</h1>
+            <Col md="auto" onClick={this.props.history.goBack}className="backArrowContainer d-flex align-items-center">
+                <i class="fas fa-arrow-left backArrow"></i>
+            </Col>
+            <Col style={{paddingLeft: "10px"}} className="d-flex align-items-center">
+              <h1 className="eventTitle">{this.state.eventDetails.Name}</h1>
+            </Col>
           </Col>
           <Col className="eventTimeContainer d-flex align-items-center">
             <Col>
