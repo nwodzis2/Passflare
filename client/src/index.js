@@ -89,12 +89,10 @@ class PageRouter extends React.Component {
 
   setAuth(receievedAuth) {
     localStorage.setItem("passflareAuth", receievedAuth);
-    console.log("Set auth: " + receievedAuth);
   }
 
   checkAuth(routeType, routeComponent) {
     let auth = getAuth();
-    console.log("Check auth: " + auth)
     if (routeType == "login") {
       return React.createElement(withRouter(routeComponent), {setAuth: this.setAuth});
     }

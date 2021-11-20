@@ -129,6 +129,85 @@ hr {
     margin-bottom: 10px;
 }
 
+.eventContainer {
+    padding: 0px;
+}
+
+
+.eventImageContainer {
+    padding: 4px;
+}
+
+.eventImageContainer {
+    max-height: 215px;
+}
+
+.eventTitleContainer {
+    padding: 20px 0px 20px 20px;
+}
+
+
+
+.eventTitle {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5em;
+}
+
+.eventTimeContiner {
+    padding: 0px 20px;
+}
+
+.eventTime {
+    font-size: 0.85em;
+    margin: 0px;
+    text-align: right;
+}
+
+.eventDate {
+    font-size: 0.85em;
+    margin: 0px;
+    text-align: right;
+}
+
+.ticketOpContainer {
+    margin: 0px;
+    padding: 0px 20px 20px 20px;
+}
+
+.btnBuyTicketContainer {
+    text-decoration: none;
+}
+
+.btnBuyTicket {
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.eventqrcode {
+    padding: 0px;
+}
+
+.btnShowTicket {
+    width: 50vw;
+    height: 12vw;
+    margin: 0px;
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.btnHideTicket {
+    width: 50vw;
+    height: 12vw;
+    margin-top: 20px;
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.eventDesc {
+    font-size: 12px;
+}
+
 #gateKeeperTitle{
     margin-top: 15rem;
 }
