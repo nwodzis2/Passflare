@@ -58,7 +58,7 @@ class UserGraph extends React.Component{
         return(
             <Container fluid className="user-graph-sect-container">
                 <h2>Users over time</h2>
-                <div className="event-graph-container">
+                <div className="event-graph-container bg-dark">
                     <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
                     <VerticalGridLines />
                     <HorizontalGridLines />

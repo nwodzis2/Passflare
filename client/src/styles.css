@@ -366,6 +366,219 @@ hr {
 
 
 
+.adminNavbar {
+    padding: 0px;
+    height: 75px;
+}
+
+.adminNavContainer {
+    padding: 0px;
+    height: 75px;
+    margin-bottom: 20px;
+}
+
+.adminBrandContainer {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.adminBrand {
+    margin: 0px;
+    padding: 0px;
+}
+
+.adminBrandTextContainer {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminBrandLogoContainer {
+    padding: 0px;
+    margin: 0px;
+    margin-right: 3px;
+}
+
+.adminNavPassTicket {
+    font-size: 40px;
+}
+
+.adminBrandPassflareTextContainer {
+    padding: 0px;
+    margin: 0px;
+    padding-top: 5px;
+    font-family: 'Aclonica';
+}
+
+.adminBrandPassflareText{
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.adminBrandAdminTextContainer {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminBrandPassAdminText {
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    color: #6b6b6b;
+    font-size: 25px;
+}
+
+.adminChoicesContainer {
+    margin: 0px;
+    display: flex;
+    flex-grow: 2;
+    padding-right: 20px;
+}
+
+.adminChoices {
+    font-size: 20px;
+}
+
+.adminChoices > a{
+    margin: 0px;
+    color: white;
+    text-decoration: none;
+}
+
+.adminChoices > a:hover{
+    color: orange;
+}
+
+.form-select {
+    color: white !important;
+    border: none !important;
+    margin-bottom: 3px;
+}
+
+.event-graph-container {
+    color: white !important;
+    fill: white !important;
+    padding: 5px;
+}
+
+.event-graph-container > div > svg > .rv-xy-plot__grid-lines {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+.event-graph-container > div > svg > path[style] {
+    stroke: rgb(255, 124, 37) !important;
+}
+
+.eventCreationContainer {
+    border: 1px solid white;
+    padding: 16px 20px;
+    width: 25%;
+    margin: 0px;
+}
+
+.eventCreationContainer > .row {
+    margin: 0px;
+    padding: 0px;
+}
+
+.createEventFormContainer {
+    padding: 0px;
+}
+
+.createEventFormContainer > form > .form-group > .row {
+    padding: 0px;
+    margin: 0px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-label {
+    font-size: 18px;
+    padding: 0px;
+    margin-bottom: 5px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-label {
+    font-size: 18px;
+    padding: 0px;
+    margin-bottom: 5px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-control {
+    color: white;
+    background-color: #121212;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-control {
+    color: white;
+    background-color: #121212;
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.createEventFormContainer > form > .form-group > .row > .col {
+    padding: 0px;
+}
+
+.eventCreationDescBox {
+    min-height: 3em;
+}
+
+.eventCreationPriceInput > span {
+    background-color: black;
+    color: white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+}
+
+.eventCreationPriceInput > input {
+    background-color: #121212;
+    color: white;
+}
+
+.eventCreationPriceInput > input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.eventCreationStartInput {
+    margin: 0px 10px;
+}
+
+.eventCreationImageInput {
+    padding: 0px;
+}
+
+.eventCreationImageInput::file-selector-button {
+    color: white;
+    background-color: #121212;
+    border: 1px solid rgb(255, 124, 37);
+    margin-right: 10px;
+    border-radius: 0.5em;
+}
+
+.btneventCreation {
+    width: 200px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
+}
+
+.navbar-toggler{
+    background-color:#6b6b6b;
+    position: relative;
+    bottom: 0.2em;
+}
+
 .logo{
     width: 7%;
     margin-bottom: 0.4rem;
@@ -397,54 +610,17 @@ form>p {
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 13rem;
     height: 1.8em;
     font-size: 16px;
     color: white;
-    padding-left: 1rem;
     background-color: #121212;
-    border-radius: 1rem;
+    border-radius: 0.5em;
     border: 1px solid #c9c9c9;
 }
 
-.eventInput  {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #261359;
-    background-color: rgba(252,163,18,1);
-    background-clip: padding-box;
-    border: 1px solid rgba(255,0,0,1);
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.eventInput:focus{
-    background-color: rgb(252, 184, 74);
-    color: #261359;
-}
-
-.eventInput:-webkit-autofill {
-    background-color: rgb(252, 184, 74) !important;
-}
-
-.input-group-text {
-    background-color: rgba(255,0,0,1);
-    color: #261359;
-    border: 1px solid rgba(255,0,0,1);
-    font-weight: bold;
-    font-size: 1.25rem;
-}
-
-#file-upload-button {
-    background-color: rgba(255,0,0,1);
-    color: #261359;
-    border: 1px solid rgba(255,0,0,1);
+.loginText {
+    border-radius: 1rem;
+    text-align: center;
 }
 
 input[type=number]{
@@ -484,12 +660,19 @@ input:focus{
 }
 
 .darkCard{
+    width: 500px;
+    min-width: 10%;
+    max-width: 100%;
+    border: 1px solid white;
     background-color: #1a1a1a;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding: 16px 20px;
 }
+
+.darkCard > .card-title {
+    color:rgb(255, 124, 37);
+    margin: 0px;
+}
+
 .passflareTextGradient{
     background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
 	-webkit-background-clip: text;
@@ -525,11 +708,13 @@ input:focus{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: none;
-    border-radius: 1rem;
     margin:auto;
     margin-bottom: 0em;
-    background-color: #0a0a0a;
+    width: 200px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
 }
 
 .passBtnNext{
@@ -576,40 +761,7 @@ input:focus{
     color: orange;
 }
 
-#adminBrand{
-    color: white;
-}
 
-#adminBrand:hover{
-    color: orange;
-}
-
-#brandBreak{
-    font-size: 0.8em;
-    position: relative;
-    bottom: 0.2em;
-    color: #666666;
-}
-
-#adminLogo{
-    font-size: 0.7em;
-    font-style: normal;
-    font-family: 'Roboto';
-}
-
-#adminChoices>a{
-    color: white;
-}
-
-#adminChoices>a:hover{
-    color: orange;
-}
-
-.navbar-toggler{
-    background-color:#6b6b6b;
-    position: relative;
-    bottom: 0.2em;
-}
 
 
 

@@ -68,11 +68,11 @@ class EventStats extends React.Component{
     return(
       <Container fluid>
         <h2>Events</h2>
-        <select onChange={this.handleChange} class="form-select" aria-label="Default select example">
+        <select onChange={this.handleChange} class="form-select bg-dark" aria-label="Default select example">
           <option selected>Select Event</option>
           {this.state.adminEventOpts}
         </select>
-        <div className="event-graph-container">
+        <div className="event-graph-container bg-dark">
           <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
           <VerticalGridLines />
           <HorizontalGridLines />
@@ -148,12 +148,11 @@ class FinanceStats extends React.Component{
   render(){
     return(
       <Container fluid>
-        <h2>Events</h2>
-        <select onChange={this.handleChange} class="form-select" aria-label="Default select example">
+        <select onChange={this.handleChange} class="form-select bg-dark" aria-label="Default select example">
           <option selected>Select Event</option>
           {this.state.adminEventOpts}
         </select>
-        <div className="event-graph-container">
+        <div className="event-graph-container bg-dark">
           <XYPlot onMouseLeave={this._onMouseLeave} width={300} height={300} xType="ordinal">
           <VerticalGridLines />
           <HorizontalGridLines />
@@ -182,9 +181,7 @@ class AdminDashboard extends React.Component {
   render(){
     return(
       <Container fluid>
-         <AdminNav adminData={this.state.adminData} masterData={this.state.masterData}/>
-        <h1>Admin Dashboard</h1>
-
+        <AdminNav adminData={this.state.adminData} masterData={this.state.masterData}/>
         <Row>
           <Col md="6">
             <EventStats adminData={this.props.location.state.adminData}/>
@@ -211,14 +208,28 @@ class AdminNav extends React.Component {
 
   render(){
     return(
-      <Container fluid>
-        <Navbar fixed="top" bg="dark" expand="lg" className="userNavbar" margin>
-          <Container fluid>
-            <Navbar.Brand href="/adminView"><h4 id="adminBrand"><i className="fas fa-ticket-alt passTicket"/> Passflare <i id="brandBreak">|</i> <i id="adminLogo">Admin</i></h4> </Navbar.Brand>
-            <Navbar.Toggle aria-controls="resonsive-navbar-nav"/>
-            <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
-              <Nav className="ms-auto" id="adminChoices">
-                <NavLink to={{ pathname: "/adminView", state: { adminData: this.props.adminData , masterData: this.state.masterData}}} style={{margin:10}} >Dashboard</NavLink>
+      <Container className="adminNavContainer" fluid>
+        <Navbar fixed="top" bg="dark" expand="lg" className="adminNavbar" margin>
+            <Row className="adminBrandContainer">
+              <Navbar.Brand className="adminBrand" href="/adminView">
+                <Row className="adminBrandTextContainer">
+                  <Col className="adminBrandLogoContainer d-flex align-items-center">
+                    <i className="fas fa-ticket-alt adminNavPassTicket passTicket"/>
+                  </Col>
+                  <Col className="adminBrandPassflareTextContainer d-flex align-items-end">
+                    <p className="adminBrandPassflareText">Passflare</p>
+                  </Col>
+                  <Col className="adminBrandAdminTextContainer d-flex align-items-end">
+                    <p className="adminBrandPassAdminText">&nbsp;|&nbsp;Admin</p>
+                  </Col>
+                </Row>
+              </Navbar.Brand>
+            </Row>
+            <Row className="adminChoicesContainer">
+              <Navbar.Toggle aria-controls="resonsive-navbar-nav"/>
+              <Navbar.Collapse style={{padding: "0px"}} id="responsive-navbar-nav">
+              <Nav className="adminChoices ms-auto">
+                <NavLink to={{ pathname: "/adminView", state: { adminData: this.props.adminData }}} style={{margin:10}} >Dashboard</NavLink>
                 <GetMaster adminData={this.state.adminData} masterData={this.state.masterData}/>
                 <NavLink to={{ pathname: "/adminGatekeeper", state: { adminData: this.props.adminData, masterData: this.state.masterData}}} style={{ margin: 10 }}>Gatekeepers</NavLink>
                 <NavLink to={{ pathname: "/adminUsers", state: { adminData: this.props.adminData , masterData: this.state.masterData }}} style={{ margin: 10 }}>Users</NavLink>
@@ -227,7 +238,7 @@ class AdminNav extends React.Component {
                 <NavLink to={{ pathname: "/editAccount", state: { user: this.props.adminData._id , masterData: this.state.masterData}}} style={{ margin: 10 }}><i class="fas fa-user-circle"></i></NavLink>
               </Nav>
             </Navbar.Collapse>
-          </Container>
+          </Row>
         </Navbar>
       </Container>
     )
