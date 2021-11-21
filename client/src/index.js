@@ -15,7 +15,7 @@ import {RecoveryEmail, AccountRecovery, ChangePassword, PasswordChangeSuccess} f
 import AdminLogin from "./adminLogin.js";
 import AdminCreation from "./createAdmin.js";
 import { AdminDashboard } from "./adminView.js";
-import CreateSubadmin from "./adminSubadmin.js";
+import AdminSubadmin from "./adminSubadmin.js";
 import AdminUsers from './adminUsers.js';
 import AdminGatekeeper from "./adminGatekeeper.js";
 import AdminEvents from "./adminEvents.js";
@@ -29,6 +29,7 @@ import { BrowserRouter as Router,
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Container } from 'react-bootstrap';
 import { fileURLToPath } from 'url';
+import adminSubadmin from './adminSubadmin.js';
 
 function getAuth() {
   if (window.location.pathname == "/" && performance.navigation.type == 0) {
@@ -144,7 +145,7 @@ class PageRouter extends React.Component {
           
             {/*Admin routes */}
             <Route path="/adminView" render={() => this.checkAuth("admin", AdminDashboard)}/>
-            <Route path="/adminSubadmin" render={() => this.checkAuth("admin", CreateSubadmin)}/>
+            <Route path="/adminSubadmin" render={() => this.checkAuth("admin", AdminSubadmin)}/>
             <Route path="/adminGatekeeper" render={() => this.checkAuth("admin", AdminGatekeeper)}/>
             <Route path="/adminUsers" render={() => this.checkAuth("admin", AdminUsers)}/>
             <Route path="/adminEvents" render={() => this.checkAuth("admin", AdminEvents)}/>

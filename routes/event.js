@@ -21,7 +21,6 @@ eventRoutes.route("/events/create").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
     const form = new formidible.IncomingForm();
     
-    
 
     form.parse(req, function(error, fields, files){
       let encodedData = fs.readFileSync(files.image.filepath);
@@ -37,7 +36,7 @@ eventRoutes.route("/events/create").post(function (req, res){
         Date : fields.date,
         StartTime: fields.startTime,
         EndTime: fields.endTime,
-        Location : fields.location
+        Location : fields.location,
       };
 
       var event = db_connect

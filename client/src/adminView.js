@@ -12,7 +12,7 @@ function GetMaster(props){
   const masterData = props.masterData;
   console.log(masterData);
   if(masterData){
-    return <NavLink to={{pathname: "/adminSubadmin", state: {adminData: props.adminData}}} style={{ margin: 10 }}>Subadmins</NavLink>
+    return <NavLink to={{pathname: "/adminSubadmin", state: {adminData: props.adminData, masterData}}} style={{ margin: 10 }}>Subadmins</NavLink>
   }
   else return null;
 }
@@ -218,13 +218,13 @@ class AdminNav extends React.Component {
             <Navbar.Toggle aria-controls="resonsive-navbar-nav"/>
             <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
               <Nav className="ms-auto" id="adminChoices">
-                <NavLink to={{ pathname: "/adminView", state: { adminData: this.props.adminData }}} style={{margin:10}} >Dashboard</NavLink>
+                <NavLink to={{ pathname: "/adminView", state: { adminData: this.props.adminData , masterData: this.state.masterData}}} style={{margin:10}} >Dashboard</NavLink>
                 <GetMaster adminData={this.state.adminData} masterData={this.state.masterData}/>
-                <NavLink to={{ pathname: "/adminGatekeeper", state: { adminData: this.props.adminData }}} style={{ margin: 10 }}>Gatekeepers</NavLink>
-                <NavLink to={{ pathname: "/adminUsers", state: { adminData: this.props.adminData }}} style={{ margin: 10 }}>Users</NavLink>
-                <NavLink to={{ pathname: "/adminEvents", state: { adminData: this.props.adminData }}} style={{ margin: 10 }}>Events</NavLink>
-                <NavLink to={{ pathname: "/adminFinancials", state: { adminData: this.props.adminData }}} style={{ margin: 10 }}>Financials</NavLink>
-                <NavLink to={{ pathname: "/editAccount", state: { user: this.props.adminData._id }}} style={{ margin: 10 }}><i class="fas fa-user-circle"></i></NavLink>
+                <NavLink to={{ pathname: "/adminGatekeeper", state: { adminData: this.props.adminData, masterData: this.state.masterData}}} style={{ margin: 10 }}>Gatekeepers</NavLink>
+                <NavLink to={{ pathname: "/adminUsers", state: { adminData: this.props.adminData , masterData: this.state.masterData }}} style={{ margin: 10 }}>Users</NavLink>
+                <NavLink to={{ pathname: "/adminEvents", state: { adminData: this.props.adminData , masterData: this.state.masterData}}} style={{ margin: 10 }}>Events</NavLink>
+                <NavLink to={{ pathname: "/adminFinancials", state: { adminData: this.props.adminData , masterData: this.state.masterData}}} style={{ margin: 10 }}>Financials</NavLink>
+                <NavLink to={{ pathname: "/editAccount", state: { user: this.props.adminData._id , masterData: this.state.masterData}}} style={{ margin: 10 }}><i class="fas fa-user-circle"></i></NavLink>
               </Nav>
             </Navbar.Collapse>
           </Container>
