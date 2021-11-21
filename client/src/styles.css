@@ -665,3 +665,28 @@ section > section > div{
     margin-top: 20%;
 }
 /*Graphs*/
+/*Finance Admin*/
+.scroll-box-100{
+    width: 85vw;
+    height: 80vh;
+    background-color: transparent;
+    position: absolute;
+    top: 12vh;
+    left: 7.5vw;
+    text-align: center;
+    color: white;
+    overflow-y: scroll;
+    border: 2px solid orange;
+}
+.transaction-blocks{
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid orange;
+    padding: 0px;
+    margin: 0px;
+}
+.transaction-blocks > p{
+    display: inline-block;
+    padding: 0px 20px 0px 20px;
+}
+/*Finance Admin*/
