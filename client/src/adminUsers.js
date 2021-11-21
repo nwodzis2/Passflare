@@ -13,10 +13,10 @@ class AdminUsers extends React.Component {
     render(){
         return(
         <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData}/>
-            <UsersData adminData={this.props.location.state.adminData}/>
-            <EmailUser adminData={this.props.location.state.adminData}/>
-            <UserGraph adminData={this.props.location.state.adminData}/>
+            <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <UsersData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <EmailUser adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <UserGraph adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
         </Container>
         )
     }

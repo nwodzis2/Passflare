@@ -13,8 +13,8 @@ class AdminFinancials extends React.Component {
     render(){
         return(
         <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData}/>
-            <FinancialData adminData={this.props.location.state.adminData}/>
+            <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <FinancialData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
         </Container>
         )
     }

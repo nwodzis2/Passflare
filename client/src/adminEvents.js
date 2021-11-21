@@ -15,9 +15,9 @@ class AdminEvents extends React.Component {
     render(){
         return(
         <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData}/>
-            <EventData adminData={this.props.location.state.adminData}/>
-            <EventCreation adminData={this.props.location.state.adminData}/>
+            <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <EventData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <EventCreation adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
         </Container>
         )
     }
@@ -55,8 +55,6 @@ class EventData extends React.Component{
 class EventCreation extends React.Component{
     constructor(props) {
         super(props);
-
-        //
         
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -72,6 +70,12 @@ class EventCreation extends React.Component{
 
     submitEvent(event) {
         this.state.formData.set('orgID', this.state.orgID);
+        console.log(this.props.adminData);
+        let obj = {
+            formData: this.state.formData,
+            userID : this.props.adminData._id
+        }
+
         axios.post("/events/create", this.state.formData);
         event.preventDefault();
     }

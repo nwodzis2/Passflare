@@ -4,13 +4,31 @@ import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} fro
 import { withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {AdminNav} from "./adminView.js";
+
+class AdminSubadmin extends React.Component{
+    constructor(props) {
+        super(props);
+    }
+
+    render(){
+        return(
+            <Container fluid>
+                <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+                <CreateSubadmin adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            </Container>
+        );
+    }
+}
 
 class CreateSubadmin extends React.Component{
     constructor(props) {
         super(props);
         this.state = {name:'', email:'', phone:'', password:'', orgName: '', orgNickName: '', orgZip: '',
-            adminData: this.props.location.state.adminData
+            adminData: this.props.adminData,
+            masterData: this.props.masterData
         };
+        console.log(this.state.masterData);
         
         this.submitUser = this.submitUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -60,7 +78,7 @@ class CreateSubadmin extends React.Component{
         })
 
         var tempProps = this.props;
-        tempProps.history.push('/adminView');
+        tempProps.history.push('/adminView', {adminData: this.state.adminData, masterData: this.state.masterData});
     }
 
     handleChange(event) {
@@ -112,4 +130,4 @@ class CreateSubadmin extends React.Component{
     }
 }
 
-export default withRouter(CreateSubadmin);
+export default withRouter(AdminSubadmin, CreateSubadmin);
