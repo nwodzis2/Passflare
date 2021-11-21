@@ -44,6 +44,7 @@ class AdminLogin extends React.Component {
               .then(function(adminResponse){
                 resjson = adminResponse.data;
                 if (resjson.validationReport == "adminValid") {
+                  self.props.setAuth("validAdmin");
                   self.props.history.push("/adminView", {adminData: userResponse.data.response, masterData: resjson.master});
                 }
                 else 
