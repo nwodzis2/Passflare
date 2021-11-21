@@ -29,6 +29,7 @@ import { BrowserRouter as Router,
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import { Container } from 'react-bootstrap';
 import { fileURLToPath } from 'url';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 function getAuth() {
   if (window.location.pathname == "/" && performance.navigation.type == 0) {
@@ -168,7 +169,7 @@ ReactDOM.render(
         </Container>,
   document.getElementById('root'),
 );
-
+serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
