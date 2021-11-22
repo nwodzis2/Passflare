@@ -45,23 +45,31 @@ class AccountEdit extends React.Component{
               <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Please enter your information below.</Card.Title>                            <br/>
+                        <Card.Title className="d-flex align-items-center">
+                            <Col md="auto" onClick={this.props.history.goBack} style={{marginRight: "10px"}}className="backArrowContainer d-flex align-items-center">
+                                <i class="fas fa-arrow-left backArrow"></i>
+                            </Col>
+                            <Col className="d-flex align-items-center">
+                                Edit Account
+                            </Col>
+                        </Card.Title>
+                        <hr/>
                         <Form>
                             <FormGroup>       
-                                <FormLabel>Name: </FormLabel>
+                                <FormLabel>Name:</FormLabel>
                                 <FormControl className="defaultText" type="text" name="userName" onChange={this.handleChange} placeholder="Enter name..."/>
                                 <hr/>
-                                <FormLabel>Phone Number: </FormLabel>
+                                <FormLabel>Phone Number:</FormLabel>
                                 <FormControl className="defaultTel" type="tel" name="userNumber" onChange={this.handleChange} placeholder="Enter email..."/>
                                 <hr/>
-                                <FormLabel>Email Address: </FormLabel>
+                                <FormLabel>Email Address:</FormLabel>
                                 <FormControl className="defaultEmail" type="email" name="userEmail" onChange={this.handleChange} placeholder="Enter email..."/>
                             </FormGroup>
                         </Form>
                         <br/>
                         <Row>
                             <button className="btn btn-dark passBtnDark" type="submit" onClick={this.handleSubmit}> 
-                            Edit Account 
+                                Apply changes
                             </button>
                         </Row> 
                     </Card>

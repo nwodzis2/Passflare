@@ -38,7 +38,14 @@ class AccountCreation extends React.Component{
               <Row >
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Please enter your information below.</Card.Title>                            
+                        <Card.Title className="d-flex align-items-center">
+                            <Col md="auto" onClick={this.props.history.goBack} style={{marginRight: "10px"}}className="backArrowContainer d-flex align-items-center">
+                                <i class="fas fa-arrow-left backArrow"></i>
+                            </Col>
+                            <Col className="d-flex align-items-center">
+                                Create Account
+                            </Col>
+                        </Card.Title>                          
                         <br/>
                         <Form onSubmit={this.submitUser}>
                             <FormGroup>       

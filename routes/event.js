@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const eventRoutes = express.Router();
 const dbo = require("../db/conn");
+const ObjectId = require("mongodb").ObjectId;
 
 //get all events
 eventRoutes.route("/events").get(function (req, res) {
@@ -85,13 +86,16 @@ eventRoutes.route("/events/update/:id").post(function (req, res){
         });
 });
 //get event by id
-eventRoutes.route("/events/:id").get(function (req, res){
+eventRoutes.route("/events/byID").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
-    var id = { id: req.body.id };
-    var event = db_connect
+    var eventObjID = req.body.eventID;
+    db_connect
         .collection("Events")
-        .findOne(id);
-    res.json(event);
+        .find({_id : ObjectId(eventObjID)})
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
 });
 
 

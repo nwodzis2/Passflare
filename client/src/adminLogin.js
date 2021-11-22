@@ -73,22 +73,22 @@ class AdminLogin extends React.Component {
             <Container fluid>
               <Row>
                 <Col md="12">
-                  <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i>  Passflare <span id="admin-login-admin"><i id="brandBreak">|</i> <i id="adminLogo">Admin</i></span></h1>
+                  <h1 className="title"><i className="fas fa-ticket-alt passTicket"></i>Passflare<span id="admin-login-admin" style={{fontFamily: "Roboto", fontStyle: "normal !important"}}>&nbsp;|&nbsp;Admin</span></h1>
                 </Col>
               </Row>
               <Row>
                 <Col md="12">
                   <form>
-                    <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
+                    <input className="defaultText loginText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
                     <br/>
-                    <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
+                    <input className="defaultPassword loginText" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
                     <br/>
                     <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
                       SMS messages from Passflare and its affiliates.</p>
                     <Row>
                       <Col md="12">
-                      <button className="btn btn-dark passBtnNext" type="submit" onClick={this.handleSubmit}>
-                        Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+                        <button className="btn btn-dark passBtnNext" type="submit" onClick={this.handleSubmit}>
+                          Sign In &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                         </button>
                       </Col>
                     </Row>

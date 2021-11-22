@@ -200,6 +200,19 @@ userRoutes.route("/user/edit").post(function (req, res) {
       });
   });
 
+  //get user by _id
+  userRoutes.route("/user/_id").post(function (req, res){
+    let db_connect = dbo.getDb("Passflare");
+    var userObjID = req.body.userID;
+    db_connect
+      .collection("Users")
+      .find({_id: ObjectId(userObjID)})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+  });
+
   //verify user
   userRoutes.route("/user/verify").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
