@@ -19,7 +19,9 @@ const QRinitialState = {
   queryingQR: false, 
   activationStatus: "", 
   result : "no result", 
-  ticket : {ticketID : null, userID : "", eventID : "", active : ""}
+  ticket : {ticketID : null, userID : "", eventID : "", active : ""},
+  user   : "This is where the user's name goes",
+  event  : "This is where the event's name goes"
 }
 
 class QrScanner extends Component {
@@ -45,15 +47,38 @@ class QrScanner extends Component {
       
       if (!this.state.queryingQR) {
         var self = this;
+        //Returns data from a scanned ticket, add functionality here
         axios.post("/tickets/byID", ticketObj)
         .then(function(response){
           var ticketState = {
             ticket : {ticketID : data, userID : response.data[0].UserID, eventID : response.data[0].EventID} 
           }
           self.setState(ticketState);
+
+        //Returns User data 
+        axios.post("/user/_ID", self.state.ticket)
+          .then(function(response){
+            var userName = {user : response.data[0].Name}
+            self.setState(userName);
+
+        //Returns Event Data
+        axios.post("/events/byID", self.state.ticket)
+          .then(function(response){
+            var eventName = {event : response.data[0].Name}
+            self.setState(eventName);
+          }).catch(function(err){
+            console.log(err)
+          })
+
+          //ends event data return
+          }).catch(function(err){
+            console.log(err)
+          })
+        //ends user data return
+        
         }).catch(function(err){
           console.log(err)
-        })
+        })       
       }
     }
   }
@@ -108,9 +133,9 @@ class QrScanner extends Component {
           <h3>Ticket ID: </h3>
           <p>{this.state.ticket.ticketID}</p>
           <h3>User ID: </h3>
-          <p>{this.state.ticket.userID}</p>
+          <p>{this.state.user}</p>
           <h3>Event ID: </h3>
-          <p>{this.state.ticket.eventID}</p>
+          <p>{this.state.event}</p>
           <button onClick={this.deactivate} class="btn btn-dark">Admit</button>
           <button onClick={this.activate} class="btn btn-dark">Reactivate</button>
         </div>
