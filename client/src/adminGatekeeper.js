@@ -62,17 +62,20 @@ class EmailGatekeeper extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
-    onSubmit(event){
-        axios.get("/admin/sendGatekeeperMail", {params: {email: this.state.email}});
-        axios.post("/gatekeeper/add", {           
+    async onSubmit(event){
+        event.preventDefault();
+        const emailRes = await axios.get("/admin/sendGatekeeperMail", {params: {email: this.state.email}});
+        console.log(emailRes);
+        if(!emailRes.data.validationReport){
+            alert("No such email is registered under Passflare.");
+        }
+        else{
+            axios.post("/gatekeeper/add", {           
                 orgID: this.props.adminData.OrgID,
                 email: this.state.email,
                 verified: false
-            }
-        ).then(function(response){
-            alert(response.data.message);
-        });
-        event.preventDefault();
+            })
+        }
     }
 
     handleChange(event){

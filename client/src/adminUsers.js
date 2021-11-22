@@ -115,12 +115,14 @@ class EmailUser extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
-    onSubmit(event){
+    async onSubmit(event){
         event.preventDefault();
         var self = this;
-        axios.post("/orginization/orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
-            axios.get("/admin/sendUserMail", {params: {email: self.state.email, orgName: response.data[0].Name, orgID: response.data[0]._id}});
-        });
+        var orgID = this.props.adminData.OrgID;
+        
+        const response = await axios.post("/organization/orgID", {orgID: orgID});
+        console.log(response);
+        axios.get("/admin/sendUserMail", {params: {email: self.state.email, orgName: response.data[0].Name, orgID: orgID}});
         
     }
 
