@@ -12,6 +12,7 @@ class EventDetails extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      loading: true,
       eventImage: null,
       ticketDetails: this.props.location.state.ticketDetails,
       userDetails: this.props.location.state.userDetails,
@@ -22,29 +23,30 @@ class EventDetails extends React.Component{
     this.setImageSize = this.setImageSize.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({eventImage: this.setImageSize()});
-  }
-
   setImageSize() {
-    var img = <img style={{padding: "0px"}} src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>;
+    var tempImg = document.getElementsByClassName("eventDetailsImage")[0];
     var parent = document.getElementsByClassName("eventImageContainer")[0];
-    var imgRatio = img.width / img.height;
-    var parentRatio = parent.width / parent.height;
-
+    var imgRatio = tempImg.width / tempImg.height;
+    var parentRatio = parent.offsetWidth / parent.offsetHeight;
+    console.log("here: " + parent.offsetWidth + " : " + parent.offsetHeight);
+    console.log("here: " + tempImg.offsetWidth + " : " + tempImg.offsetHeight);
+    console.log("here: " + imgRatio + " : " + parentRatio);
     
     if (imgRatio <= parentRatio) {
-      return <img style={{padding: "0px"}} className="imgGreaterHeight" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>
+      this.setState({loading: false, eventImage: <img style={{padding: "0px"}} className="imgGreaterHeight" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>});
+    } else {
+      this.setState({loading: false, eventImage: <img style={{padding: "0px"}} className="imgGreaterWidth" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>});
     }
 
-    return img;
+    
   }
 
   render(){
-    if (this.state.eventImage == null) {
+    if (this.state.loading) {
       return (
         <Container className="eventContainer" fluid>
           <Row className="eventImageContainer d-flex align-items-center justify-content-center">
+            <img style={{padding: "0px"}} className="eventDetailsImage" onLoad={this.setImageSize} src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>
           </Row>
         </Container>
       );

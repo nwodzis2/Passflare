@@ -135,7 +135,7 @@ hr {
 
 
 .eventImageContainer {
-    padding: 4px;
+    margin: 4px -8px;
 }
 
 .eventImageContainer {
@@ -146,6 +146,11 @@ hr {
 .eventImageContainer > .imgGreaterHeight{
     height: 100%;
     width: auto;
+}
+
+.eventImageContainer > .imgGreaterWidth{
+    height: auto;
+    width: 100%;
 }
 
 .eventTitleContainer {
