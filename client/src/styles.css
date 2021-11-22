@@ -139,7 +139,13 @@ hr {
 }
 
 .eventImageContainer {
-    max-height: 215px;
+    height: 30vh;
+    border: 1px solid white;
+}
+
+.eventImageContainer > .imgGreaterHeight{
+    height: 100%;
+    width: auto;
 }
 
 .eventTitleContainer {
@@ -475,7 +481,6 @@ hr {
 .eventCreationContainer {
     border: 1px solid white;
     padding: 16px 20px;
-    width: 25%;
     margin: 0px;
 }
 
@@ -572,6 +577,44 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 0.5em;
     border: 1px solid rgb(255, 124, 37);
 }
+
+.eventDataContainer {
+    border: 1px solid rgb(255, 124, 37);
+    padding: 5px 0px;
+    margin-left: 20px;
+}
+
+.adminEventDataRowKey {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminEventDataRowKey > .col {
+    margin: 0px;
+    padding: 5px 10px;
+    border-left: 1px solid white;
+}
+
+.adminEventDataRowKey > .col > p {
+    margin: 0px;
+}
+
+.adminEventDataRow {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminEventDataRow > .col {
+    margin: 0px;
+    padding: 5px 10px;
+    border-left: 1px solid white;
+}
+
+.adminEventDataRow > .col > p {
+    margin: 0px;
+}
+
+
 
 .navbar-toggler{
     background-color:#6b6b6b;
@@ -715,6 +758,22 @@ input:focus{
     background-color: #121212;
     border-radius: 0.5em;
     border: 1px solid rgb(255, 124, 37);
+}
+
+.passBtnDark-sm{
+    display:flex;
+    padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin:auto;
+    margin-bottom: 0em;
+    width: 100px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
+    font-size: 12px;
 }
 
 .passBtnNext{

@@ -8,13 +8,17 @@ import {AdminNav} from "./adminView.js";
 class AdminFinancials extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData
+        }
     }
 
     render(){
         return(
         <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-            <FinancialData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <AdminNav adminData={this.state.adminData}/>
+            <FinancialData adminData={this.state.adminData.details}/>
         </Container>
         )
     }

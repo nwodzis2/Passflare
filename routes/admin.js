@@ -8,6 +8,7 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     let myobj = {
       Email : req.body.email,
+      UserID: req.body.userID,
       OrgID : req.body.orgID,
       Master : req.body.master
     };
@@ -20,6 +21,19 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     });
     return;
 });
+
+adminRoutes.route("/admin/orgID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var orgid = req.body.orgID;
+  db_connect
+    .collection("Admin")
+    .find({OrgID: orgid})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 //validate user by password
 adminRoutes.route("/admin/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");

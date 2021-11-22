@@ -54,7 +54,7 @@ userRoutes.route("/user/add").post(function (req, res) {
         .insertOne(myobj, function (err, user) {
       if (err) throw err;
       console.log("success");
-      res.json({sucess: true});
+      res.json({userID: user.insertedId});
     });
     return;
 });

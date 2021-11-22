@@ -26,13 +26,12 @@ eventRoutes.route("/events/create").post(function (req, res){
     form.parse(req, function(error, fields, files){
       let encodedData = fs.readFileSync(files.image.filepath);
 
-      console.log(files.image);
-
       let eventObj = {
         Name : fields.name,
         Description: fields.description,
         Price: fields.price,
         OrgID : fields.orgID,
+        AdminUserID: fields.adminID,
         Image : encodedData,
         Date : fields.date,
         StartTime: fields.startTime,
@@ -42,9 +41,12 @@ eventRoutes.route("/events/create").post(function (req, res){
 
       var event = db_connect
       .collection("Events")
-      .insertOne(eventObj, function(err, res){
-          if(err) throw err;
-          console.log("event created");
+      .insertOne(eventObj, function(err){
+          if(err) res.json({eventCreated: false});
+          else {
+            console.log("event created");
+            res.json({eventCreated: true});
+          }
       });
     });
     
@@ -54,12 +56,13 @@ eventRoutes.route("/events/create").post(function (req, res){
 //delete event by id
 eventRoutes.route("/events/delete/:id").post(function(req, res){
     let db_connect = dbo.getDb("Passflare");
-    var event = { id: req.body.id };
+    var id = req.body.id;
     db_connect
         .collection("Events")
-        .deleteOne(event, function (err, obj) {
+        .deleteOne({_id : ObjectId(id)}, function (err, obj) {
             if (err) throw err;
             console.log("event deleted");
+            res.json({deleted: true});
     });
 });
 //update event by id

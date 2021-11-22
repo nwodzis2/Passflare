@@ -10,14 +10,18 @@ import {AdminNav} from "./adminView.js";
 class AdminGatekeeper extends React.Component{
     constructor(props) {
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData
+        }
     }
 
     render(){
         return(
             <Container fluid>
-                <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-                <GatekeeperData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-                <EmailGatekeeper adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+                <AdminNav adminData={this.state.adminData}/>
+                <GatekeeperData adminData={this.state.adminData.details}/>
+                <EmailGatekeeper adminData={this.state.adminData.details}/>
             </Container>
         );
     }

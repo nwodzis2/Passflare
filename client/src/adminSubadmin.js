@@ -9,13 +9,17 @@ import {AdminNav} from "./adminView.js";
 class AdminSubadmin extends React.Component{
     constructor(props) {
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData
+        }
     }
 
     render(){
         return(
             <Container fluid>
-                <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-                <CreateSubadmin adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+                <AdminNav adminData={this.props.location.state.adminData}/>
+                <CreateSubadmin adminData={this.props.location.state.adminData.details}/>
             </Container>
         );
     }
@@ -90,15 +94,14 @@ class CreateSubadmin extends React.Component{
     render(){
         return(
             <Container fluid>
-                <Row>
-                    <Col></Col>
-                    <Col><h2>Welcome to Passflare!</h2></Col>
-                    <Col></Col>
-                </Row> 
               <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Please enter your information below.</Card.Title>                            
+                        <Card.Title className="d-flex align-items-center">
+                            <Col className="d-flex align-items-center">
+                                Add subadmin
+                            </Col>
+                        </Card.Title>                            
                         <br/>
                         <Form onSubmit={this.submitUser}>
                             <FormGroup>       

@@ -133,7 +133,6 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
-    console.log("sign out");
     localStorage.removeItem("passflareAuth");
     this.props.history.replace("/");
   }
