@@ -46,12 +46,19 @@ class RecoveryEmail extends React.Component{
 
     render(){
         return(
-            <Container fluid>
+            <Container style={{marginTop: "20px"}} fluid>
             <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Enter your email</Card.Title>                            
-                        <br/>
+                        <Card.Title className="d-flex align-items-center">
+                            <Col md="auto" onClick={this.props.history.goBack} style={{marginRight: "10px"}}className="backArrowContainer d-flex align-items-center">
+                                <i class="fas fa-arrow-left backArrow"></i>
+                            </Col>
+                            <Col className="d-flex align-items-center">
+                                Enter email
+                            </Col>
+                        </Card.Title>                            
+                        <hr/>
                         <Form onSubmit={this.onSubmit}>
                             <FormLabel>User Email: </FormLabel>
                             <FormControl className="defaultEmail" type="email" name='userEmail' autoComplete="off" onChange={this.handleChange} placeholder="Enter email..."/>

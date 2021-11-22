@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
-import { Container, Row, Col, Card,} from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import { BrowserRouter as Router,
-  Switch, Route, Link} from "react-router-dom";
+  Switch, Route, Link, withRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QRcode = require('qrcode');
@@ -21,22 +21,42 @@ class EventDetails extends React.Component{
 
   render(){
     return(
-      <Container fluid>
-        <Row>
-          <Col md="12">
-            <h1>{this.state.eventDetails.Name}</h1>
-          </Col>
-          <Col md="12">
-            <h1>{this.state.eventDetails.Description}</h1>
-          </Col>
-          <Col md="12">
-            <h1>{this.state.eventDetails.Location}</h1>
-          </Col>
-          <Col md="12">
-            <h3>{this.state.eventDetails.Date} @ {this.state.eventDetails.StartTime} - {this.state.eventDetails.EndTime}</h3>
-          </Col>
+      <Container className="eventContainer" fluid>
+        <Row className="eventImageContainer">
+          <img style={{padding: "0px"}} src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>
         </Row>
-        <TicketOperation ticketDetails={this.state.ticketDetails} userDetails={this.state.userDetails} owned={this.state.owned} eventDetails={this.state.eventDetails}/>
+        <Row >
+          <Col className="eventTitleContainer d-flex align-items-center">
+            <Col md="auto" onClick={this.props.history.goBack}className="backArrowContainer d-flex align-items-center">
+                <i class="fas fa-arrow-left backArrow"></i>
+            </Col>
+            <Col style={{paddingLeft: "10px"}} className="d-flex align-items-center">
+              <h1 className="eventTitle">{this.state.eventDetails.Name}</h1>
+            </Col>
+          </Col>
+          <Col className="eventTimeContainer d-flex align-items-center">
+            <Col>
+              <Row> 
+                <p className="eventDate">{this.state.eventDetails.Date}</p>
+              </Row>
+              <Row>
+                <p className="eventTime">{this.state.eventDetails.StartTime} - {this.state.eventDetails.EndTime}</p>
+              </Row>
+            </Col>
+          </Col>
+          <Row className="ticketOpContainer d-flex justify-content-center">
+            <TicketOperation ticketDetails={this.state.ticketDetails} userDetails={this.state.userDetails} owned={this.state.owned} eventDetails={this.state.eventDetails}/>
+          </Row>
+          <Row id="eventPageBreak" style={{padding: "0px 20px", margin: "0px"}}>
+            <hr/>
+          </Row>
+        </Row>
+        <Row className="eventLocation">
+          <h1>{this.state.eventDetails.Location}</h1>
+        </Row>
+        <Row className="eventDesc">
+          <p>{this.state.eventDetails.Description}</p>
+        </Row>
       </Container>
     );
   }
@@ -47,29 +67,29 @@ class TicketOperation extends React.Component {
     super(props);
 
     this.state = {
-      loading: true,
       qrcode: null
     }
     
     this.generateQRCode = this.generateQRCode.bind(this);
-  }
-
-  componentWillMount() {
-    if (this.props.owned) {
-      this.generateQRCode();
-    } else {
-      this.setState({loading: false});
-    }
+    this.toggleQRCode = this.toggleQRCode.bind(this);
   }
 
   generateQRCode = () => {
     var self = this;
 
     var qrcode = QRcode.toDataURL(this.props.ticketDetails._id).then(url => {
-      self.setState({loading: false, qrcode: <img src={url}/>});
+      self.setState({qrcode: url});
     }).catch(err => {
-      self.setState({loading: false, qrcode: <p>Failed to load QR code</p>});
+      self.setState({qrcode: "failed"});
     });
+  }
+
+  toggleQRCode = () => {
+    if (this.state.qrcode == null) {
+      this.generateQRCode();
+    } else {
+      this.setState({qrcode: null});
+    }
   }
 
   render() {
@@ -80,16 +100,35 @@ class TicketOperation extends React.Component {
     } else {
       if (!this.props.owned) {
         return(
-          <Link to={{pathname: "/payment", state: {userDetails: this.props.userDetails, eventDetails: this.props.eventDetails}}}>
-            <button className="btn btn-dark passBtnNext">
+          <Link className="btnBuyTicketContainer d-flex justify-content-center" to={{pathname: "/payment", state: {userDetails: this.props.userDetails, eventDetails: this.props.eventDetails}}}>
+            <button className="btn btn-dark btnBuyTicket">
               Purchase Ticket ${this.props.eventDetails.Price}&nbsp;&nbsp;
             </button>
           </Link>
         );
-      } else {
-        return(
-          <div>{this.state.qrcode}</div>
-        );
+      }
+      else {
+        if (this.state.qrcode == null) {
+          //document.getElementById("eventPageBreak").style.marginTop = "0";
+          return(
+              <button onClick={this.toggleQRCode} className="btn btn-dark btnShowTicket">
+                  Show QR code
+              </button>
+          );
+        } else {
+          return(
+            <Container className="eventqrcodeContainer" fluid>
+              <Row>
+                <img className="eventqrcode" src={this.state.qrcode}/>
+              </Row>
+              <Row className="d-flex justify-content-center">
+                <button onClick={this.toggleQRCode} className="btn btn-dark btnHideTicket">
+                  Hide QR code
+                </button>
+              </Row>
+            </Container>
+          );
+        }
       }
     }
   }

@@ -21,13 +21,12 @@ class UserView extends React.Component{
       userData: this.props.location.state.userData
     }
 
-
     this.fetchEventData = this.fetchEventData.bind(this);
     this.loadEventCardsData = this.loadEventCardsData.bind(this);
   }
 
   componentDidMount() {
-    this.fetchEventData();
+      this.fetchEventData();
   }
 
   loadEventCardsData = ()=> {
@@ -81,7 +80,7 @@ class UserView extends React.Component{
     if (!this.state.loading) {
       return(
         <Container fluid style={{padding: 0}}>
-          <UserNav userData={this.state.userData}/>
+          <UserNav history={this.props.history} userData={this.state.userData}/>
           <Row className="eventRow" style={{}, {marginTop: 15}}>
                 <h1 className="eventTitle">Tickets owned:</h1>
                 <div className="eventDisplay">
@@ -112,11 +111,10 @@ class EventCard extends React.Component {
   }
 
   render() {
-    //Also need to implement images once image backend is working
     return(
       <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
         <div class="eventCard">
-          <div class="eventCardImage"></div>
+          <div class="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
           <div class="eventCardName">{this.props.event.Name}</div>
           <div class="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
           <div class="eventCardDate">{this.props.event.Date}</div>
@@ -135,7 +133,9 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
-    <Redirect to="/" />
+    console.log("sign out");
+    localStorage.removeItem("passflareAuth");
+    this.props.history.replace("/");
   }
 
   render(){

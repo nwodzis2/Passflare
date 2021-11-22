@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card, InputGroup} from 'react-bootstrap';
+import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card, InputGroup, FormSelect } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
 
 class AdminEvents extends React.Component {
@@ -13,10 +14,12 @@ class AdminEvents extends React.Component {
 
     render(){
         return(
-        <Container fluid>
+        <Container fluid style={{padding: "0px 20px"}}>
             <AdminNav adminData={this.props.location.state.adminData}/>
-            <EventData adminData={this.props.location.state.adminData}/>
-            <EventCreation adminData={this.props.location.state.adminData}/>
+            <Row>
+                <EventCreation adminData={this.props.location.state.adminData}/>
+                <EventData adminData={this.props.location.state.adminData}/>
+            </Row>
         </Container>
         )
     }
@@ -54,113 +57,105 @@ class EventData extends React.Component{
 class EventCreation extends React.Component{
     constructor(props) {
         super(props);
-
         
-
-        this.state = {
-            name: '',
-            description: '',
-            price: '',
-            orgID: this.props.adminData.OrgID,
-            image: '',
-            date: '',
-            startTime: '',
-            endTime: '',
-            location: ''
-        };
-
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        this.state = {
+            formData: new FormData(document.getElementById("eventForm")),
+            orgID: this.props.adminData.OrgID
+        };
+
+    }
+
     submitEvent(event) {
-        
+        this.state.formData.set('orgID', this.state.orgID);
+        console.log(this.props.adminData);
         let obj = {
-            name: this.state.name,
-            description: this.state.description,
-            price: this.state.price,
-            orgID: this.state.orgID,
-            image: this.state.image,
-            date: this.state.date,
-            startTime: this.state.startTime,
-            endTime: this.state.endTime,
-            location: this.state.location
+            formData: this.state.formData,
+            userID : this.props.adminData._id
         }
-        axios.post("/events/create", obj);
+
+        axios.post("/events/create", this.state.formData);
         event.preventDefault();
     }
 
     handleChange(event) {
-        if (event.target.name == "image"){
-            this.setState({
-                image : event.target.files[0]
-            });
+        if (event.target.name == "image") {
+            this.state.formData.set(event.target.name, event.target.files[0]);
         } else {
-            this.setState({
-                [event.target.name] : event.target.value
-            });
+            this.state.formData.set(event.target.name, event.target.value);
         }
     }
 
     render(){
         return(
-            <Container fluid>
+            <Container fluid className="eventCreationContainer bg-dark">
                 <Row>
-                    <Col>
-                    <Link to= "/adminView" style={{textDecoration: 'none'}}>
-                      <h2 className="backArrow"><i class="fas fa-arrow-left"></i></h2>
-                    </Link>
-                    </Col>
-                    <Col><h2>Create Event</h2></Col>
-                    <Col></Col>
+                    <h2 style={{textAlign: "left", color: "rgb(255, 124, 37)", margin: "0px", padding: "0px"}}>Create Event</h2>
                 </Row> 
-              <Row>
-                <Col md="12">
-                    <Card className="darkCard">
-                        <Card.Title>Please enter event information below.</Card.Title>                            
-                        <br/>
-                        <Form onSubmit={this.submitEvent}>
-                            <FormGroup>       
-                                <FormLabel>Event Name: </FormLabel>
-                                <FormControl className="eventInput" type="text" name='name' autoComplete="off" onChange={this.handleChange} placeholder="Enter event name..."/>
+                <hr/>
+                <Row>
+                    <Col className="createEventFormContainer">    
+                        <Form id="eventForm" onSubmit={this.submitEvent}>
+                            <FormGroup>
+                                <Row>
+                                    <FormLabel>Event Name: </FormLabel>
+                                    <FormControl type="text" name='name' autoComplete="off" onChange={this.handleChange} placeholder="Enter event name..."/>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Description: </FormLabel>
-                                <FormControl className="eventInput" type="text" as="textarea" name='description' autoComplete="off" onChange={this.handleChange} placeholder="Enter event description..."/>
+                                <Row>
+                                    <FormLabel>Description: </FormLabel>
+                                    <FormControl className="eventCreationDescBox" type="text" as="textarea" name='description' autoComplete="off" onChange={this.handleChange} placeholder="Enter event description..."/>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Price: </FormLabel>
-                                <InputGroup>
-                                    <InputGroup.Text>$</InputGroup.Text>
-                                    <FormControl className="eventInput" type="text" name='price' autoComplete="off" onChange={this.handleChange} placeholder="X.XX"/>
-                                </InputGroup>
+                                <Row>
+                                    <FormLabel>Price: </FormLabel>
+                                    <InputGroup className="eventCreationPriceInput" style={{padding: "0px"}}>
+                                        <InputGroup.Text>$</InputGroup.Text>
+                                        <FormControl type="text" name='price' autoComplete="off" onChange={this.handleChange} placeholder="X.XX"/>
+                                    </InputGroup>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Date </FormLabel>
-                                <FormControl className="eventInput" type="date" name='date' autoComplete="off" onChange={this.handleChange} placeholder="Enter event date..."/>
+                                <Row>
+                                    <Col className="eventCreationDateInput">
+                                        <FormLabel>Date:</FormLabel>
+                                        <FormControl type="date" name="date" autoComplete="off" onChange={this.handleChange} placeholder="Enter event date..."/>
+                                    </Col>
+                                    <Col className="eventCreationStartInput">
+                                        <FormLabel>Starts: </FormLabel>
+                                        <FormControl type="text" name='startTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
+                                    </Col>
+                                    <Col className="eventCreationEndInput">
+                                        <FormLabel>Ends: </FormLabel>
+                                        <FormControl type="text" name='endTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
+                                    </Col>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Starting Time </FormLabel>
-                                <FormControl className="eventInput" type="text" name='startTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
+                                <Row>
+                                    <FormLabel>Location: </FormLabel>
+                                    <FormControl type="text" name='location' onChange={this.handleChange} placeholder="Enter event location..."/>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Ending Time </FormLabel>
-                                <FormControl className="eventInput" type="text" name='endTime' autoComplete="off" onChange={this.handleChange} placeholder="XX:XXxm"/>
+                                <Row>
+                                    <FormLabel>Event Image: </FormLabel>
+                                    <br/>
+                                    <FormControl className="eventCreationImageInput" type="file" name='image' onChange={this.handleChange} placeholder="Choose event thumbnail image..."/>
+                                </Row>
                                 <hr/>
-                                <FormLabel>Location: </FormLabel>
-                                <FormControl className="eventInput" type="text" name='location' onChange={this.handleChange} placeholder="Enter event location..."/>
-                                <hr/>
-                                <FormLabel>Thumbnail: </FormLabel>
-                                <br/>
-                                <FormControl className="eventInput" type="file" name='image' onChange={this.handleChange} placeholder="Choose event thumbnail image..."/>
                             </FormGroup>
-                            <br/>
-                        <Row>
-                            <button type="submit" className="btn btn-dark passBtnDark"> 
-                            Create Event
+                        <Row className="justify-content-center">
+                            <button type="submit" className="btn btn-dark btneventCreation"> 
+                                Create Event
                             </button>
                         </Row> 
                         </Form>
-                    </Card>
-                </Col>
-              </Row>
+                    </Col>
+                </Row>
             </Container>
-          );
+        );
     }
 }
 

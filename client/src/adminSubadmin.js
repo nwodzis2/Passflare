@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
-import './styles.css';
+import ReactDOM from 'react-dom';
 import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {AdminNav} from "./adminView.js";
 
-class AdminCreation extends React.Component{
+class AdminSubadmin extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {name:'', email:'', phone:'', password:'', orgName: '', orgNickName: '', orgZip: ''};
+    }
+
+    render(){
+        return(
+            <Container fluid>
+                <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+                <CreateSubadmin adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            </Container>
+        );
+    }
+}
+
+class CreateSubadmin extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {name:'', email:'', phone:'', password:'', orgName: '', orgNickName: '', orgZip: '',
+            adminData: this.props.adminData,
+            masterData: this.props.masterData
+        };
+        console.log(this.state.masterData);
+        
         this.submitUser = this.submitUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -21,28 +42,43 @@ class AdminCreation extends React.Component{
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            orgID: 0, //Need to change this when the time comes / add way of obtaining it in the form
+            orgID: this.state.adminData.OrgID,
             orgName: this.state.orgName,
             orgNickName: this.state.orgNickName,
             orgZip: this.state.orgZip,
-            master: true
+            master: false
         }
 
-        const requestOne = await axios.post("/organization/add", obj);
-        var resjson = requestOne.data;
-        if (resjson.orgID != "orgID failed"){
-            obj.orgID = resjson.orgID;
-        }
-        else {
-            console.log(resjson.orgID);
-            alert("Organization creation failed.");
-        }    
+        
+        axios.post("/organization/orgID", obj).then(function(orgResponse){
+            var resjson = orgResponse.data;
+            console.log(resjson);
+            obj.orgName = resjson.orgName;
+            obj.orgNickName = resjson.orgNickName;
+            obj.orgZip = resjson.orgZip;
 
-        await axios.post("/user/add", obj);
-        await axios.post("/admin/add", obj);
+            axios.post("/user/add", obj).then(function (userResponse){
+                if(userResponse.data.sucess){
+                    axios.post("/admin/add", obj).then(function (adminResponse){
+                        if(adminResponse.data.successAdmin){
+                            alert("Subadmin creation successful.");
+                        }
+                    })
+                    .catch(function (error){
+                        console.log(error);
+                    })
+                }
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        })
+        .catch(function(error){
+            console.log(error);
+        })
 
         var tempProps = this.props;
-        tempProps.history.push('/adminLogin');
+        tempProps.history.push('/adminView', {adminData: this.state.adminData, masterData: this.state.masterData});
     }
 
     handleChange(event) {
@@ -78,19 +114,11 @@ class AdminCreation extends React.Component{
                                 <FormLabel>Phone Number: </FormLabel>
                                 <FormControl className="defaultText" type="tel" name='phone' onChange={this.handleChange} placeholder="(xxx)xxx-xxxx"/>
                                 <hr/>
-                                <FormLabel>Organization Name: </FormLabel>
-                                <FormControl className="defaultText" type="text" name='orgName' onChange={this.handleChange} placeholder="Enter organization name..."/>
-                                <hr/>
-                                <FormLabel>Organization Nickname: </FormLabel>
-                                <FormControl className="defaultText" type="text" name='orgNickName' onChange={this.handleChange} placeholder="Enter a nickname for your organization..."/>
-                                <hr/>
-                                <FormLabel>Organization Zip Code: </FormLabel>
-                                <FormControl className="defaultText" type="text" name='orgZip' onChange={this.handleChange} placeholder="Enter organization zipcode..."/>
                             </FormGroup>
                             <br/>
                         <Row>
                             <button type="submit" className="btn btn-dark passBtnDark"> 
-                            Create Account 
+                            Create Subadmin 
                             </button>
                         </Row> 
                         </Form>
@@ -102,4 +130,4 @@ class AdminCreation extends React.Component{
     }
 }
 
-export default withRouter(AdminCreation);
+export default withRouter(AdminSubadmin, CreateSubadmin);

@@ -11,6 +11,7 @@ import axios from 'axios';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {userEmail: '', userPassword: ''};
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,6 +46,7 @@ class LoginPage extends React.Component {
 
         //If valid fetch user data
         axios.post("/user/email", emailObj).then(function(userResponse){
+          self.props.setAuth("validUser");
           self.props.history.push("/userView", {userData: userResponse.data.response});
         })
         .catch(function(error){
@@ -82,8 +84,10 @@ class LoginPage extends React.Component {
           axios.post("/gatekeeper/validate", emailObj)
           .then(function(response){
             resjson = response.data;
-            if (resjson.validationReport == "gatekeeperValid")
+            if (resjson.validationReport == "gatekeeperValid") {
+              self.props.setAuth("validGatekeeper");
               self.props.history.push("/gatekeeperView", {userData: userResponse.data.response});
+            }
             else 
               alert(resjson.validationReport);
           })
@@ -117,9 +121,9 @@ class LoginPage extends React.Component {
       <Row>
         <Col md="12">
           <form onSubmit={this.handleSubmit}>
-            <input className="defaultText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
+            <input className="defaultText loginText" type="text" name="userEmail" value={this.state.userEmail} onChange={this.handleChange} placeholder="Enter email"/>
             <br/>
-            <input className="defaultPassword" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
+            <input className="defaultPassword loginText" type="password" name="userPassword" value={this.state.userPassword} onChange={this.handleChange} placeholder="Enter password"/>
             <br/>
             
             <p id="disclaimer">By proceeding, you are consenting to recieve emails, calls, or <br/> 
@@ -127,7 +131,7 @@ class LoginPage extends React.Component {
             <Row>
               <Col md="12">
                 <button className="btn btn-dark passBtnNext" type="submit">
-                Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+                  Sign In &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
                 </button>
               </Col>
             </Row>

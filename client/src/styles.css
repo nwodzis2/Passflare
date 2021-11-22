@@ -105,6 +105,15 @@ hr {
     border-radius: 10px;
     background-color: white;
     white-space: pre-wrap;
+    overflow: hidden;
+}
+
+.eventCardImage > img{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .eventCardName {
@@ -118,6 +127,183 @@ hr {
 
 .eventCardDate {
     margin-bottom: 10px;
+}
+
+.eventContainer {
+    padding: 0px;
+}
+
+
+.eventImageContainer {
+    padding: 4px;
+}
+
+.eventImageContainer {
+    max-height: 215px;
+}
+
+.eventTitleContainer {
+    padding: 20px 0px 20px 20px;
+}
+
+.eventTitle {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5em;
+}
+
+.eventTimeContiner {
+    padding: 0px 20px;
+}
+
+.eventTime {
+    font-size: 0.85em;
+    margin: 0px;
+    text-align: right;
+}
+
+.eventDate {
+    font-size: 0.85em;
+    margin: 0px;
+    text-align: right;
+}
+
+.ticketOpContainer {
+    margin: 0px;
+    padding: 0px 20px 20px 20px;
+}
+
+.btnBuyTicketContainer {
+    text-decoration: none;
+}
+
+.btnBuyTicket {
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.eventqrcode {
+    padding: 0px;
+}
+
+.btnShowTicket {
+    width: 50vw;
+    height: 12vw;
+    margin: 0px;
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.btnHideTicket {
+    width: 50vw;
+    height: 12vw;
+    margin-top: 20px;
+    border-radius: .75rem;
+    border: 1px solid rgba(252,163,18,1);
+}
+
+.eventDesc {
+    font-size: 12px;
+}
+
+
+.paymentPageContainer {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    padding: 0px 20px;
+}
+
+.paymentEventTitleContainer {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 20px;
+}
+
+.backArrowContainer {
+    padding: 0px;
+    width: auto;
+}
+
+.backArrow {
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    font-size: 20px;
+}
+
+.paymentEventTitleTextContainer {
+    padding: 0px 0px 0px 20px;
+}
+
+.paymentEventTitleText {
+    font-size: 8vw;
+    padding: 0px;
+    margin: 0px;
+    line-height: 95%;
+    width: auto;
+}
+
+.cardInfoContainer {
+    margin: 0px;
+    margin-top: 90%;
+    padding: 0px;
+    width: 100%;
+}
+
+.cardInfoTitle {
+    padding: 0px;
+    margin-bottom: 8px;
+}
+
+.cardInfoForm {
+    margin: 0px;
+    padding: 0px;
+}
+
+.cardInfo {
+    margin: 0px;
+    padding: 0;
+    border: 1px solid #c9c9c9;
+	background-color: #121212;
+	will-change: opacity, transform;
+	border-radius: 6px;
+}
+
+.StripeElement--webkit-autofill {
+	background: transparent !important;
+}
+
+.StripeElement {
+	width: 100%;
+	padding: 11px 10px;
+}
+
+.cardInfoText {
+    color: white;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	margin: 0px;
+}
+
+.PayButton {
+	display: block;
+	font-size: 16px;
+	width: 150px;
+	height: 40px;
+	margin: 20px 0 0 calc(50% - 75px);
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 100ms ease-in-out;
+	will-change: transform, background-color, box-shadow;
+	border: 1px solid rgba(252,163,18,1);
 }
 
 #gateKeeperTitle{
@@ -180,6 +366,219 @@ hr {
 
 
 
+.adminNavbar {
+    padding: 0px;
+    height: 75px;
+}
+
+.adminNavContainer {
+    padding: 0px;
+    height: 75px;
+    margin-bottom: 20px;
+}
+
+.adminBrandContainer {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.adminBrand {
+    margin: 0px;
+    padding: 0px;
+}
+
+.adminBrandTextContainer {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminBrandLogoContainer {
+    padding: 0px;
+    margin: 0px;
+    margin-right: 3px;
+}
+
+.adminNavPassTicket {
+    font-size: 40px;
+}
+
+.adminBrandPassflareTextContainer {
+    padding: 0px;
+    margin: 0px;
+    padding-top: 5px;
+    font-family: 'Aclonica';
+}
+
+.adminBrandPassflareText{
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.adminBrandAdminTextContainer {
+    padding: 0px;
+    margin: 0px;
+}
+
+.adminBrandPassAdminText {
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    color: #6b6b6b;
+    font-size: 25px;
+}
+
+.adminChoicesContainer {
+    margin: 0px;
+    display: flex;
+    flex-grow: 2;
+    padding-right: 20px;
+}
+
+.adminChoices {
+    font-size: 20px;
+}
+
+.adminChoices > a{
+    margin: 0px;
+    color: white;
+    text-decoration: none;
+}
+
+.adminChoices > a:hover{
+    color: orange;
+}
+
+.form-select {
+    color: white !important;
+    border: none !important;
+    margin-bottom: 3px;
+}
+
+.event-graph-container {
+    color: white !important;
+    fill: white !important;
+    padding: 5px;
+}
+
+.event-graph-container > div > svg > .rv-xy-plot__grid-lines {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+.event-graph-container > div > svg > path[style] {
+    stroke: rgb(255, 124, 37) !important;
+}
+
+.eventCreationContainer {
+    border: 1px solid white;
+    padding: 16px 20px;
+    width: 25%;
+    margin: 0px;
+}
+
+.eventCreationContainer > .row {
+    margin: 0px;
+    padding: 0px;
+}
+
+.createEventFormContainer {
+    padding: 0px;
+}
+
+.createEventFormContainer > form > .form-group > .row {
+    padding: 0px;
+    margin: 0px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-label {
+    font-size: 18px;
+    padding: 0px;
+    margin-bottom: 5px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-label {
+    font-size: 18px;
+    padding: 0px;
+    margin-bottom: 5px;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-control {
+    color: white;
+    background-color: #121212;
+}
+
+.createEventFormContainer > form > .form-group > .row > .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-control {
+    color: white;
+    background-color: #121212;
+}
+
+.createEventFormContainer > form > .form-group > .row > .col > .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.createEventFormContainer > form > .form-group > .row > .col {
+    padding: 0px;
+}
+
+.eventCreationDescBox {
+    min-height: 3em;
+}
+
+.eventCreationPriceInput > span {
+    background-color: black;
+    color: white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+}
+
+.eventCreationPriceInput > input {
+    background-color: #121212;
+    color: white;
+}
+
+.eventCreationPriceInput > input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.eventCreationStartInput {
+    margin: 0px 10px;
+}
+
+.eventCreationImageInput {
+    padding: 0px;
+}
+
+.eventCreationImageInput::file-selector-button {
+    color: white;
+    background-color: #121212;
+    border: 1px solid rgb(255, 124, 37);
+    margin-right: 10px;
+    border-radius: 0.5em;
+}
+
+.btneventCreation {
+    width: 200px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
+}
+
+.navbar-toggler{
+    background-color:#6b6b6b;
+    position: relative;
+    bottom: 0.2em;
+}
+
 .logo{
     width: 7%;
     margin-bottom: 0.4rem;
@@ -211,54 +610,17 @@ form>p {
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 13rem;
     height: 1.8em;
     font-size: 16px;
     color: white;
-    padding-left: 1rem;
     background-color: #121212;
-    border-radius: 1rem;
+    border-radius: 0.5em;
     border: 1px solid #c9c9c9;
 }
 
-.eventInput  {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #261359;
-    background-color: rgba(252,163,18,1);
-    background-clip: padding-box;
-    border: 1px solid rgba(255,0,0,1);
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.eventInput:focus{
-    background-color: rgb(252, 184, 74);
-    color: #261359;
-}
-
-.eventInput:-webkit-autofill {
-    background-color: rgb(252, 184, 74) !important;
-}
-
-.input-group-text {
-    background-color: rgba(255,0,0,1);
-    color: #261359;
-    border: 1px solid rgba(255,0,0,1);
-    font-weight: bold;
-    font-size: 1.25rem;
-}
-
-#file-upload-button {
-    background-color: rgba(255,0,0,1);
-    color: #261359;
-    border: 1px solid rgba(255,0,0,1);
+.loginText {
+    border-radius: 1rem;
+    text-align: center;
 }
 
 input[type=number]{
@@ -298,12 +660,19 @@ input:focus{
 }
 
 .darkCard{
+    width: 500px;
+    min-width: 10%;
+    max-width: 100%;
+    border: 1px solid white;
     background-color: #1a1a1a;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding: 16px 20px;
 }
+
+.darkCard > .card-title {
+    color:rgb(255, 124, 37);
+    margin: 0px;
+}
+
 .passflareTextGradient{
     background: -webkit-gradient(linear, left top, right top, from(rgba(252,163,18,1) ), to(rgba(255,0,0,1)));
 	-webkit-background-clip: text;
@@ -339,11 +708,13 @@ input:focus{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: none;
-    border-radius: 1rem;
     margin:auto;
     margin-bottom: 0em;
-    background-color: #0a0a0a;
+    width: 200px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
 }
 
 .passBtnNext{
@@ -390,94 +761,11 @@ input:focus{
     color: orange;
 }
 
-#adminBrand{
-    color: white;
-}
 
-#adminBrand:hover{
-    color: orange;
-}
 
-#brandBreak{
-    font-size: 0.8em;
-    position: relative;
-    bottom: 0.2em;
-    color: #666666;
-}
 
-#adminLogo{
-    font-size: 0.7em;
-    font-style: normal;
-    font-family: 'Roboto';
-}
 
-#adminChoices>a{
-    color: white;
-}
 
-#adminChoices>a:hover{
-    color: orange;
-}
-
-.navbar-toggler{
-    background-color:#6b6b6b;
-    position: relative;
-    bottom: 0.2em;
-}
-
-.paymenth2{
-    margin-top: 50px 20px;
-}
-.FormGroup {
-	margin: 200px 15px 20px;
-	padding: 0;
-	border-style: none;
-	background-color: rgba(252,163,18,1);
-	will-change: opacity, transform;
-	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(252,163,18,1);
-	border-radius: 4px;
-}
-
-.FormRow {
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-align: center;
-	align-items: center;
-	margin-left: 15px;
-	border-top: 1px solid rgba(252,163,18,1);
-}
-
-.StripeElement--webkit-autofill {
-	background: transparent !important;
-}
-
-.StripeElement {
-	width: 100%;
-	padding: 11px 15px 11px 0;
-}
-
-.PayButton {
-	display: block;
-	font-size: 16px;
-	width: calc(100% - 100px);
-	height: 40px;
-	margin: 40px 50px 0;
-	background-color: rgba(255,0,0,1);
-	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,0,0,1);
-	border-radius: 4px;
-	color: #261359;
-	font-weight: 600;
-	cursor: pointer;
-	transition: all 100ms ease-in-out;
-	will-change: transform, background-color, box-shadow;
-	border: none;
-}
-
-.PayButton:active {
-	background-color: rgba(255,0,0,1);
-	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,0,0,1);
-	transform: scale(0.99);
-}
 /*Gatekeeper*/
 #gate-keeper-container{
     width: 100%;
@@ -521,3 +809,36 @@ section > section > div{
     box-shadow: none !important;
     border: none !important;
 }
+/*Graphs*/
+.event-graph-container{
+    background-color: white;
+}
+.user-graph-sect-container{
+    margin-top: 20%;
+}
+/*Graphs*/
+/*Finance Admin*/
+.scroll-box-100{
+    width: 85vw;
+    height: 80vh;
+    background-color: transparent;
+    position: absolute;
+    top: 12vh;
+    left: 7.5vw;
+    text-align: center;
+    color: white;
+    overflow-y: scroll;
+    border: 2px solid orange;
+}
+.transaction-blocks{
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid orange;
+    padding: 0px;
+    margin: 0px;
+}
+.transaction-blocks > p{
+    display: inline-block;
+    padding: 0px 20px 0px 20px;
+}
+/*Finance Admin*/

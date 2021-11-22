@@ -10,7 +10,7 @@ const stripeTestPromise = loadStripe(PUBLIC_KEY)
 export default function Payment(props) {
     return (
         <Elements stripe={stripeTestPromise}>
-            <PaymentForm userDetails={props.location.state.userDetails} eventDetails={props.location.state.eventDetails}/>
+            <PaymentForm parentProps={props} userDetails={props.location.state.userDetails} eventDetails={props.location.state.eventDetails}/>
         </Elements>
     )
 }

@@ -22,14 +22,18 @@ orgRoutes.route("/organization/add").post(function (req, res) {
 
 });
 
-orgRoutes.route("/orginization/orgID").post(function (req, res){
+orgRoutes.route("/organization/orgID").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
+    console.log(req.body.orgID);
     db_connect
       .collection("Organization")
-      .find({_id: ObjectId(req.body.orgID)})
-      .toArray(function (err, result) {
+      .findOne({_id: ObjectId(req.body.orgID)}, function(err, org){
         if (err) throw err;
-        res.json(result);
+        if (org == null){
+          res.json({organization: null})
+        }
+        else
+        res.json({orgName: org.Name, orgNickName: org.NickName, orgZip: org.ZipCode});
       });
   });
 
