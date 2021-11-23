@@ -708,6 +708,7 @@ input:focus{
 }
 
 .darkCard{
+    border-radius: 0px;
     width: 500px;
     min-width: 10%;
     max-width: 100%;
@@ -878,7 +879,9 @@ section > section > div{
     background-color: white;
 }
 .user-graph-sect-container{
-    margin-top: 20%;
+    margin-top: 20px;
+    border: 1px solid rgb(255, 124, 37);
+    padding: 20px;
 }
 /*Graphs*/
 /*Finance Admin*/

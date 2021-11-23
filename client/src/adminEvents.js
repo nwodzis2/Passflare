@@ -99,17 +99,17 @@ class AdminEvents extends React.Component {
     
     render(){
         return(
-        <Container fluid style={{padding: "0px 20px"}}>
-            <AdminNav adminData={this.state.adminData}/>
-            <Row>
-                <Col style={{maxWidth: "25%", padding: "0px"}}>
-                    <EventCreation adminData={this.state.adminData.details} getOrgEvents={this.getOrgEvents}/>
-                </Col>
-                <Col className="eventDataContainer">
-                    <EventData adminData={this.state.adminData.details} parentState={this.state}/>
-                </Col>
-            </Row>
-        </Container>
+            <Container fluid style={{padding: "0px 20px"}}>
+                <AdminNav adminData={this.state.adminData}/>
+                <Row>
+                    <Col style={{maxWidth: "25%", padding: "0px"}}>
+                        <EventCreation adminData={this.state.adminData.details} getOrgEvents={this.getOrgEvents}/>
+                    </Col>
+                    <Col className="eventDataContainer">
+                        <EventData adminData={this.state.adminData.details} parentState={this.state}/>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }

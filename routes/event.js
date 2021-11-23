@@ -65,6 +65,7 @@ eventRoutes.route("/events/delete/:id").post(function(req, res){
             res.json({deleted: true});
     });
 });
+
 //update event by id
 eventRoutes.route("/events/update/:id").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
