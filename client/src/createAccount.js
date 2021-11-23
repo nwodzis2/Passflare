@@ -12,15 +12,23 @@ class AccountCreation extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
-    submitUser() {
+    submitUser(event) {
+        event.preventDefault();
+
         let obj = {
             number: this.state.phone,
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            orgID: 0 //Need to change this when the time comes / add way of obtaining it in the form
+            orgID: this.props.match.params.orgID
         }
-        axios.post("/user/add", obj);
+
+        var self = this;
+
+        axios.post("/user/add", obj).then(function(response){
+            alert("Account Created. Redirecting to login.");
+            self.props.history.push("/");
+        });
     }
 
     handleChange(event) {

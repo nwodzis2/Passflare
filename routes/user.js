@@ -83,7 +83,7 @@ userRoutes.route("/user/email").post(function (req, res) {
            res.json({validationReport: err});
         } else {
           if (user == null){
-            res.json({validationReport: "Incorrect email or password. Please try again."});
+            res.json({validationReport: "No such user."});
           } else {
             var referenceHash = crypto.pbkdf2Sync(String(req.body.password), user.Salt, parseInt(user.Iterations), 64, 'sha512').toString('hex');
             var validation = (user.Hash == referenceHash);
