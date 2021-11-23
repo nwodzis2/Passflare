@@ -10,17 +10,107 @@ import {AdminNav} from "./adminView.js";
 class AdminEvents extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData,
+            loading: true,
+            eventList: null
+        }
+
+        this.getOrgEvents = this.getOrgEvents.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
     }
 
+    componentWillMount(){
+        this.getOrgEvents();
+    }
+
+    deleteEvent(eventID) {
+        var self = this;
+        axios.post("/events/delete/:id", {id: eventID}).then(function(res){
+            self.getOrgEvents();
+        });
+    }
+
+    getOrgEvents = async () => {
+        var events = [];
+        
+        const eventRes = await axios.post("/events/:orgID", {orgID: this.state.adminData.details.OrgID});
+        for (let i = 0; i < eventRes.data.length; ++i) {
+            events.push(eventRes.data[i]);
+        }
+
+        var adminIDs = [];
+        for (let i = 0; i < events.length; ++i) {
+            var adminID = events[i].AdminUserID;
+            if (!adminIDs.includes(adminID)) {
+                adminIDs.push(adminID);
+            }
+
+        }
+
+        var admins = [];
+        for (let i = 0; i < adminIDs.length; ++i) {
+            const userRes = await axios.post("/user/_id", {userID: adminIDs[i]});
+            admins.push(userRes.data[0]);
+        }
+
+        var eventListItems = [];
+        
+        for (let i = 0; i < events.length; ++i) {
+            var eventCreator = "Redacted";
+            for (let j = 0; j < admins.length; ++j) {
+                
+                if (admins[j] != undefined && admins[j]._id == events[i].AdminUserID) {
+                    eventCreator = admins[j].Name;
+                }
+            }
+
+            eventListItems.push(
+            <Row className="adminEventDataRow">
+                <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                    <p>{events[i].Name}</p>
+                </Col>
+                <Col>
+                    <p>{eventCreator}</p>
+                </Col>
+                <Col>
+                    <p>{events[i].Date}</p>
+                </Col>
+                <Col>
+                    <p>{events[i].StartTime}</p>
+                </Col>
+                <Col>
+                    <p>{events[i].EndTime}</p>
+                </Col>
+                <Col>
+                    <p>{events[i].Location}</p>
+                </Col>
+                <Col>
+                    <button onClick={() => this.deleteEvent(events[i]._id)} className="btn btn-dark passBtnDark-sm"> 
+                        Delete
+                    </button>
+                </Col>
+            </Row>
+            );
+        }
+
+        this.setState({eventList: eventListItems, loading: false});
+    }
+    
     render(){
         return(
-        <Container fluid style={{padding: "0px 20px"}}>
-            <AdminNav adminData={this.props.location.state.adminData}/>
-            <Row>
-                <EventCreation adminData={this.props.location.state.adminData}/>
-                <EventData adminData={this.props.location.state.adminData}/>
-            </Row>
-        </Container>
+            <Container fluid style={{padding: "0px 20px"}}>
+                <AdminNav adminData={this.state.adminData}/>
+                <Row>
+                    <Col style={{maxWidth: "25%", padding: "0px"}}>
+                        <EventCreation adminData={this.state.adminData.details} getOrgEvents={this.getOrgEvents}/>
+                    </Col>
+                    <Col className="eventDataContainer">
+                        <EventData adminData={this.state.adminData.details} parentState={this.state}/>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
@@ -28,29 +118,46 @@ class AdminEvents extends React.Component {
 class EventData extends React.Component{
     constructor(props) {
         super(props);
-
-        this.state = {
-            events: []
-        }
-
-        this.getOrgEvents = this.getOrgEvents.bind(this);
-    }
-
-    componentWillMount(){
-        this.getOrgEvents();
-    }
-
-    getOrgEvents(){
-        axios.post("/events/:orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
-            console.log(response.data);
-        });
     }
 
     render(){
-        return(
-            <Container fluid>
-            </Container>
-        );
+        if (this.props.parentState.loading) {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <p>Loading...</p>
+                </Container>
+            );
+        } else {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <Row className="adminEventDataRowKey">
+                        <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                            <p>Name:</p>
+                        </Col>
+                        <Col>
+                            <p>Creator:</p>
+                        </Col>
+                        <Col>
+                            <p>Date:</p>
+                        </Col>
+                        <Col>
+                            <p>Starts:</p>
+                        </Col>
+                        <Col>
+                            <p>Ends:</p>
+                        </Col>
+                        <Col>
+                            <p>Location:</p>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row style={{margin: "0px"}}>
+                        {this.props.parentState.eventList}
+                    </Row>
+                </Container>
+            );
+        }
     }
 }
 
@@ -58,27 +165,34 @@ class EventCreation extends React.Component{
     constructor(props) {
         super(props);
         
+        this.state = {
+            formData: null,
+            orgID: this.props.adminData.OrgID,
+            adminID: this.props.adminData._id
+        };
+
         this.submitEvent= this.submitEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
-        this.state = {
-            formData: new FormData(document.getElementById("eventForm")),
-            orgID: this.props.adminData.OrgID
-        };
-
+        this.setState({formData: new FormData(document.getElementById("eventForm"))});
     }
 
     submitEvent(event) {
         this.state.formData.set('orgID', this.state.orgID);
-        console.log(this.props.adminData);
-        let obj = {
-            formData: this.state.formData,
-            userID : this.props.adminData._id
-        }
+        this.state.formData.set("adminID", this.state.adminID);
 
-        axios.post("/events/create", this.state.formData);
+        var self = this;
+        axios.post("/events/create", this.state.formData).then(function(res){
+            if (res.data.eventCreated) {
+                document.getElementById("eventForm").reset();
+                self.setState({formData: new FormData(document.getElementById("eventForm"))});
+                self.props.getOrgEvents();
+            } else {
+                alert("Error creating event, please try again!");
+            }
+        });
         event.preventDefault();
     }
 

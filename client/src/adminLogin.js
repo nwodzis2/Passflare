@@ -43,9 +43,15 @@ class AdminLogin extends React.Component {
               axios.post("/admin/validate", emailObj)
               .then(function(adminResponse){
                 resjson = adminResponse.data;
+
+                var adminDataObj = {
+                  details: userResponse.data.response,
+                  master: resjson.master
+                }
+
                 if (resjson.validationReport == "adminValid") {
                   self.props.setAuth("validAdmin");
-                  self.props.history.push("/adminView", {adminData: userResponse.data.response, masterData: resjson.master});
+                  self.props.history.push("/adminView", {adminData: adminDataObj});
                 }
                 else 
                   alert(resjson.validationReport);

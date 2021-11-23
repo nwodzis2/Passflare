@@ -12,53 +12,82 @@ class EventDetails extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      loading: true,
+      eventImage: null,
       ticketDetails: this.props.location.state.ticketDetails,
       userDetails: this.props.location.state.userDetails,
       eventDetails: this.props.location.state.event,
       owned: this.props.location.state.owned
     }
+
+    this.setImageSize = this.setImageSize.bind(this);
+  }
+
+  setImageSize() {
+    var tempImg = document.getElementsByClassName("eventDetailsImage")[0];
+    var parent = document.getElementsByClassName("eventImageContainer")[0];
+    var imgRatio = tempImg.width / tempImg.height;
+    var parentRatio = parent.offsetWidth / parent.offsetHeight;
+    
+    if (imgRatio <= parentRatio) {
+      this.setState({loading: false, eventImage: <img style={{padding: "0px"}} className="imgGreaterHeight" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>});
+    } else {
+      this.setState({loading: false, eventImage: <img style={{padding: "0px"}} className="imgGreaterWidth" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>});
+    }
+
+    
   }
 
   render(){
+    if (this.state.loading) {
+      return (
+        <Container className="eventContainer" fluid>
+          <Row className="eventImageContainer d-flex align-items-center justify-content-center">
+            <img style={{padding: "0px"}} className="eventDetailsImage" onLoad={this.setImageSize} src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>
+          </Row>
+        </Container>
+      );
+    } else {
     return(
-      <Container className="eventContainer" fluid>
-        <Row className="eventImageContainer">
-          <img style={{padding: "0px"}} src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>
-        </Row>
-        <Row >
-          <Col className="eventTitleContainer d-flex align-items-center">
-            <Col md="auto" onClick={this.props.history.goBack}className="backArrowContainer d-flex align-items-center">
-                <i class="fas fa-arrow-left backArrow"></i>
-            </Col>
-            <Col style={{paddingLeft: "10px"}} className="d-flex align-items-center">
-              <h1 className="eventTitle">{this.state.eventDetails.Name}</h1>
-            </Col>
-          </Col>
-          <Col className="eventTimeContainer d-flex align-items-center">
-            <Col>
-              <Row> 
-                <p className="eventDate">{this.state.eventDetails.Date}</p>
-              </Row>
-              <Row>
-                <p className="eventTime">{this.state.eventDetails.StartTime} - {this.state.eventDetails.EndTime}</p>
-              </Row>
-            </Col>
-          </Col>
-          <Row className="ticketOpContainer d-flex justify-content-center">
-            <TicketOperation ticketDetails={this.state.ticketDetails} userDetails={this.state.userDetails} owned={this.state.owned} eventDetails={this.state.eventDetails}/>
+        <Container className="eventContainer" fluid>
+          <Row className="eventImageContainer d-flex align-items-center justify-content-center">
+            {this.state.eventImage}
           </Row>
-          <Row id="eventPageBreak" style={{padding: "0px 20px", margin: "0px"}}>
-            <hr/>
+          <Row >
+            <Col className="eventTitleContainer d-flex align-items-center">
+              <Col md="auto" onClick={this.props.history.goBack}className="backArrowContainer d-flex align-items-center">
+                  <i class="fas fa-arrow-left backArrow"></i>
+              </Col>
+              <Col style={{paddingLeft: "10px"}} className="d-flex align-items-center">
+                <h1 className="eventTitle">{this.state.eventDetails.Name}</h1>
+              </Col>
+            </Col>
+            <Col className="eventTimeContainer d-flex align-items-center">
+              <Col>
+                <Row> 
+                  <p className="eventDate">{this.state.eventDetails.Date}</p>
+                </Row>
+                <Row>
+                  <p className="eventTime">{this.state.eventDetails.StartTime} - {this.state.eventDetails.EndTime}</p>
+                </Row>
+              </Col>
+            </Col>
+            <Row className="ticketOpContainer d-flex justify-content-center">
+              <TicketOperation ticketDetails={this.state.ticketDetails} userDetails={this.state.userDetails} owned={this.state.owned} eventDetails={this.state.eventDetails}/>
+            </Row>
+            <Row id="eventPageBreak" style={{padding: "0px 20px", margin: "0px"}}>
+              <hr/>
+            </Row>
           </Row>
-        </Row>
-        <Row className="eventLocation">
-          <h1>{this.state.eventDetails.Location}</h1>
-        </Row>
-        <Row className="eventDesc">
-          <p>{this.state.eventDetails.Description}</p>
-        </Row>
-      </Container>
-    );
+          <Row className="eventLocation">
+            <h1>{this.state.eventDetails.Location}</h1>
+          </Row>
+          <Row className="eventDesc">
+            <p>{this.state.eventDetails.Description}</p>
+          </Row>
+        </Container>
+      );
+    }
   }
 }
 

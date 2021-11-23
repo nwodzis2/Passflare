@@ -24,6 +24,7 @@ import AdminFinancials from './adminFinancials.js';
 import EventDetails from "./eventDetails.js";
 import GatekeeperView from "./gateKeeperView.js";
 import FAQ from "./FAQ.js";
+import SignOut from "./signOut.js";
 import { BrowserRouter as Router,
   Switch, Route, Link, Redirect, withRouter} from "react-router-dom";
 import { setUncaughtExceptionCaptureCallback } from 'process';
@@ -95,7 +96,7 @@ class PageRouter extends React.Component {
 
   checkAuth(routeType, routeComponent) {
     let auth = getAuth();
-    if (routeType == "login") {
+    if (routeType == "login" || routeType == "signout") {
       return React.createElement(withRouter(routeComponent), {setAuth: this.setAuth});
     }
     if ((auth == "validUser" && routeType == "user") || 
@@ -154,6 +155,7 @@ class PageRouter extends React.Component {
           
             {/*Misc. routes */}
             <Route exact path="/faq" component={FAQ} /> 
+            <Route path="/signOut" render={() => this.checkAuth("signout", SignOut)}/>
           
           </Switch>
         </Router>
@@ -170,7 +172,7 @@ ReactDOM.render(
         </Container>,
   document.getElementById('root'),
 );
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.unregister();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

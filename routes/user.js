@@ -54,7 +54,7 @@ userRoutes.route("/user/add").post(function (req, res) {
         .insertOne(myobj, function (err, user) {
       if (err) throw err;
       console.log("success");
-      res.json({sucess: true});
+      res.json({userID: user.insertedId});
     });
     return;
 });
@@ -177,16 +177,17 @@ userRoutes.route("/user/edit").post(function (req, res) {
       });
   });
   //delete user
-  userRoutes.route("user/:id").delete((req, res) => {
+  userRoutes.route("/user/delete/id").post(function(req, res){
     let db_connect = dbo.getDb("Passflare");
-    var myUser = { id: req.body.id };
+    var id = req.body.id;
     db_connect
-        .collection("Users")
-        .deleteOne(myUser, function (err, obj) {
-      if (err) throw err;
-      console.log("user deleted");
+      .collection("Users")
+      .deleteOne({_id : ObjectId(id)}, function (err, obj) {
+          if (err) throw err;
+          console.log("User deleted");
+          res.json({deleted: true});
+        });
     });
-  });
 
   //get user by orgID
   userRoutes.route("/user/orgID").post(function (req, res){

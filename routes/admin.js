@@ -2,12 +2,14 @@ const express = require("express");
 const adminRoutes = express.Router();
 const crypto = require("crypto");
 const dbo = require("../db/conn");
+const ObjectId = require("mongodb").ObjectId;
 
 //create user
 adminRoutes.route("/admin/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     let myobj = {
       Email : req.body.email,
+      UserID: req.body.userID,
       OrgID : req.body.orgID,
       Master : req.body.master
     };
@@ -20,6 +22,19 @@ adminRoutes.route("/admin/add").post(function (req, res) {
     });
     return;
 });
+
+adminRoutes.route("/admin/orgID").post(function (req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var orgid = req.body.orgID;
+  db_connect
+    .collection("Admin")
+    .find({OrgID: orgid})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 //validate user by password
 adminRoutes.route("/admin/validate").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -91,16 +106,17 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
       });
   });
   //delete user
-  adminRoutes.route("admin/:id").delete((req, res) => {
+  adminRoutes.route("/admin/delete/id").post(function(req, res){
     let db_connect = dbo.getDb("Passflare");
-    var myUser = { id: req.body.id };
+    var id = req.body.id;
     db_connect
-        .collection("Admin")
-        .deleteOne(myUser, function (err, obj) {
-      if (err) throw err;
-      console.log("user deleted");
+      .collection("Admin")
+      .deleteOne({_id : ObjectId(id)}, function (err, obj) {
+          if (err) throw err;
+          console.log("Admin deleted");
+          res.json({deleted: true});
+        });
     });
-  });
 
   //send gatekeeper email
   adminRoutes.route("/admin/sendGatekeeperMail").get(function (req, res){

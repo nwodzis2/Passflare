@@ -17,6 +17,7 @@ class AdminCreation extends React.Component{
         event.preventDefault();
 
         let obj = {
+            userID: 0,
             number: this.state.phone,
             name: this.state.name,
             email: this.state.email,
@@ -36,9 +37,10 @@ class AdminCreation extends React.Component{
         else {
             console.log(resjson.orgID);
             alert("Organization creation failed.");
-        }    
+        }
 
-        await axios.post("/user/add", obj);
+        const userRes = await axios.post("/user/add", obj);
+        obj.userID = userRes.data.userID;
         await axios.post("/admin/add", obj);
 
         var tempProps = this.props;

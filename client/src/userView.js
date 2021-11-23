@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import props from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import Ticker from 'react-ticker';
 
 class UserView extends React.Component{
   constructor(props){
@@ -113,11 +114,18 @@ class EventCard extends React.Component {
   render() {
     return(
       <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
-        <div class="eventCard">
-          <div class="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
-          <div class="eventCardName">{this.props.event.Name}</div>
-          <div class="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
-          <div class="eventCardDate">{this.props.event.Date}</div>
+        <div className="eventCard">
+          <div className="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
+          <Ticker speed={3}>
+            {({index}) => (
+              <>
+                <p className="eventCardName">{this.props.event.Name}</p>
+              </>
+            )}
+            
+          </Ticker>
+          <div className="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
+          <div className="eventCardDate">{this.props.event.Date}</div>
         </div>
       </Link>
     )
@@ -133,20 +141,19 @@ class UserNav extends React.Component {
   }
   
   signOut = () => {
-    console.log("sign out");
     localStorage.removeItem("passflareAuth");
     this.props.history.replace("/");
-  }
-
+    Redirect('/')
+  } 
   render(){
     
     return(
         <Container className="userNav">
           <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
           <DropdownButton variant='dark' title={this.props.userData.Name} align="end">
-            <Dropdown.Item variant='dark'><Link to={{pathname: "/editAccount", state: {user: this.props.userData._id}}}>Edit Account</Link></Dropdown.Item>
-            <Dropdown.Item variant='dark'><Link to={{pathname: "/faq"}}>FAQ</Link></Dropdown.Item>
-            <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
+            <Link to={{pathname: "/editAccount", state: {user: this.props.userData._id}}}><Dropdown.Item variant='dark'>Edit Account</Dropdown.Item></Link>
+            <Link to={{pathname: "/faq"}}><Dropdown.Item variant='dark'>FAQ</Dropdown.Item></Link>
+            <Link onClick={this.signOut} to="/"><Dropdown.Item variant='dark'>Sign Out</Dropdown.Item></Link>
           </DropdownButton>
         </Container>
     )

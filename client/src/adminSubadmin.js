@@ -9,27 +9,127 @@ import {AdminNav} from "./adminView.js";
 class AdminSubadmin extends React.Component{
     constructor(props) {
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData,
+            loading: true,
+            subadminList: null
+        }
+
+        this.getOrgSubadmins = this.getOrgSubadmins.bind(this);
+        this.deleteSubadmin = this.deleteSubadmin.bind(this);
+    }
+
+    componentWillMount(){
+        this.getOrgSubadmins();
+    }
+
+    deleteSubadmin(adminID, adminUserID) {
+        var self = this;
+        axios.post("/user/delete/id", {id: adminUserID});
+        axios.post("/admin/delete/id", {id: adminID}).then(function(res){
+            self.getOrgSubadmins();
+        });
+    }
+
+    getOrgSubadmins = async () => {
+        var subadmins = [];
+        
+        const adminRes = await axios.post("/admin/orgID", {orgID: this.state.adminData.details.OrgID});
+        for (let i = 0; i < adminRes.data.length; ++i) {
+            if (!adminRes.data[i].Master) {
+                subadmins.push(adminRes.data[i]);
+            }
+        }
+
+        
+
+        var subadminListItems = [];
+        
+        for (let i = 0; i < subadmins.length; ++i) {
+            const subadminUserRes = await axios.post("/user/_id", {userID: subadmins[i].UserID});
+            var user = subadminUserRes.data[0];
+
+            subadminListItems.push(
+            <Row className="adminEventDataRow">
+                <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                    <p>{user.Name}</p>
+                </Col>
+                <Col>
+                    <p>{user.Email}</p>
+                </Col>
+                <Col>
+                    <button onClick={() => this.deleteSubadmin(subadmins[i]._id, subadmins[i].UserID)} className="btn btn-dark passBtnDark-sm"> 
+                        Delete
+                    </button>
+                </Col>
+            </Row>
+            );
+        }
+
+        this.setState({subadminList: subadminListItems, loading: false});
     }
 
     render(){
         return(
-            <Container fluid>
-                <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-                <CreateSubadmin adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <Container fluid style={{padding: "0px 20px"}}>
+                <AdminNav adminData={this.props.location.state.adminData}/>
+                <Row>
+                    <Col style={{maxWidth: "25%", padding: "0px"}}>
+                        <CreateSubadmin adminData={this.props.location.state.adminData}/>
+                    </Col>
+                    <Col className="eventDataContainer">
+                        <SubadminData adminData={this.props.location.state.adminData.details} parentState={this.state}/>
+                    </Col>
+                </Row>
             </Container>
         );
+    }
+}
+
+class SubadminData extends React.Component{
+    constructor(props) {
+        super(props);
+    }
+
+    render(){
+        if (this.props.parentState.loading) {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <p>Loading...</p>
+                </Container>
+            );
+        } else {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <Row className="adminEventDataRowKey">
+                        <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                            <p>Name:</p>
+                        </Col>
+                        <Col>
+                            <p>Email:</p>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row style={{margin: "0px"}}>
+                        {this.props.parentState.subadminList}
+                    </Row>
+                </Container>
+            );
+        }
     }
 }
 
 class CreateSubadmin extends React.Component{
     constructor(props) {
         super(props);
+
         this.state = {name:'', email:'', phone:'', password:'', orgName: '', orgNickName: '', orgZip: '',
-            adminData: this.props.adminData,
-            masterData: this.props.masterData
-        };
-        console.log(this.state.masterData);
-        
+            adminData: this.props.adminData.details,
+            masterData: this.props.adminData.master
+        }
+
         this.submitUser = this.submitUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -46,28 +146,28 @@ class CreateSubadmin extends React.Component{
             orgName: this.state.orgName,
             orgNickName: this.state.orgNickName,
             orgZip: this.state.orgZip,
-            master: false
+            master: false,
+            userID: null
         }
 
         
         axios.post("/organization/orgID", obj).then(function(orgResponse){
             var resjson = orgResponse.data;
-            console.log(resjson);
             obj.orgName = resjson.orgName;
             obj.orgNickName = resjson.orgNickName;
             obj.orgZip = resjson.orgZip;
 
             axios.post("/user/add", obj).then(function (userResponse){
-                if(userResponse.data.sucess){
-                    axios.post("/admin/add", obj).then(function (adminResponse){
-                        if(adminResponse.data.successAdmin){
-                            alert("Subadmin creation successful.");
-                        }
-                    })
-                    .catch(function (error){
-                        console.log(error);
-                    })
-                }
+                obj.userID = userResponse.data.userID;
+                axios.post("/admin/add", obj).then(function (adminResponse){
+                    if(adminResponse.data.successAdmin){
+                        alert("Subadmin creation successful.");
+                        window.location.reload();
+                    }
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
             })
             .catch(function(error){
                 console.log(error);
@@ -77,8 +177,7 @@ class CreateSubadmin extends React.Component{
             console.log(error);
         })
 
-        var tempProps = this.props;
-        tempProps.history.push('/adminView', {adminData: this.state.adminData, masterData: this.state.masterData});
+
     }
 
     handleChange(event) {
@@ -90,15 +189,14 @@ class CreateSubadmin extends React.Component{
     render(){
         return(
             <Container fluid>
-                <Row>
-                    <Col></Col>
-                    <Col><h2>Welcome to Passflare!</h2></Col>
-                    <Col></Col>
-                </Row> 
               <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Please enter your information below.</Card.Title>                            
+                        <Card.Title className="d-flex align-items-center">
+                            <Col className="d-flex align-items-center">
+                                Add subadmin
+                            </Col>
+                        </Card.Title>                            
                         <br/>
                         <Form onSubmit={this.submitUser}>
                             <FormGroup>       

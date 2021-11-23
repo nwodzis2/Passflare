@@ -8,13 +8,22 @@ import {AdminNav} from "./adminView.js";
 class AdminFinancials extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            adminData: this.props.location.state.adminData
+        }
     }
 
     render(){
         return(
         <Container fluid>
-            <AdminNav adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
-            <FinancialData adminData={this.props.location.state.adminData} masterData={this.props.location.state.masterData}/>
+            <AdminNav adminData={this.state.adminData}/>
+            <Row>
+                <Col className="eventDataContainer" style={{margin: "0px"}}>
+                    <FinancialData adminData={this.state.adminData.details}/>
+                </Col>
+            </Row>
+
         </Container>
         )
     }
@@ -44,7 +53,6 @@ class FinancialData extends React.Component{
     }
     getOrgPayments(){
         axios.post("/events/:orgID", {orgID: this.props.adminData.OrgID}).then((response) => {
-            console.log(response.data);
             var tempEvents = []
             for(var e of response.data){
                 tempEvents.push(e)
@@ -63,13 +71,13 @@ class FinancialData extends React.Component{
                             tempArray.push(p)
                         }
                         this.setState({payments :  tempArray})
-                        console.log(tempArray)
                         this.loadPaymentBlocks();
                     })
                 }
             }
         })
     }
+
     loadPaymentBlocks(){
         var tempArray = []
         for(var p of this.state.payments){
@@ -79,38 +87,59 @@ class FinancialData extends React.Component{
                     var date = new Date( parseInt( timestamp, 16 ) * 1000 )
                     date = date.toLocaleString("en-US", {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', second: '2-digit'})
                     tempArray.push(
-                        <div className="transaction-blocks">
-                            <p>Event Name: {e.Name}</p>
-                            <p>User: {p.userID}</p>
-                            <br/>
-                            <p>Amount: {e.Price}</p>
-                            <p>Time of transaction: {date}</p>
-                        </div>
+                        <Row className="adminEventDataRow">
+                            <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                                <p>{e.Name}</p>
+                            </Col>
+                            <Col>
+                                <p>{p.userID}</p>
+                            </Col>
+                            <Col>
+                                <p>{e.Price}</p>
+                            </Col>
+                            <Col>
+                                <p>{date}</p>
+                            </Col>
+                        </Row>
                     )
                 }
             }
             
         }
-        console.log(tempArray)
         this.setState({paymentLayout : tempArray})
         this.setState({loading : false})
     }
     render(){
         if(this.state.loading){
             return(
-                <Container className="scroll-box-100">
+                <Container style={{padding: "0px"}} fluid>
                     Loading payment data...
                 </Container>
             )
         }
         else{
             return(
-                <Container className="scroll-box-100">
-                    {this.state.paymentLayout}
+                <Container style={{padding: "0px"}} fluid>
+                    <Row className="adminEventDataRowKey">
+                        <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                            <p>Event name:</p>
+                        </Col>
+                        <Col>
+                            <p>User ID:</p>
+                        </Col>
+                        <Col>
+                            <p>Price:</p>
+                        </Col>
+                        <Col>
+                            <p>Date:</p>
+                        </Col>
+                    </Row>
+                    <Row style={{margin: "0px"}}>
+                        {this.state.paymentLayout}
+                    </Row>
                 </Container>
             );
         }
-        
     }
 }
 
