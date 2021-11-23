@@ -237,7 +237,7 @@ class EmailUser extends React.Component{
                         <Card.Title>Copy and email this link to invite users:</Card.Title>                            
                         <br/>
                             <Row>
-                                <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}</p> 
+                                <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/user</p> 
                             </Row> 
                     </Card>
                 </Col>

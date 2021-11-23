@@ -117,33 +117,7 @@ class GatekeeperData extends React.Component{
 class EmailGatekeeper extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            email: ''
-        };
-        this.onSubmit= this.onSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
 
-    async onSubmit(event){
-        event.preventDefault();
-        const emailRes = await axios.get("/admin/sendGatekeeperMail", {params: {email: this.state.email}});
-        console.log(emailRes);
-        if(!emailRes.data.validationReport){
-            alert("No such email is registered under Passflare.");
-        }
-        else{
-            axios.post("/gatekeeper/add", {           
-                orgID: this.props.adminData.OrgID,
-                email: this.state.email,
-                verified: false
-            })
-        }
-    }
-
-    handleChange(event){
-        this.setState({
-            [event.target.name] : event.target.value
-        });
     }
 
     render(){
@@ -155,7 +129,7 @@ class EmailGatekeeper extends React.Component{
                         <Card.Title>Copy and email this link to invite gatekeepers:</Card.Title>                            
                         <br/>
                             <Row>
-                                <p>http://passflare.herokuapp.com/gatekeeperVerification/{this.props.adminData.OrgID}</p> 
+                                <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/gatekeeper</p> 
                             </Row> 
                     </Card>
                 </Col>

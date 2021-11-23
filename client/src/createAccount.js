@@ -12,7 +12,7 @@ class AccountCreation extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
-    submitUser(event) {
+    async submitUser(event) {
         event.preventDefault();
 
         let obj = {
@@ -24,11 +24,29 @@ class AccountCreation extends React.Component{
         }
 
         var self = this;
+        var userType = this.props.match.params.type;
 
-        axios.post("/user/add", obj).then(function(response){
-            alert("Account Created. Redirecting to login.");
-            self.props.history.push("/");
-        });
+        if (userType == "user"){
+            axios.post("/user/add", obj).then(function(response){
+                alert("Account Created. Redirecting to login.");
+                self.props.history.push("/");
+            });
+        }
+        else if (userType == "gatekeeper"){
+            await axios.post("/user/add", obj).catch(function(error){
+                console.log(error);
+            })
+            await axios.post("/gatekeeper/add", {           
+                orgID: obj.orgID,
+                email: obj.email
+            }).then(function(response){
+                alert("Account Created. Redirecting to login.");
+                self.props.history.push("/");
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        }
     }
 
     handleChange(event) {
