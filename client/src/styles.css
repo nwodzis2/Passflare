@@ -784,7 +784,7 @@ input:focus{
 
 .passBtnDark-bg{
     display:flex;
-    padding: 1em;
+    padding: 2em;
     justify-content: center;
     align-items: center;
     text-align: center;
