@@ -230,19 +230,15 @@ class EmailUser extends React.Component{
 
     render(){
         return(
-        <Container fluid>
-            <Row>
-                <Col md="12" style={{margin: "0px -12px"}}>
-                    <Card className="darkCard">
-                        <Card.Title>Copy and email this link to invite users:</Card.Title>                            
-                        <br/>
-                            <Row>
-                                <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/user</p> 
-                            </Row> 
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+            <Col style={{margin: "0px -12px"}}>
+                <Card className="darkCard">
+                    <Card.Title>Add User via email invitation</Card.Title>                            
+                    <br/>
+                         <Row>
+                            <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/user</p> 
+                        </Row> 
+                </Card>
+            </Col>
         );
     }
 }
