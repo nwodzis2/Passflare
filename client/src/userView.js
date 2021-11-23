@@ -150,7 +150,7 @@ class UserNav extends React.Component {
     return(
         <Container className="userNav">
           <h1 style={{fontFamily:"Aclonica"}}><i className="fas fa-ticket-alt passTicket"></i> Passflare</h1>
-          <DropdownButton variant='dark' title={this.props.userData.Name} align="end">
+          <DropdownButton className='dropdown-cust' variant='dark' title={this.props.userData.Name} align="end">
             <Dropdown.Item variant='dark'><Link to={{pathname: "/editAccount", state: {user: this.props.userData._id}}}>Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link to={{pathname: "/faq"}}>FAQ</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
