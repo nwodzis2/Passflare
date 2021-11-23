@@ -232,7 +232,7 @@ class EmailUser extends React.Component{
         return(
             <Col style={{margin: "0px -12px"}}>
                 <Card className="darkCard">
-                    <Card.Title>Add User via email invitation</Card.Title>                            
+                    <Card.Title>Copy and email this link to add users to your organization:</Card.Title>                            
                     <br/>
                          <Row>
                             <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/user</p> 

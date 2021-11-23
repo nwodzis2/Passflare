@@ -126,16 +126,11 @@ class EmailGatekeeper extends React.Component{
             <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Add Gatekeeper via email invitation</Card.Title>                            
-                        <br/>
-                        <Form onSubmit={this.onSubmit}>
-                            <FormLabel>Gatekeeper Email: </FormLabel>
-                            <FormControl className="defaultEmail" type="email" name='email' autoComplete="off" onChange={this.handleChange} placeholder="Enter email..."/>
+                        <Card.Title>Copy and email this link to add gatekeepers to your organization:</Card.Title>                            
                             <br/>
                             <Row>
                                 <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}/gatekeeper</p> 
                             </Row> 
-                        </Form>
                     </Card>
                 </Col>
             </Row>
