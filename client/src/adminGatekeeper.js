@@ -12,16 +12,69 @@ class AdminGatekeeper extends React.Component{
         super(props);
 
         this.state = {
-            adminData: this.props.location.state.adminData
+            adminData: this.props.location.state.adminData,
+            loading: true,
+            gatekeeperList: null
         }
+
+        this.getOrgGatekeepers = this.getOrgGatekeepers.bind(this);
+        this.deleteGatekeeper = this.deleteGatekeeper.bind(this);
+    }
+
+    componentWillMount(){
+        this.getOrgGatekeepers();
+    }
+
+    deleteGatekeeper(gatekeeperID) {
+        var self = this;
+        axios.post("/gatekeeper/delete/id", {id: gatekeeperID}).then(function(res){
+            self.getOrgGatekeepers();
+        });
+    }
+
+    getOrgGatekeepers = async () => {
+        var gatekeepers = [];
+        
+        const gatekeeperRes = await axios.post("/gatekeeper/orgID", {orgID: this.state.adminData.details.OrgID});
+        for (let i = 0; i < gatekeeperRes.data.length; ++i) {
+            gatekeepers.push(gatekeeperRes.data[i]);
+        }
+
+        var gatekeeperListItems = [];
+        
+        for (let i = 0; i < gatekeepers.length; ++i) {
+            gatekeeperListItems.push(
+            <Row className="adminEventDataRow">
+                <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                    <p>{gatekeepers[i].Email}</p>
+                </Col>
+                <Col>
+                    <p>{String(gatekeepers[i].Verified)}</p>
+                </Col>
+                <Col>
+                    <button onClick={() => this.deleteGatekeeper(gatekeepers[i]._id)} className="btn btn-dark passBtnDark-sm"> 
+                        Delete
+                    </button>
+                </Col>
+            </Row>
+            );
+        }
+
+        this.setState({gatekeeperList: gatekeeperListItems, loading: false});
     }
 
     render(){
         return(
-            <Container fluid>
+            <Container fluid style={{padding: "0px 20px"}}>
                 <AdminNav adminData={this.state.adminData}/>
-                <GatekeeperData adminData={this.state.adminData.details}/>
-                <EmailGatekeeper adminData={this.state.adminData.details}/>
+                <Row>
+                    <Col style={{maxWidth: "25%", padding: "0px"}}>
+                    <EmailGatekeeper adminData={this.state.adminData.details}/>
+                    </Col>
+                    <Col className="eventDataContainer">
+                        <GatekeeperData adminData={this.state.adminData.details} parentState={this.state}/>
+                    </Col>
+                </Row>
             </Container>
         );
     }
@@ -30,29 +83,34 @@ class AdminGatekeeper extends React.Component{
 class GatekeeperData extends React.Component{
     constructor(props) {
         super(props);
-
-        this.state = {
-            gateKeepers: []
-        }
-
-        this.getOrgGatekeepers = this.getOrgGatekeepers.bind(this);
-    }
-
-    componentWillMount(){
-        this.getOrgGatekeepers();
-    }
-
-    getOrgGatekeepers(){
-        axios.post("/gatekeeper/orgID", {orgID: this.props.adminData.OrgID}).then(function(response){
-            console.log(response.data);
-        });
     }
 
     render(){
-        return(
-            <Container fluid>
-            </Container>
-        );
+        if (this.props.parentState.loading) {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <p>Loading...</p>
+                </Container>
+            );
+        } else {
+            return(
+                <Container style={{padding: "0px"}} fluid>
+                    <Row className="adminEventDataRowKey">
+                        <Col style={{border: "1px solid rgba(0, 0, 0, 0)"}}>
+                            <p>Email:</p>
+                        </Col>
+                        <Col>
+                            <p>Verified:</p>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row style={{margin: "0px"}}>
+                        {this.props.parentState.gatekeeperList}
+                    </Row>
+                </Container>
+            );
+        }
     }
 }
 

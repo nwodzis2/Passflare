@@ -136,13 +136,6 @@ class UserNav extends React.Component {
   
   constructor(props){
     super(props);
-
-    this.signOut = this.signOut.bind(this);
-  }
-  
-  signOut = () => {
-    localStorage.removeItem("passflareAuth");
-    this.props.history.replace("/");
   }
 
   render(){
@@ -153,7 +146,7 @@ class UserNav extends React.Component {
           <DropdownButton variant='dark' title={this.props.userData.Name} align="end">
             <Dropdown.Item variant='dark'><Link to={{pathname: "/editAccount", state: {user: this.props.userData._id}}}>Edit Account</Link></Dropdown.Item>
             <Dropdown.Item variant='dark'><Link to={{pathname: "/faq"}}>FAQ</Link></Dropdown.Item>
-            <Dropdown.Item variant='dark'><Link onClick={this.signOut} to="/">Sign Out</Link></Dropdown.Item>
+            <Dropdown.Item variant='dark'><Link to="/signOut">Sign Out</Link></Dropdown.Item>
           </DropdownButton>
         </Container>
     )

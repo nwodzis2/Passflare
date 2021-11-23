@@ -58,9 +58,10 @@ class AdminEvents extends React.Component {
         var eventListItems = [];
         
         for (let i = 0; i < events.length; ++i) {
-            var eventCreator = "";
+            var eventCreator = "Redacted";
             for (let j = 0; j < admins.length; ++j) {
-                if (admins[j]._id == events[i].AdminUserID) {
+                
+                if (admins[j] != undefined && admins[j]._id == events[i].AdminUserID) {
                     eventCreator = admins[j].Name;
                 }
             }

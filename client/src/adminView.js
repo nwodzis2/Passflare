@@ -210,7 +210,7 @@ class AdminNav extends React.Component {
       <Container className="adminNavContainer" fluid>
         <Navbar fixed="top" bg="dark" expand="lg" className="adminNavbar" margin>
             <Row className="adminBrandContainer">
-              <Navbar.Brand className="adminBrand" href="/adminView">
+              <Navbar.Brand className="adminBrand">
                 <Row className="adminBrandTextContainer">
                   <Col className="adminBrandLogoContainer d-flex align-items-center">
                     <i className="fas fa-ticket-alt adminNavPassTicket passTicket"/>
@@ -233,9 +233,10 @@ class AdminNav extends React.Component {
                 <NavLink to={{ pathname: "/adminGatekeeper", state: { adminData: this.props.adminData}}} style={{ margin: 10 }}>Gatekeepers</NavLink>
                 <NavLink to={{ pathname: "/adminUsers", state: { adminData: this.props.adminData}}} style={{ margin: 10 }}>Users</NavLink>
                 <NavLink to={{ pathname: "/adminEvents", state: { adminData: this.props.adminData}}} style={{ margin: 10 }}>Events</NavLink>
-                <NavLink to={{ pathname: "/adminFinancials", state: { adminData: this.props.adminData } }} style={{ margin: 10 }}>Financials</NavLink>
+                <NavLink to={{ pathname: "/adminFinancials", state: { adminData: this.props.adminData}}} style={{ margin: 10 }}>Financials</NavLink>
                 <NavLink to={{ pathname: "/faq", state: { adminData: this.props.adminData } }} style={{ margin: 10 }}>FAQ</NavLink>
-                <NavLink to={{ pathname: "/editAccount", state: { user: this.props.adminData._id}}} style={{ margin: 10 }}><i class="fas fa-user-circle"></i></NavLink>
+                <NavLink to={{ pathname: "/editAccount", state: { user: this.props.adminData._id}}} style={{ margin: 10 }}>Edit Account</NavLink>
+                <NavLink to={{ pathname: "/signOut", state: {}}} style={{ margin: 10 }}>Sign Out</NavLink>
               </Nav>
             </Navbar.Collapse>
           </Row>

@@ -181,7 +181,7 @@ userRoutes.route("/user/edit").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     var id = req.body.id;
     db_connect
-      .collection("User")
+      .collection("Users")
       .deleteOne({_id : ObjectId(id)}, function (err, obj) {
           if (err) throw err;
           console.log("User deleted");

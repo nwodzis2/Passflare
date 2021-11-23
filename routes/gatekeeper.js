@@ -1,6 +1,7 @@
 const express = require("express");
 const gatekeeperRoutes = express.Router();
 const crypto = require("crypto");
+const ObjectId = require("mongodb").ObjectId;
 const dbo = require("../db/conn");
 
 gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
@@ -76,6 +77,18 @@ gatekeeperRoutes.route("/gatekeeper/orgID").post(function (req, res) {
       if (err) throw err;
       res.json(result);
     });
+});
+
+gatekeeperRoutes.route("/gatekeeper/delete/id").post(function(req, res){
+  let db_connect = dbo.getDb("Passflare");
+  var id = req.body.id;
+  db_connect
+      .collection("GateKeeper")
+      .deleteOne({_id : ObjectId(id)}, function (err, obj) {
+          if (err) throw err;
+          console.log("Gatekeeper deleted");
+          res.json({deleted: true});
+  });
 });
 
 module.exports = gatekeeperRoutes;
