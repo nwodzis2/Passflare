@@ -28,9 +28,6 @@ class EventDetails extends React.Component{
     var parent = document.getElementsByClassName("eventImageContainer")[0];
     var imgRatio = tempImg.width / tempImg.height;
     var parentRatio = parent.offsetWidth / parent.offsetHeight;
-    console.log("here: " + parent.offsetWidth + " : " + parent.offsetHeight);
-    console.log("here: " + tempImg.offsetWidth + " : " + tempImg.offsetHeight);
-    console.log("here: " + imgRatio + " : " + parentRatio);
     
     if (imgRatio <= parentRatio) {
       this.setState({loading: false, eventImage: <img style={{padding: "0px"}} className="imgGreaterHeight" src={`data:image/png;base64,${this.state.eventDetails.Image}`}/>});

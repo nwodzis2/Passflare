@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import props from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import Ticker from 'react-ticker';
 
 class UserView extends React.Component{
   constructor(props){
@@ -113,11 +114,18 @@ class EventCard extends React.Component {
   render() {
     return(
       <Link to={{pathname: "/eventDetails", state: {ticketDetails: this.props.ticketDetails, userDetails: this.props.userDetails, event: this.props.event, owned: this.props.owned}}}>
-        <div class="eventCard">
-          <div class="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
-          <div class="eventCardName">{this.props.event.Name}</div>
-          <div class="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
-          <div class="eventCardDate">{this.props.event.Date}</div>
+        <div className="eventCard">
+          <div className="eventCardImage" ><img src={`data:image/jpeg;base64,${this.props.event.Image}`}/></div>
+          <Ticker speed={3}>
+            {({index}) => (
+              <>
+                <p className="eventCardName">{this.props.event.Name}</p>
+              </>
+            )}
+            
+          </Ticker>
+          <div className="eventCardTime">{this.props.event.StartTime} - {this.props.event.EndTime}</div>
+          <div className="eventCardDate">{this.props.event.Date}</div>
         </div>
       </Link>
     )
