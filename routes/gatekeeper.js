@@ -14,7 +14,7 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
         $set: {
           OrgID: req.body.orgID,
           Email : req.body.email,
-          Verified : req.body.verified
+          Verified : true
         },
       };
 
@@ -26,6 +26,7 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
         });
 });
 
+/*
 gatekeeperRoutes.route("/gatekeeper/verify").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
     let myobj = {
@@ -42,6 +43,7 @@ gatekeeperRoutes.route("/gatekeeper/verify").post(function (req, res){
         .collection("GateKeeper")
         .updateOne(myobj, newvalues, { upsert: true });
 });
+*/
 
 gatekeeperRoutes.route("/gatekeeper/validate").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");

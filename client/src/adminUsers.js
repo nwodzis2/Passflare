@@ -138,18 +138,11 @@ class EmailUser extends React.Component{
             <Row>
                 <Col md="12">
                     <Card className="darkCard">
-                        <Card.Title>Add User via email invitation</Card.Title>                            
+                        <Card.Title>Copy and email this link to invite users:</Card.Title>                            
                         <br/>
-                        <Form onSubmit={this.onSubmit}>
-                            <FormLabel>User Email: </FormLabel>
-                            <FormControl className="defaultEmail" type="email" name='email' autoComplete="off" onChange={this.handleChange} placeholder="Enter email..."/>
-                            <br/>
                             <Row>
-                                <button type="submit" className="btn btn-dark passBtnDark"> 
-                                    Add User to organization
-                                </button>
+                                <p>http://passflare.herokuapp.com/userCreation/{this.props.adminData.OrgID}</p> 
                             </Row> 
-                        </Form>
                     </Card>
                 </Col>
             </Row>

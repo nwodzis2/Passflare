@@ -119,7 +119,7 @@ class PageRouter extends React.Component {
             <Route path="/adminLogin" render={() => this.checkAuth("login", AdminLogin)}/>
             
             {/*Account routes */}
-            <Route path="/userCreation" render={() => this.checkAuth("account", AccountCreation)}/>
+            <Route path="/userCreation/:orgID" render={() => this.checkAuth("account", AccountCreation)}/>
             <Route path="/adminCreation" render={() => this.checkAuth("account", AdminCreation)}/>
 
             {/*Edit routes */}
@@ -133,7 +133,7 @@ class PageRouter extends React.Component {
           
             {/*Verification routes */}
             <Route path="/userVerification/:email/:orgID" render={() => this.checkAuth("verification", UserVerification)}/>
-            <Route path="/gatekeeperVerification/:email" render={() => this.checkAuth("verification", GatekeeperVerification)}/>
+            <Route path="/gatekeeperVerification/:orgID" render={() => this.checkAuth("verification", GatekeeperVerification)}/>
 
             {/*Recovery routes */}
             <Route path="/recoveryEmail" component={RecoveryEmail}/>
