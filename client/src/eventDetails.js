@@ -130,7 +130,7 @@ class TicketOperation extends React.Component {
       if (!this.props.owned) {
         return(
           <Link className="btnBuyTicketContainer d-flex justify-content-center" to={{pathname: "/payment", state: {userDetails: this.props.userDetails, eventDetails: this.props.eventDetails}}}>
-            <button className="btn btn-dark btnBuyTicket">
+             <button className="btn btn-dark btnBuyTicket">
               Purchase Ticket ${this.props.eventDetails.Price}&nbsp;&nbsp;
             </button>
           </Link>
@@ -138,7 +138,6 @@ class TicketOperation extends React.Component {
       }
       else {
         if (this.state.qrcode == null) {
-          //document.getElementById("eventPageBreak").style.marginTop = "0";
           return(
               <button onClick={this.toggleQRCode} className="btn btn-dark btnShowTicket">
                   Show QR code

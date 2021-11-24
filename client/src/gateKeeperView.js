@@ -7,92 +7,79 @@ import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
 import QrReader from 'react-qr-reader'
+import { ContinuousColorLegend } from 'react-vis';
 
-const qrReaderStyle ={
-  width: "100vw",
-  height: "100vh",
-  display: 'flex',
-  "justify-content": "center",
-}
-
-const QRinitialState = {
-  queryingQR: false, 
-  activationStatus: "", 
-  result : "no result", 
-  ticket : {ticketID : null, userID : "", eventID : "", active : ""},
-  user   : "This is where the user's name goes",
-  event  : "This is where the event's name goes"
-}
-
-class QrScanner extends Component {
-  constructor(props){
+class GatekeeperView extends React.Component{
+  constructor(props) {
     super(props);
 
-    this.state = QRinitialState;
-
-    this.activate = this.activate.bind(this);
-    this.deactivate = this.deactivate.bind(this);
-    this.handleScan = this.handleScan.bind(this);
-  }
-
-  handleScan(data) {
-    if (data) {
-      this.setState({
-        result: data,
-      })
-
-      var ticketObj = {
-        ticketID : data
-      }
-      
-      if (!this.state.queryingQR) {
-        var self = this;
-        //Returns data from a scanned ticket, add functionality here
-        axios.post("/tickets/byID", ticketObj)
-        .then(function(response){
-          var ticketState = {
-            ticket : {ticketID : data, userID : response.data[0].UserID, eventID : response.data[0].EventID} 
-          }
-          self.setState(ticketState);
-
-        //Returns User data 
-        axios.post("/user/_ID", self.state.ticket)
-          .then(function(response){
-            var userName = {user : response.data[0].Name}
-            self.setState(userName);
-
-        //Returns Event Data
-        axios.post("/events/byID", self.state.ticket)
-          .then(function(response){
-            var eventName = {event : response.data[0].Name}
-            self.setState(eventName);
-          }).catch(function(err){
-            console.log(err)
-          })
-
-          //ends event data return
-          }).catch(function(err){
-            console.log(err)
-          })
-        //ends user data return
-        
-        }).catch(function(err){
-          console.log(err)
-        })       
-      }
+    this.state = {
+      infoObj: null,
+      scanning: true
     }
+
+    this.resetScanning = this.resetScanning.bind(this);
   }
 
-  handleError(err) {
-    console.error(err)
+  handleScan = async (ticketID) => {
+    if (!this.state.scanning || ticketID == null) {
+      return;
+    }
+
+    this.setState({scanning: false});
+
+    const ticketRes = await axios.post("/tickets/id", {ticketID: ticketID});
+    var ticket = ticketRes.data[0];
+
+    const userRes = await axios.post("/user/_id", {userID: ticket.UserID});
+    var user = userRes.data[0];
+
+    const eventRes = await axios.post("/events/byID", {eventID: ticket.EventID});
+    var event = eventRes.data[0];
+
+    this.setState({infoObj: {
+        ticketID: ticketID,
+        active: ticket.Active,
+        userName: user.Name,
+        eventName: event.Name
+      }
+    });
   }
 
-  deactivate(){
+  resetScanning() {
+    this.setState({infoObj: null, scanning: true});
+  }
+  
+  render(){
+    return(
+      <Container style={{position: "absolute", left: "0px", top: "0px", width: "100%", height: "100%", padding: "0px"}}>
+            <QrReader
+              delay={10}
+              onError={() => {console.log("error")}}
+              onScan={this.handleScan}
+              className="d-flex justify-content-center"
+              style={{border: "2px solid rgb(255, 124, 37)"}}
+            />
+            {}
+            <TicketInfo parentState={this.state} resetScanning={this.resetScanning}/>
+      </Container>
+    );
+  }
+}
+
+class TicketInfo extends Component {
+  constructor(props){
+    super(props);
+    
+    this.admit = this.admit.bind(this);
+    this.reactivate = this.reactivate.bind(this);
+  }
+
+  admit(){
     var self = this;
-    axios.post("/tickets/deactivate/:ticketID", {ticketID: this.state.result}).then(function(response){
+    axios.post("/tickets/deactivate/:ticketID", {ticketID: this.props.parentState.infoObj.ticketID}).then(function(response){
       if(response.data.ticketReport == "success"){
-        self.setState(QRinitialState);
-        self.setState({activationStatus: "deactive"});
+        self.props.resetScanning();
       }
       else{
         console.log("ticket deactivation failure %s", response.data.ticketReport)
@@ -100,12 +87,12 @@ class QrScanner extends Component {
     }
     );
   }
-  activate(){
+
+  reactivate(){
     var self = this;
-    axios.post("/tickets/activate/:ticketID", {ticketID: this.state.result}).then(function(response){
+    axios.post("/tickets/activate/:ticketID", {ticketID: this.props.parentState.infoObj.ticketID}).then(function(response){
       if(response.data.ticketReport == "success"){
-        self.setState(QRinitialState);
-        self.setState({activationStatus: "active"});
+        self.props.resetScanning();
       }
       else{
         console.log("ticket activation failure %s", response.data.ticketReport )
@@ -113,78 +100,62 @@ class QrScanner extends Component {
     }
     );
   }
+
   render() {
-    if(this.state.ticket.ticketID == null){
-      return (
-        <div>
-          <QrReader
-            delay={100}
-            onError={this.handleError}
-            onScan={this.handleScan}
-            style={qrReaderStyle}
-          />
-          
-          <p>{this.state.result}</p>
-        </div>
-      )
-    }else{
-      return(
-        <div>
-          <h3>Ticket ID: </h3>
-          <p>{this.state.ticket.ticketID}</p>
-          <h3>User ID: </h3>
-          <p>{this.state.user}</p>
-          <h3>Event ID: </h3>
-          <p>{this.state.event}</p>
-          <button onClick={this.deactivate} class="btn btn-dark">Admit</button>
-          <button onClick={this.activate} class="btn btn-dark">Reactivate</button>
-        </div>
-      )
+    if (this.props.parentState.infoObj == null) {
+      return(<></>);
     }
-  }
-}
-class GatekeeperNav extends React.Component{
-  render(){
-    return(
-      <Container fluid id="gate-keeper-container">
-        <Row>
-          <Col md="12">
-          <Form id="ticket-num-form" action="">
-            <label>Submit Ticket</label>
-            <input type="text" placeholder="TicketID" className="defaultEmail"/>
-            <button id="ticket-num-submit" className="btn" type="submit"><i class="fas fa-chevron-right"></i>
-                </button>
-              
-          </Form>
-          </Col>
-          <Col md="12">
-            <Form id="ticket-num-form-redo" action="">
-              <input type="text" placeholder="TicketID" className="defaultEmail"/>
-              <button id="ticket-num-redo" className="btn" type="submit"><i class="fas fa-redo"></i>
-                  </button>
-                <p>Reactive Ticket</p>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
-class GatekeeperView extends React.Component{
-  
-    render(){
-      return(
-          <Container fluid>
-            {/*<GatekeeperNav/>*/}
+    else {
+      if (this.props.parentState.infoObj.active) {
+        return(
+          <Col className="ticketInfoContainer">
             <Row>
-              <Col md="12">
-                <QrScanner/>
-              </Col>
+              <h3>User: </h3>
+              <p>{this.props.parentState.infoObj.userName}</p>
             </Row>
-            
-        </Container>
-      );
+            <hr/>
+            <Row>
+              <h3>Event: </h3>
+              <p>{this.props.parentState.infoObj.eventName}</p>
+            </Row>
+            <hr/>
+            <Row>
+              <h3>Ticket ID: </h3>
+              <p>{this.props.parentState.infoObj.ticketID}</p>
+            </Row>
+            <hr/>
+            <Row> 
+              <button onClick={this.admit} class="btn btn-dark passBtnDark-bg">Admit</button>
+            </Row>
+          </Col>
+        );
+      } else {
+        return(
+          <Col className="ticketInfoContainer">
+            <Row>
+              <h3>User: </h3>
+              <p>{this.props.parentState.infoObj.userName}</p>
+            </Row>
+            <hr/>
+            <Row>
+              <h3>Event: </h3>
+              <p>{this.props.parentState.infoObj.eventName}</p>
+            </Row>
+            <hr/>
+            <Row>
+              <h3>Ticket ID: </h3>
+              <p>{this.props.parentState.infoObj.ticketID}</p>
+            </Row>
+            <hr/>
+            <Row> 
+              <button onClick={this.reactivate} class="btn btn-dark passBtnDark-bg">Reactivate</button>
+            </Row>
+          </Col>
+        );
+      }
     }
+  }
 }
+
 
 export default GatekeeperView;

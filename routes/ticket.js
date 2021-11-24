@@ -23,7 +23,7 @@ ticketRoutes.route("/ticket/create").post(function (req, res) {
 
 
 //get ticket by ticket id
-ticketRoutes.route("/tickets/byID").post(function (req, res){
+ticketRoutes.route("/tickets/id").post(function (req, res){
   let db_connect = dbo.getDb("Passflare");
   var ticketObjID = req.body.ticketID;
   db_connect

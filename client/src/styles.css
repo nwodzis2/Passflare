@@ -782,6 +782,22 @@ input:focus{
     font-size: 12px;
 }
 
+.passBtnDark-bg{
+    display:flex;
+    padding: 2em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin:auto;
+    margin-bottom: 0em;
+    width: 200px;
+    color: white;
+    background-color: #121212;
+    border-radius: 0.5em;
+    border: 1px solid rgb(255, 124, 37);
+    font-size: 16px;
+}
+
 .passBtnNext{
     display:flex;
     padding: 0.6em;
@@ -874,6 +890,22 @@ section > section > div{
     box-shadow: none !important;
     border: none !important;
 }
+
+.ticketInfoContainer {
+    padding: 20px;
+}
+
+.ticketInfoContainer > .row > h3 {
+    color: rgb(255, 124, 37);
+    margin: 0px;
+}
+
+.ticketInfoContainer > .row > p {
+    font-size: 20px;
+    margin: 0px;
+}
+
+
 /*Graphs*/
 .event-graph-container{
     background-color: white;
