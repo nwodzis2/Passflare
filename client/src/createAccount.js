@@ -20,7 +20,7 @@ class AccountCreation extends React.Component{
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            orgID: 0 //Need to change this when the time comes / add way of obtaining it in the form
+            orgID: this.props.match.params.orgID //Need to change this when the time comes / add way of obtaining it in the form
         }
 
         var self = this;

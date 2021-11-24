@@ -15,7 +15,7 @@ gatekeeperRoutes.route("/gatekeeper/add").post(function (req, res) {
         $set: {
           OrgID: req.body.orgID,
           Email : req.body.email,
-          Verified : req.body.verified
+          Verified : true
         },
       };
 
