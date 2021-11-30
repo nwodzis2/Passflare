@@ -5,6 +5,7 @@ import axios from 'axios';
 import {AdminNav} from "./adminView.js";
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
+//main admin view component
 class AdminUsers extends React.Component {
     constructor(props){
         super(props);
@@ -99,6 +100,7 @@ class AdminUsers extends React.Component {
         )
     }
 }
+//displays a graph of number of users for an orgnization on admin page
 class UserGraph extends React.Component{
     constructor(props){
         super(props)
@@ -154,6 +156,7 @@ class UserGraph extends React.Component{
         )
     }
 }
+//dislays user data
 class UsersData extends React.Component{
     constructor(props) {
         super(props);
@@ -200,7 +203,7 @@ class UsersData extends React.Component{
         }
     }
 }
-
+//email a user by admin for link to organization
 class EmailUser extends React.Component{
     constructor(props) {
         super(props);

@@ -14,6 +14,7 @@ function CheckMaster(props){
   }
   else return null;
 }
+//Shows events ticket purchases
 class EventStats extends React.Component{
   constructor(props){
     super(props)
@@ -88,6 +89,7 @@ class EventStats extends React.Component{
     )
   }
 }
+//Shows the financials per event on a graph
 class FinanceStats extends React.Component{
   constructor(props){
     super(props)
@@ -168,6 +170,7 @@ class FinanceStats extends React.Component{
     )
   }
 }
+//Main view cmponent, puts it all together
 class AdminDashboard extends React.Component {
   constructor(props){
     super(props);
@@ -194,7 +197,7 @@ class AdminDashboard extends React.Component {
     )
   }
 }
-
+//admin nav componentt
 class AdminNav extends React.Component {
   constructor(props){
     super(props);

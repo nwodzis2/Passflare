@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} fro
 import { Link, withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+//allows admin to create admin
 class AdminCreation extends React.Component{
     constructor(props) {
         super(props);

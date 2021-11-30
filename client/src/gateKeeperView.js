@@ -8,7 +8,7 @@ import { BrowserRouter as Router,
 import axios from 'axios';
 import QrReader from 'react-qr-reader'
 import { ContinuousColorLegend } from 'react-vis';
-
+//Main component for the gatekeeper view. Takes care of the entire view
 class GatekeeperView extends React.Component{
   constructor(props) {
     super(props);
@@ -66,7 +66,7 @@ class GatekeeperView extends React.Component{
     );
   }
 }
-
+//shows us the tickets information
 class TicketInfo extends Component {
   constructor(props){
     super(props);

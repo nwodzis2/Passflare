@@ -5,7 +5,7 @@ import './styles.css';
 import { Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+//main view for admin log in
 class AdminLogin extends React.Component {
     constructor(props) {
         super(props);

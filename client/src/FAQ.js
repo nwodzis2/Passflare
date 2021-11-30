@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+//A fax page for us
 const data = {
     title: "Frequently Asked Questions (FAQ)",
     rows: [

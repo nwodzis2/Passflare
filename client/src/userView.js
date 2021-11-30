@@ -6,7 +6,7 @@ import props from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Ticker from 'react-ticker';
-
+//Main user view component (displays cards for events)
 class UserView extends React.Component{
   constructor(props){
     super(props);
@@ -105,7 +105,7 @@ class UserView extends React.Component{
     }
   }
 }
-
+//comonent for each event card
 class EventCard extends React.Component {
   constructor(props){
     super(props);
@@ -131,7 +131,7 @@ class EventCard extends React.Component {
     )
   }
 }
-
+//navigation for the user view
 class UserNav extends React.Component {
   
   constructor(props){

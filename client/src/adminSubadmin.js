@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import {AdminNav} from "./adminView.js";
-
+//main vie for subadmin page
 class AdminSubadmin extends React.Component{
     constructor(props) {
         super(props);
@@ -120,7 +120,7 @@ class SubadminData extends React.Component{
         }
     }
 }
-
+//how subadmin is actually created
 class CreateSubadmin extends React.Component{
     constructor(props) {
         super(props);

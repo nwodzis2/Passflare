@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} fro
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, withRouter } from "react-router-dom";
 import axios from 'axios';
-
+//allows user to edit account
 class AccountEdit extends React.Component{
     constructor(props) {
         super(props);

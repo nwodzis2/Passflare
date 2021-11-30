@@ -7,7 +7,7 @@ import { BrowserRouter as Router,
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QRcode = require('qrcode');
-
+//Main page for event  details
 class EventDetails extends React.Component{
   constructor(props){
     super(props);

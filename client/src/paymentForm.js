@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Redirect } from 'react-router'
-
+//initiate our cards with how we want them to look
 const CARD_OPTIONS = {
 	iconStyle: "solid",
 	style: {
@@ -23,7 +23,7 @@ const CARD_OPTIONS = {
 		}
 	}
 }
-
+//this is our form for payment
 export default function PaymentForm(props){
     const [ success, setSuccess ] = useState(false)
     const stripe = useStripe()
