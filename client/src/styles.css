@@ -79,6 +79,7 @@ hr {
 }
 
 .eventCard {
+    
     display: inline-block;
     margin: 10px;
     width: 120px;
@@ -96,6 +97,7 @@ hr {
 }
 
 .eventCardImage {
+    z-index: 10;
     width: 100px;
     height: 100px;
     position: relative;
@@ -107,6 +109,7 @@ hr {
 }
 
 .eventCardImage > img{
+    z-index: 10;
     position: absolute;
     width: auto;
     height: 100%;
@@ -335,6 +338,7 @@ hr {
 }
 
 .userNav {
+    z-index: 1000;
     margin: 0;
     width: 100%;
     left: 0px;
@@ -344,6 +348,7 @@ hr {
 }
 
 .userNav > h1 {
+    z-index: 1000;
     position: absolute;
     height: auto;
     left: 10px;
@@ -353,6 +358,7 @@ hr {
 }
 
 .userNav > .dropdown{
+    z-index: 1000;
     position: absolute;
     top: 25px;
     height: auto;
@@ -362,6 +368,7 @@ hr {
 }
 
 .userNav > .dropdown > button {
+    z-index: 1000;
     padding: 0px 4px;
 }
 
