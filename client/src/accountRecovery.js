@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router,
   Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
-
+//gives a way for user to recover their account
 class RecoveryEmail extends React.Component{
     constructor(props){
         super(props);
@@ -145,7 +145,7 @@ class AccountRecovery extends React.Component{
         );
     }
 }
-
+//allows useer to chnge password
 class ChangePassword extends React.Component{
     constructor(props){
         super(props);
@@ -219,7 +219,7 @@ class ChangePassword extends React.Component{
         );
     }
 }
-
+//show this on successful completeion of account recovery
 class PasswordChangeSuccess extends React.Component{
     render(){
         return(

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { withRouter } from "react-router";
 import axios from 'axios';
 
-
+//Make sure a user is creation is valid
 class UserVerification extends React.Component{
     constructor(props) {
         super(props);

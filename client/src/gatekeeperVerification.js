@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { withRouter } from "react-router";
 import axios from 'axios';
 
-
+//Create and verify a gatekeeper
 class GatekeeperVerification extends React.Component{
     constructor(props) {
         super(props);

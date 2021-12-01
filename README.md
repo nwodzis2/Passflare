@@ -1,9 +1,20 @@
 # Passflare 1.0
 ### Event ticketing solution for small organizations and schools
 ## Introduction
-#### In today’s hectic and fast-paced world, every one of us has obligations we need to attend to. Much of our time is devoted to the workplace, education, training programs, or simply pursuing our passions. 10 hour shifts are slowly but surely replacing the tried and true 9 to 5, and the temptation of overtime pay eats into what precious little free time we have left at the end of the week. On top of that, everyone’s schedule is different, making it difficult to find quality time to spend with friends and family. While scheduling information could be conveyed to others verbally, the mind is fallible and prone to forgetfulness, and the issue only compounds upon itself the more people one associates with.
-#### People are optimizing their time at work to increase productivity, yet fail to optimize their time at home to use it to its fullest potential. Night Out aims to find a solution to this problem in a way that is easy and intuitive to use, allowing friends and colleagues to connect through a familiar social-media inspired interface, visualize each other's schedules through an interactive calendar, and plan events through restaurant and venue integration.
-## Objectives
-1. 
-2. 
-3. 
+#### We are an event ticketing system that targets high schooles, colleges, and other small organizations. With integrated payments and a free plan buissiness model we hope to provide schools everything they need to host events. Long are the days of physical tickets and/or stamps. We have that covered, digitally.
+## User Guide
+#### Running Locally:
+##### Step 1: Go to project folder and install nodejs and nodemon
+##### Step 2: Go to client folder and install react
+##### Step 3: Go to project folder and install the list of depenencies for node (list can be found in ourtermost package.json)
+##### Step 4: Go back to client folder and install dependencies (list of dependencies can be found in package.json inside client folder)
+##### Step 5: Go to the source project in terminal and run "npm run dev"
+##### DO NOT CHANGE INFORMATION YOU DO NOT WANT ON LIVE, they use the same database
+#### Viewing on passflare.com
+##### Naviagte to passflare.com
+##### Gatekeeper and user credentials are: test@test.com testpass
+##### Admin credentials are testadmin@test testpass
+#### Logging in
+##### Admin: click admin link at bottom of index page then log in
+##### Gatekeepr: enter credentials on index page then click switch to gatekeepr
+##### User: Enter credentials at index page and click sign in

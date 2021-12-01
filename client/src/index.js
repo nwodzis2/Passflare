@@ -41,7 +41,7 @@ function getAuth() {
   //Set auth after it is changed on local storage
   return localStorage.getItem("passflareAuth");
 }
-
+//these are the headers that will generate in the virual dom on every page
 class Header extends React.Component{
   render(){
     return(
@@ -81,7 +81,7 @@ class Header extends React.Component{
   }
 }
 
-
+//This is our router for our front end
 class PageRouter extends React.Component {
   constructor(props) {
     super(props);
@@ -89,11 +89,11 @@ class PageRouter extends React.Component {
     this.setAuth = this.setAuth.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
   }
-
+//manage localstorage auth
   setAuth(receievedAuth) {
     localStorage.setItem("passflareAuth", receievedAuth);
   }
-
+//check local storage auth
   checkAuth(routeType, routeComponent) {
     let auth = getAuth();
     if (routeType == "login" || routeType == "signout") {
@@ -160,7 +160,7 @@ class PageRouter extends React.Component {
 }
 
 
-//Routing still needs done, for now replace Componont of the Route with path "/" with whatever you want to render
+//render our entire app
 ReactDOM.render(
         <Container fluid>
           <Header/>
@@ -168,7 +168,7 @@ ReactDOM.render(
         </Container>,
   document.getElementById('root'),
 );
-serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

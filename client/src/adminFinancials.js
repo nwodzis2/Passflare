@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
-
+//main admin financials page
 class AdminFinancials extends React.Component {
     constructor(props){
         super(props);
@@ -28,7 +28,7 @@ class AdminFinancials extends React.Component {
         )
     }
 }
-
+//Display transaction data
 class FinancialData extends React.Component{
     constructor(props) {
         super(props);

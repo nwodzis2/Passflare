@@ -2,11 +2,10 @@ const express = require("express")
 require("dotenv").config()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 const paymentRoutes = express.Router();
-//we're probably going to want to put the log into the db
 const dbo = require("../db/conn");
 
 
-
+//Paymet route to process payments using stripe.
 paymentRoutes.route("/payment").post(async(req, res) => {
     let db_connect = dbo.getDb("Passflare");
 
@@ -47,7 +46,7 @@ paymentRoutes.route("/payment").post(async(req, res) => {
         .collection("Payments")
         .insertOne(paymentObj);
 })
-
+//save info into db and update ticket
 paymentRoutes.route("/payment/orgID").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
     db_connect

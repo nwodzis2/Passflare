@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
-
+//main view for admins to manage gaekeepers
 class AdminGatekeeper extends React.Component{
     constructor(props) {
         super(props);
@@ -79,7 +79,7 @@ class AdminGatekeeper extends React.Component{
         );
     }
 }
-
+//get gatekeepers data
 class GatekeeperData extends React.Component{
     constructor(props) {
         super(props);
@@ -113,7 +113,7 @@ class GatekeeperData extends React.Component{
         }
     }
 }
-
+//send user a gatekeeper account so they can be a gatekeeper
 class EmailGatekeeper extends React.Component{
     constructor(props) {
         super(props);

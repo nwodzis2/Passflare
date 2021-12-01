@@ -3,7 +3,7 @@ const { userInfo } = require("os");
 const orgRoutes = express.Router();
 const dbo = require("../db/conn");
 const ObjectId = require('mongodb').ObjectId;
-
+//create an organization
 orgRoutes.route("/organization/add").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
     
@@ -21,7 +21,7 @@ orgRoutes.route("/organization/add").post(function (req, res) {
         })
 
 });
-
+//get an organization
 orgRoutes.route("/organization/orgID").post(function (req, res){
     let db_connect = dbo.getDb("Passflare");
     db_connect

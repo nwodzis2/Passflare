@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 
-
+//Main view for login page
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);

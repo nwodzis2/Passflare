@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import {AdminNav} from "./adminView.js";
-
+//main view for admin events page
 class AdminEvents extends React.Component {
     constructor(props){
         super(props);
@@ -114,7 +114,7 @@ class AdminEvents extends React.Component {
         )
     }
 }
-
+//load all event data for an admin
 class EventData extends React.Component{
     constructor(props) {
         super(props);
@@ -160,7 +160,7 @@ class EventData extends React.Component{
         }
     }
 }
-
+//admin to create an event
 class EventCreation extends React.Component{
     constructor(props) {
         super(props);

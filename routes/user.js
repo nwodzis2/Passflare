@@ -6,6 +6,7 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 const { ContinuousColorLegend } = require("react-vis");
 const nodemailer = require("nodemailer");
+//our emailing set up
 let transporter = nodemailer.createTransport({
   service: "Gmail",
     auth: {

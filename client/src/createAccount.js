@@ -3,7 +3,7 @@ import './styles.css';
 import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+//allows user to make account
 class AccountCreation extends React.Component{
     constructor(props) {
         super(props);
