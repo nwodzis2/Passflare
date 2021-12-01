@@ -57,35 +57,7 @@ adminRoutes.route("/admin/validate").post(function (req, res) {
         }  
       });
   });
-//recover account
-/*userRoutes.route("/user/recover").get(function (req, res){
-  let db_connect = dbo.getDb("Passflare");
-  var generated_code = [];
-  for(var i = 0; i < 4; i++){
-    generated_code[i] = Math.floor(Math.random() * 10);
-  }
-  var mailOptions = {
-    from: 'wodzisz22@gmail.com',
-    to: req.body.email,
-    subject: 'Passflare Password Recovery' + req.body.email.split('@')[0],
-    text: `
-    <body>
-      <h1><i class=""></i>Passflare</h1>
 
-    </body>
-    `
-
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-
-});*/
 //update a user
 adminRoutes.route("admin/update/:id").post(function (req, res) {
     let db_connect = dbo.getDb("Passflare");
@@ -118,6 +90,7 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
         });
     });
 
+  /*
   //send gatekeeper email
   adminRoutes.route("/admin/sendGatekeeperMail").get(function (req, res){
     const nodemailer = require("nodemailer");
@@ -191,3 +164,4 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
   });
 
   module.exports = adminRoutes;
+  */

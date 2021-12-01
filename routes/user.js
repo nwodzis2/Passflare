@@ -6,13 +6,14 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 const { ContinuousColorLegend } = require("react-vis");
 const nodemailer = require("nodemailer");
-//our emailing set up
 let transporter = nodemailer.createTransport({
-  service: "Gmail",
+  service: "Mailjet",
     auth: {
-        user: "passflare@gmail.com",
-        pass: "CapSquadAdmin2021?"
+        user: "ed9355acc25344588ce7cdd1d7218e23",
+        pass: "e1d668cadc2dab4726a2e3f345dc720a"
     },
+    debug: true,
+    logger: true
 });
 
 /*
@@ -131,14 +132,6 @@ userRoutes.route("/user/email").post(function (req, res) {
 
 //recover account
 userRoutes.route("/user/recover").post(function (req, res){
-  const nodemailer = require("nodemailer");
-  let transporter = nodemailer.createTransport({
-  service: "Gmail",
-    auth: {
-        user: "passflare@gmail.com",
-        pass: "CapSquadAdmin2021?"
-    },
-});
   let db_connect = dbo.getDb("Passflare");
   var generated_code = [];
   for(var i = 0; i < 4; i++){
@@ -154,7 +147,7 @@ userRoutes.route("/user/recover").post(function (req, res){
       }
       else{
         transporter.sendMail({
-          from: '"Passflare" <passflare@gmail.com>',
+          from: '"Passflare" <passflare@zohomail.com>',
           to: user.Email,
           subject: "Passflare Account Recovery",
           text: "You're recieving this email because we recieved a request to reset the password for your account.",
