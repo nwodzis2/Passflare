@@ -163,5 +163,5 @@ adminRoutes.route("admin/update/:id").post(function (req, res) {
     });
   });
 
-  module.exports = adminRoutes;
   */
+  module.exports = adminRoutes;
