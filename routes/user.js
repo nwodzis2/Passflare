@@ -130,6 +130,14 @@ userRoutes.route("/user/email").post(function (req, res) {
 
 //recover account
 userRoutes.route("/user/recover").post(function (req, res){
+  const nodemailer = require("nodemailer");
+  let transporter = nodemailer.createTransport({
+  service: "Gmail",
+    auth: {
+        user: "passflare@gmail.com",
+        pass: "CapSquadAdmin2021?"
+    },
+});
   let db_connect = dbo.getDb("Passflare");
   var generated_code = [];
   for(var i = 0; i < 4; i++){
